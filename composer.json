@@ -31,8 +31,7 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "platform-check": false
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
@@ -65,7 +64,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "post-install-cmd": ["ln -sr storage/app/public public/storage"]
+        ]
     }
 }
