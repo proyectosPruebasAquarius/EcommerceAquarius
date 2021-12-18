@@ -2,245 +2,258 @@
 @section('title', 'Inicio')
 @section('content')
 
-    <div class="page-heading">
-        <h3>Inicio</h3>
-    </div>
-    <div class="page-content">
-        <section class="row">
-            <div class="col-12 col-lg-12">
-                <div class="row">
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="stats-icon purple">
-                                            <i class="fal fa-boxes"></i>
-                                        </div>
+<div class="page-heading">
+    <h3>Inicio</h3>
+</div>
+<div class="page-content">
+    <section class="row">
+        <div class="col-12 col-lg-12">
+            <div class="row">
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="stats-icon purple">
+                                        <i class="fal fa-boxes"></i>
                                     </div>
-                                    <div class="col-md-9">
-                                        <h6 class="text-muted font-semibold">Producto mas Vendido</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $sellingProduct }}</h6>
-                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <h6 class="text-muted font-semibold">Producto mas Vendido</h6>
+                                    <h6 class="font-extrabold mb-0">{{ $sellingProduct }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon blue">
-                                            <i class="fas fa-user-tie"></i>
-                                        </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon blue">
+                                        <i class="fas fa-user-tie"></i>
                                     </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Mayor Comprador</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $maxBuyer }}</h6>
-                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Mayor Comprador</h6>
+                                    <h6 class="font-extrabold mb-0">{{ $maxBuyer }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon green">
-                                            <i class="fas fa-th"></i>
-                                        </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon green">
+                                        <i class="fas fa-th"></i>
                                     </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Categoria mas Vendida</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $maxCat }}</h6>
-                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Categoria mas Vendida</h6>
+                                    <h6 class="font-extrabold mb-0">{{ $maxCat }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon red">
-                                            <i class="fas fa-user"></i>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon red">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Ultimo Usuario Registrado</h6>
+                                    <h6 class="font-extrabold mb-0">{{ $lastUser }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-center">Ventas</h4>
+                            <div class="card-footer">
+
+                            </div>
+
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                                <div class="col">
+                                    <div class="card h-100">
+
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">Venta Diaria <i class="fal fa-clock"></i></h5>
+                                            <br>
+                                            <p class="card-text">
+                                                @if ($ventaDiaria == 0)
+                                                Sin ventas diarias
+                                                @else
+                                                ${{ $ventaDiaria }}
+                                                @endif
+
+                                            </p>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted" id="dia"> Dia: {{ $hoy }}</small>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Ultimo Usuario Registrado</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $lastUser }}</h6>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Venta Mensual <i class="fal fa-calendar-alt"></i>
+                                            </h5>
+                                            <br>
+                                            <p class="card-text">
+                                                @if ($ventaMensual == 0)
+                                                Sin ventas mensual
+                                                @else
+                                                ${{ $ventaMensual }}
+                                                @endif
+
+                                            </p>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted" id="mes">Mes: {{ $mes }} </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Venta Anual <i class="fal fa-calendar"></i></h5>
+                                            <br>
+                                            <p class="card-text">
+                                                @if ($ventaAnual == 0)
+                                                Sin ventas anual
+                                                @else
+                                                ${{ $ventaAnual }}
+                                                @endif
+
+                                            </p>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted" id="ano">Año: {{ $ano }}</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 col-xl-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center">Ventas</h4>
-                                <div class="card-footer">
 
-                                </div>
+                <div class="col-12 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-center">Venta por Fecha</h4>
+                            <div class="card-footer">
 
                             </div>
-                            <div class="card-body text-center">
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
+                            <form class="row text-center" method="POST" action="{{ url('admin/venta/fecha') }}">
+                                @csrf
+                                @method('POST')
+                                <div class="col-8">
 
-                                            <div class="card-body">
+                                    <input type="date" required class="form-control" id="inputPassword2"
+                                        placeholder="Password" name="venta_fecha">
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary mb-3">Enviar Fecha</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-body text-center">
 
-                                                <h5 class="card-title">Venta Diaria <i class="fal fa-clock"></i></h5>
-                                                <br>
-                                                <p class="card-text">
-                                                    @if ($ventaDiaria == 0)
-                                                        Sin ventas diarias
-                                                    @else
-                                                        ${{ $ventaDiaria }}
-                                                    @endif
+                            <div>
+                                <div class="col">
+                                    <div class="card h-100">
 
-                                                </p>
-                                            </div>
-                                            <div class="card-footer text-center">
-                                                <small class="text-muted" id="dia"> Dia: {{ $hoy }}</small>
-                                            </div>
+                                        <div class="card-body">
+
+
+                                            <p class="card-text">
+                                                @if (\Session::has('date'))
+                                                @if (\Session::has('date') == 0)
+                                                No hay ventas registrados con esa fecha
+                                                @else
+                                                ${!! \Session::get('date') !!}
+                                                @endif
+
+                                                @else
+
+                                                No hay Fecha Selecionada
+                                                @endif
+
+                                            </p>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted">
+                                                @if (\Session::has('fecha'))
+                                                Fecha: {!! \Session::get('fecha') !!}
+                                                @else
+                                                Fecha: No hay Fecha Selecionada
+                                                @endif
 
-                                            <div class="card-body">
-                                                <h5 class="card-title">Venta Mensual <i class="fal fa-calendar-alt"></i>
-                                                </h5>
-                                                <br>
-                                                <p class="card-text">${{ $ventaMensual }}</p>
-                                            </div>
-                                            <div class="card-footer text-center">
-                                                <small class="text-muted" id="mes">Mes: {{ $mes }} </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-
-                                            <div class="card-body">
-                                                <h5 class="card-title">Venta Anual <i class="fal fa-calendar"></i></h5>
-                                                <br>
-                                                <p class="card-text">${{ $ventaAnual }}</p>
-                                            </div>
-                                            <div class="card-footer text-center">
-                                                <small class="text-muted" id="ano">Año: {{ $ano }}</small>
-                                            </div>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center">Venta por Fecha</h4>
-                                <div class="card-footer">
-
-                                </div>
-                                <form class="row text-center" method="POST" action="{{ url('admin/venta/fecha') }}">
-                                    @csrf
-                                    @method('POST')
-                                    <div class="col-8">
-
-                                        <input type="date" required class="form-control" id="inputPassword2"
-                                            placeholder="Password" name="venta_fecha">
-                                    </div>
-                                    <div class="col-4">
-                                        <button type="submit" class="btn btn-primary mb-3">Enviar Fecha</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-body text-center">
-
-                                <div>
-                                    <div class="col">
-                                        <div class="card h-100">
-
-                                            <div class="card-body">
-
-
-                                                <p class="card-text">
-                                                    @if (\Session::has('date'))
-                                                        @if (\Session::has('date') == 0)
-                                                            No hay ventas registrados con esa fecha
-                                                        @else
-                                                            ${!! \Session::get('date') !!}
-                                                        @endif
-
-                                                    @else
-
-                                                        No hay Fecha Selecionada
-                                                    @endif
-
-                                                </p>
-                                            </div>
-                                            <div class="card-footer text-center">
-                                                <small class="text-muted">
-                                                    @if (\Session::has('fecha'))
-                                                        Fecha: {!! \Session::get('fecha') !!}
-                                                    @else
-                                                        Fecha: No hay Fecha Selecionada
-                                                    @endif
-
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div class="row">
-                    <div class="col-12 col-xl-8">
-                        <div class="card ">
-                            <div class="card-header">
-                                <h4 class="text-center">Productos más Vendidos</h4>
-                            </div>
-                            <br>
-                            <div class="card-body">
-                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                                    <table class="table table-borderless">
-                                        <thead class="text-center bg-primary  text-white border me-5">
-                                            <tr>
-                                                <th>Imagen</th>
-                                                <th>Producto</th>
-                                                <th>Veces Comprados</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center  me-5">
-                                            @foreach ($maxProducts as $p)
-                                                <tr>
-                                                    <th class="h-25 w-25">
-                                                        <img src="{{ json_decode($p->imagen)[0] }}"
-                                                            class="h-25 w-25">
-                                                    </th>
-                                                    <th>{{ $p->producto }}</th>
-                                                    <th>{{ $p->cuentaTotal }}</th>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
 
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-xl-8">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4 class="text-center">Productos más Vendidos</h4>
                         </div>
-                        <!-- <div class="card">
+                        <br>
+                        <div class="card-body">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-borderless">
+                                    <thead class="text-center bg-primary  text-white border me-5">
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Producto</th>
+                                            <th>Veces Comprados</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center  me-5">
+                                        @foreach ($maxProducts as $p)
+                                        <tr>
+                                            <th class="h-25 w-25">
+                                                <img src="{{ json_decode($p->imagen)[0] }}" class="h-25 w-25">
+                                            </th>
+                                            <th>{{ $p->producto }}</th>
+                                            <th>{{ $p->cuentaTotal }}</th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="card">
                             <div class="card-header">
                                 <h4>Profile Visit</h4>
                             </div>
@@ -248,109 +261,109 @@
                                 <div id="chart-profile-visit"></div>
                             </div>
                         </div>-->
-                    </div>
-                    <div class="col-12 col-xl-4">
-                        <div class="card ">
-                            <div class="card-header">
-                                <h4 class="text-center">Categorias más Vendidas</h4>
+                </div>
+                <div class="col-12 col-xl-4">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4 class="text-center">Categorias más Vendidas</h4>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-borderless">
+
+                                    <tbody class="text-center   me-5">
+                                        @foreach ($maxCategories as $c)
+                                        <tr>
+
+                                            <th>{{ $c->categoria }}</th>
+
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            <br>
-                            <div class="card-body">
-                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                                    <table class="table table-borderless">
 
-                                        <tbody class="text-center   me-5">
-                                            @foreach ($maxCategories as $c)
-                                                <tr>
-
-                                                    <th>{{ $c->categoria }}</th>
-
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12  col-xl-6">
-                        <div class="card ">
-                            <div class="card-header">
-                                <h4 class="text-center">Usuarios con más compras</h4>
-                            </div>
-                            <br>
-                            <div class="card-body">
-                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                                    <table class="table table-borderless">
-                                        <thead class="text-center ">
-                                            <tr class="bg-primary  text-white border text-white ">
-
-                                                <th>Nombre</th>
-                                                <th>Correo</th>
-                                                <th>Total de Compras</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center  me-5">
-                                            @foreach ($maxBuyers as $cs)
-                                                <tr>
-
-                                                    <th>{{ $cs->nombre }}</th>
-                                                    <th>{{ $cs->correo }}</th>
-                                                    <th>{{ $cs->cuentaCompras }}</th>
-                                                    <th>${{ $cs->sumtotal }}</th>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col-12  col-xl-6">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4 class="text-center">Usuarios con más compras</h4>
                         </div>
-                    </div>
-                    <div class="col-12  col-xl-6">
-                        <div class="card ">
-                            <div class="card-header">
-                                <h4 class="text-center">Usuarios con menos compras</h4>
+                        <br>
+                        <div class="card-body">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-borderless">
+                                    <thead class="text-center ">
+                                        <tr class="bg-primary  text-white border text-white ">
+
+                                            <th>Nombre</th>
+                                            <th>Correo</th>
+                                            <th>Total de Compras</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center  me-5">
+                                        @foreach ($maxBuyers as $cs)
+                                        <tr>
+
+                                            <th>{{ $cs->nombre }}</th>
+                                            <th>{{ $cs->correo }}</th>
+                                            <th>{{ $cs->cuentaCompras }}</th>
+                                            <th>${{ $cs->sumtotal }}</th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            <br>
-                            <div class="card-body">
-                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                                    <table class="table table-borderless">
-                                        <thead class="text-center bg-primary  text-white border ">
-                                            <tr>
 
-                                                <th>Nombre</th>
-                                                <th>Correo</th>
-                                                <th>Total de Compras</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center  me-5">
-                                            @foreach ($minBuyers as $cs)
-                                                <tr>
-
-                                                    <th>{{ $cs->nombre }}</th>
-                                                    <th>{{ $cs->correo }}</th>
-                                                    <th>{{ $cs->cuentaCompras }}</th>
-                                                    <th>${{ $cs->sumtotal }}</th>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-12  col-xl-6">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4 class="text-center">Usuarios con menos compras</h4>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-borderless">
+                                    <thead class="text-center bg-primary  text-white border ">
+                                        <tr>
+
+                                            <th>Nombre</th>
+                                            <th>Correo</th>
+                                            <th>Total de Compras</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center  me-5">
+                                        @foreach ($minBuyers as $cs)
+                                        <tr>
+
+                                            <th>{{ $cs->nombre }}</th>
+                                            <th>{{ $cs->correo }}</th>
+                                            <th>{{ $cs->cuentaCompras }}</th>
+                                            <th>${{ $cs->sumtotal }}</th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
-                <!-- <div class="col-12 col-xl-8">
+            <!-- <div class="col-12 col-xl-8">
                         <div class="card">
                             <div class="card-header">
                                 <h4>Latest Comments</h4>
@@ -399,22 +412,22 @@
                             </div>
                         </div>
                     </div>-->
-            </div>
-    </div>
-    <div class="col-12 col-lg-3">
+        </div>
+</div>
+<div class="col-12 col-lg-3">
 
 
 
-    </div>
-    </section>
-    </div>
+</div>
+</section>
+</div>
 @endsection
 @push('partial-scripts')
-    <script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.js') }}"></script>
+<script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.js') }}"></script>
 @endpush
 @push('datatable-scripts')
-    <script>
-        var ventaAnual = "<?php echo $ventaAnual; ?>"
+<script>
+    var ventaAnual = "<?php echo $ventaAnual; ?>"
         var ventaMensual = "<?php echo $ventaMensual; ?>"
         var ventaDiaria = "<?php echo $ventaDiaria; ?>"
         ventaDiaria = [parseInt(ventaDiaria)];
@@ -680,5 +693,5 @@
         chartMonthSales.render()
         chartYearSales.render()
         chartEdit.render();*/
-    </script>
+</script>
 @endpush

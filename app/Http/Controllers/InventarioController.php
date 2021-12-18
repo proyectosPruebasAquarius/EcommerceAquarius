@@ -218,7 +218,7 @@ class InventarioController extends Controller
           
         }else{
             $search = $request->q;
-            \Debugbar::info($search);
+          
             $data = Oferta::orderby('ofertas.nombre','asc')->join('tipos_ofertas','tipos_ofertas.id','=','ofertas.id_tipo_oferta')
             ->select("ofertas.id", DB::raw("CONCAT('Oferta: ',ofertas.nombre,', ','Tipo: ',tipos_ofertas.nombre) as text"))
             ->where('ofertas.estado','=',1)->where('tipos_ofertas.nombre','like','%'.$search.'%')->get();
