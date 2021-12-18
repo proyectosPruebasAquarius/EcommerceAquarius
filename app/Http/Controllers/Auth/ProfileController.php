@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
                 if ($request->file('image')->isValid()) {
                     $request->validate([
-                        'image' => 'mimes:jpeg,png|max:5048'
+                        'image' => 'mimes:jpeg,png,jpg,gif,svg|max:5048'
                     ]);
 
                     $imagen = $request->file('image')->store('public/frontend/client/'.auth()->user()->id);

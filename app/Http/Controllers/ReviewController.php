@@ -18,10 +18,14 @@ class ReviewController extends Controller
     public function index(Request $request,$id)
     {
         $data = Crypt::decrypt($id);
+        $hasOfferta = Inventario::where('id_producto', $data)->value('id_oferta');
         $productos = Inventario::join('productos', 'inventarios.id_producto', '=', 'productos.id')->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
-        ->join('sub_categorias', 'productos.id_subcat', '=', 'sub_categorias.id')->join('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
-        ->select('productos.nombre as producto', 'productos.imagen', 'productos.descripcion', 'inventarios.*', 'categorias.nombre as categoria', 'sub_categorias.nombre as sub_categoria', 'tipos_ofertas.nombre as tipo_oferta', 
-        'ofertas.nombre as oferta', 'ofertas.estado as state')
+        ->join('sub_categorias', 'productos.id_subcat', '=', 'sub_categorias.id')
+        ->select('productos.nombre as producto', 'productos.imagen', 'productos.descripcion', 'inventarios.*', 'categorias.nombre as categoria', 'sub_categorias.nombre as sub_categoria')
+        ->when($hasOfferta, function($query) {
+            $query->join('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
+            ->addSelect('tipos_ofertas.nombre as tipo_oferta', 'ofertas.nombre as oferta', 'ofertas.estado as state');
+        })
         ->where('id_producto', $data)->first();
         if (auth()->check()) {
             
@@ -67,7 +71,7 @@ class ReviewController extends Controller
         $opinion->id_producto = $request->id_producto;
         $opinion->save();
 
-        return  redirect()->back();
+        return redirect()->back();
     }
 
     /**
