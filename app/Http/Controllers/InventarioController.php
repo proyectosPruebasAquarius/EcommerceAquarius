@@ -198,9 +198,9 @@ class InventarioController extends Controller
           
         }else{
             $search = $request->q;
-            $data = Proveedor::orderby('productos.nombre','asc')->join('marcas','marcas.id','=','productos.id_marca')
+            $data = Producto::orderby('productos.nombre','asc')->join('marcas','marcas.id','=','productos.id_marca')
             ->select("productos.id", DB::raw("CONCAT('Producto: ',productos.nombre,', ','Marca: ',marcas.nombre) as text"))
-            ->where('productos.nombre','like','%'.$search.'%')->where('estado','=',1)->get();
+            ->where('estado','=',1)->where('productos.nombre','like','%'.$search.'%')->get();
         }
         
         return response()->json($data);
@@ -218,9 +218,10 @@ class InventarioController extends Controller
           
         }else{
             $search = $request->q;
+            \Debugbar::info($search);
             $data = Oferta::orderby('ofertas.nombre','asc')->join('tipos_ofertas','tipos_ofertas.id','=','ofertas.id_tipo_oferta')
             ->select("ofertas.id", DB::raw("CONCAT('Oferta: ',ofertas.nombre,', ','Tipo: ',tipos_ofertas.nombre) as text"))
-            ->where('ofertas.nombre','like','%'.$search.'%')->where('ofertas.estado','=',1)->get();
+            ->where('ofertas.estado','=',1)->where('tipos_ofertas.nombre','like','%'.$search.'%')->get();
         }
         return response()->json($data);
     }
