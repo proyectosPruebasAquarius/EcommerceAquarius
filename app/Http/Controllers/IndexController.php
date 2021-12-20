@@ -27,14 +27,14 @@ class IndexController extends Controller
         ->groupBy('detalle_ventas.id_producto')->orderBy('cuentaTotal','DESC')->limit(5)->get();
 
 
-       $MaxBuyerCostumer = Venta::join('users','users.id','=','ventas.id_usuario')->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) AS sumtotal'))->groupBy('users.name')
+       $MaxBuyerCostumer = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) AS sumtotal'))->groupBy('users.name')
        ->orderBy('sumtotal','desc')->distinct()->limit(1)->get();
-       $MaxBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
+       $MaxBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
        ->groupBy('users.name')
        ->orderBy('cuentaCompras','desc')->distinct()->limit(5)->get();
 
 
-       $MinBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
+       $MinBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
        ->groupBy('users.name')
        ->orderBy('cuentaCompras','asc')->distinct()->limit(5)->get();
         $bestSellingCategory =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->join('categorias','categorias.id','=','productos.id_categoria')

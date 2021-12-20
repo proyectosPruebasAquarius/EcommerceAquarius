@@ -3,15 +3,15 @@ let startValidate = (selector) => {
     let form = selector,
         inputs = form.querySelectorAll('input[type="text"]'),
         selects = form.querySelectorAll('select');
-        /* console.log(form) */
+    /* console.log(form) */
     /* inputs.forEach(element => {
         console.log(element)
     }); */
-    
+
     let validators = {
         global: {
-            regex: /^[A-Za-z]{3,}$/
-        }, 
+            regex: /^\s*(?:\S\s*){3,500}$/
+        },
         email: {
             regex: /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/
         },
@@ -86,69 +86,69 @@ let startValidate = (selector) => {
         });
     });
 
-    if(form.id == 'principalForm') {
-      form.addEventListener('submit', (e) => {     
-          console.log('adiosss'); 
-          inputs.forEach(input => {
+    if (form.id == 'principalForm') {
+        form.addEventListener('submit', (e) => {
+            console.log('adiosss');
+            inputs.forEach(input => {
                 if (input.required || input.classList.contains('invalid')) {
                     showError(input);
                 }
-          });
-          
-          selects.forEach(select => {
+            });
+
+            selects.forEach(select => {
                 if (select.required || select.classList.contains('invalid')) {
                     showError(select);
                 }
-          });
-          
-          /* form.querySelector('input[type="file"]').addEventListener( 'change', (e) => {
-                if (condition) {
-                    
-                }
-          }); */
+            });
 
-          if (form.querySelector('input[type="file"]').value == '') {
-              /* console.log('entro'); */
-            /* showError(form.querySelector('input[type="file"]')); */
-            form.querySelector('input[type="file"]').classList.add('invalid');
-            form.querySelector('input[type="file"]').setAttribute('data-bs-content', 'Este campo es requerido.');
-            var popover = bootstrap.Popover.getInstance(form.querySelector('input[type="file"]'));
-            popover.show();
-          } else {
-              if (form.querySelector('input[type="file"]').classList.contains('invalid')) {
-                form.querySelector('input[type="file"]').classList.remove('invalid');
-              }
-              let fV = form.querySelector('input[type="file"]').files[0];
-              let v = fV.type.split('/').pop().toLowerCase();
+            /* form.querySelector('input[type="file"]').addEventListener( 'change', (e) => {
+                  if (condition) {
+                      
+                  }
+            }); */
 
-            if (v != "jpeg" && v != "jpg" && v != "png" && v != "webp" && v != "gif") {
+            if (form.querySelector('input[type="file"]').value == '') {
+                /* console.log('entro'); */
+                /* showError(form.querySelector('input[type="file"]')); */
                 form.querySelector('input[type="file"]').classList.add('invalid');
-                form.querySelector('input[type="file"]').setAttribute('data-bs-content', 'Porfavor selecciona un tipo de imagen valida, entre: JPG, PNG, WEBP, JPEG o GIF');
+                form.querySelector('input[type="file"]').setAttribute('data-bs-content', 'Este campo es requerido.');
                 var popover = bootstrap.Popover.getInstance(form.querySelector('input[type="file"]'));
                 popover.show();
-            }
-          }
+            } else {
+                if (form.querySelector('input[type="file"]').classList.contains('invalid')) {
+                    form.querySelector('input[type="file"]').classList.remove('invalid');
+                }
+                let fV = form.querySelector('input[type="file"]').files[0];
+                let v = fV.type.split('/').pop().toLowerCase();
 
-          if (form.querySelectorAll('.invalid').length) {
-            e.preventDefault();
-          }
-      });
+                if (v != "jpeg" && v != "jpg" && v != "png" && v != "webp" && v != "gif") {
+                    form.querySelector('input[type="file"]').classList.add('invalid');
+                    form.querySelector('input[type="file"]').setAttribute('data-bs-content', 'Porfavor selecciona un tipo de imagen valida, entre: JPG, PNG, WEBP, JPEG o GIF');
+                    var popover = bootstrap.Popover.getInstance(form.querySelector('input[type="file"]'));
+                    popover.show();
+                }
+            }
+
+            if (form.querySelectorAll('.invalid').length) {
+                e.preventDefault();
+            }
+        });
     } else {
-        form.addEventListener('submit', (e) => {      
+        form.addEventListener('submit', (e) => {
             inputs.forEach(input => {
-                  if (input.required || input.classList.contains('invalid')) {
-                      showError(input);
-                  }
+                if (input.required || input.classList.contains('invalid')) {
+                    showError(input);
+                }
             });
-            
+
             selects.forEach(select => {
-                  if (select.required || select.classList.contains('invalid')) {
-                      showError(select);
-                  }
+                if (select.required || select.classList.contains('invalid')) {
+                    showError(select);
+                }
             });
-            
+
             if (form.querySelectorAll('invalid').length) {
-              e.preventDefault();
+                e.preventDefault();
             }
         });
     }
@@ -160,8 +160,8 @@ let startValidate = (selector) => {
 function delay(fn, ms) {
     let timer = 0
     return function(...args) {
-      clearTimeout(timer)
-      timer = setTimeout(fn.bind(this, ...args), ms || 0)
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), ms || 0)
     }
 }
 

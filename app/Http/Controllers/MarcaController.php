@@ -68,10 +68,10 @@ class MarcaController extends Controller
         ];
         
         $this->validate($request, $rules, $messages);
-            $request->validate([
+           /* $request->validate([
                 'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'nombre' => ['required','max:45']
-            ]);
+            ]);*/
 
             $imageName = time().'.'.$request->imagen->extension();
 

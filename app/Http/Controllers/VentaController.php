@@ -154,6 +154,8 @@ class VentaController extends Controller
      */
     public function notify($id,$notify)
     {
+        $id_decrypt = Crypt::decrypt($id);
+        
         if ($notify !== null) {
             DB::table('notifications')->where('id','=',$notify)->update(['read_at' => now()]);
        
