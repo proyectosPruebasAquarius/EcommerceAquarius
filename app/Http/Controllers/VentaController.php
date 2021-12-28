@@ -13,10 +13,42 @@ use App\Mail\ContactUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class VentaController extends Controller
 {
-    
+    public function printPDF(Request $request)
+    {        
+       /* $data = [
+            'fecha' => '27-12-2021',
+            'p' =>'juadnbdwba'
+        ];
+        $pdf = PDF::loadView('pdf.venta-detail',$data)->setPaper('a4');
+        return $pdf->stream();*/
+        $rules = [
+            'fecha' => 'required',
+           
+        ];
+        
+        $messages = [
+            'fecha.required' => 'La fecha es Obligatoria.',
+        ];
+        $last = 0;
+        $this->validate($request, $rules, $messages);
+        $detail = Venta::join('detalle_ventas','detalle_ventas.id_venta','=','ventas.id')->join('productos','productos.id','=','detalle_ventas.id_producto')
+        ->join('inventarios','inventarios.id_producto','=','productos.id')->where('ventas.estado','=',1)->whereDate('ventas.created_at', $request->fecha)
+        ->select('productos.nombre as producto','inventarios.precio_venta as precio_unidad','inventarios.codigo',
+        DB::raw('SUM(detalle_ventas.cantidad) AS cantidadTotal'))->groupBy('productos.nombre')->orderBy('cantidadTotal','DESC')->get();
+
+        
+
+
+        $sumTotal =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
+        ->whereDate('ventas.created_at', $request->fecha)->where('ventas.estado','=',1)->get();
+        return $sumTotal;
+        /*$pdf = PDF::loadView('pdf.venta-detail',['sumTotal' => $sumTotal,'detail' => $detail,'fecha' => $request->fecha ])->setPaper('a4');
+        return $pdf->stream();*/
+    }
     /**
      * Display a listing of the resource.
      *

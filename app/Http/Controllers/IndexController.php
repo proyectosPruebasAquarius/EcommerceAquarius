@@ -21,44 +21,56 @@ class IndexController extends Controller
        // $productOfert = Inventario::where('estado','=', 1)->whereNotNull('id_oferta')->select('id_oferta as cuenta')->count();
        $notifications = auth()->user()->unreadNotifications;
 
-        $bestSellingProduct =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->select('productos.nombre as producto',DB::raw('COUNT(detalle_ventas.id_producto) AS cuentaTotal'))
+        $bestSellingProduct =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->join('ventas','detalle_ventas.id_venta','=','ventas.id')->where('ventas.estado','=',1)
+        ->select('productos.nombre as producto',DB::raw('COUNT(detalle_ventas.id_producto) AS cuentaTotal'))
         ->groupBy('detalle_ventas.id_producto')->orderBy('cuentaTotal','DESC')->limit(1)->get();
-        $bestSellingProducts =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->select('productos.imagen','productos.nombre as producto',DB::raw('COUNT(detalle_ventas.id_producto) AS cuentaTotal'))
+        $bestSellingProducts =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')
+        ->join('ventas','detalle_ventas.id_venta','=','ventas.id')->where('ventas.estado','=',1)
+        ->select('productos.imagen','productos.nombre as producto',DB::raw('COUNT(detalle_ventas.id_producto) AS cuentaTotal'))
         ->groupBy('detalle_ventas.id_producto')->orderBy('cuentaTotal','DESC')->limit(5)->get();
 
 
-       $MaxBuyerCostumer = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) AS sumtotal'))->groupBy('users.name')
+       $MaxBuyerCostumer = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado','=',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) AS sumtotal'))->groupBy('users.name')
        ->orderBy('sumtotal','desc')->distinct()->limit(1)->get();
-       $MaxBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
+       $MaxBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado','=',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
        ->groupBy('users.name')
        ->orderBy('cuentaCompras','desc')->distinct()->limit(5)->get();
 
 
-       $MinBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado',1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
+       $MinBuyerCostumers = Venta::join('users','users.id','=','ventas.id_usuario')->where('ventas.estado','=', 1)->select('users.name as nombre','users.email as correo',DB::raw('FORMAT(SUM(ventas.total),2) sumtotal'),DB::raw('COUNT(ventas.id_usuario) as cuentaCompras'))
        ->groupBy('users.name')
        ->orderBy('cuentaCompras','asc')->distinct()->limit(5)->get();
+       
         $bestSellingCategory =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->join('categorias','categorias.id','=','productos.id_categoria')
-        ->select('categorias.nombre as categoria',DB::raw('MAX(productos.id_categoria) AS cuentaTotal'))
+        ->join('ventas','detalle_ventas.id_venta','=','ventas.id')->where('ventas.estado','=',1)
+        ->select('categorias.nombre as categoria',DB::raw('COUNT(productos.id_categoria) AS cuentaTotal'))
         ->groupBy('productos.id_categoria')->orderBy('cuentaTotal','DESC')->limit(1)->get();
 
         
-        $bestSellingCategories =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->join('categorias','categorias.id','=','productos.id_categoria')
-        ->select('categorias.nombre as categoria',DB::raw('MAX(productos.id_categoria) AS cuentaTotal'))
+        $bestSellingCategories =  DetalleVenta::join('productos','productos.id','=','detalle_ventas.id_producto')->join('ventas','detalle_ventas.id_venta','=','ventas.id')
+        ->join('categorias','categorias.id','=','productos.id_categoria')->where('ventas.estado','=',1)
+        ->select('categorias.nombre as categoria',DB::raw('COUNT(productos.id_categoria) AS cuentaTotal'))
         ->groupBy('productos.id_categoria')->orderBy('cuentaTotal','DESC')->limit(5)->get();
+
         $lastUserRegister = User::select('name as usuario')->orderBy('id','DESC')->limit(1)->get();
         $today =date("Y-m-d");
         $year = date("Y");
         $month = date("m");
-        $DailySales =  DetalleVenta::join('ventas','ventas.id','=','detalle_ventas.id_venta')->select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
-        ->whereDate('ventas.created_at', $today)->where('ventas.estado','=',1)->get();
-        $MonthSales =  DetalleVenta::join('ventas','ventas.id','=','detalle_ventas.id_venta')->select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
+        $DailySales =  Venta::whereDate('ventas.created_at','=',$today)->where('ventas.estado','=',1)
+        ->select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
+        ->whereDate('ventas.created_at','=',$today)->where('ventas.estado','=',1)->get();
+        $MonthSales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereMonth('ventas.created_at', $month)->where('ventas.estado','=',1)->get();
-        $YearSales =  DetalleVenta::join('ventas','ventas.id','=','detalle_ventas.id_venta')->select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
+        $YearSales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereYear('ventas.created_at', $year)->where('ventas.estado','=',1)->get();
+
+
+
         
-        return view('backend.home')->with('sellingProduct',$bestSellingProduct[0]->producto)->with('ventaAnual',$YearSales[0]->cuentaTotal)->with('ventaDiaria',$DailySales[0]->cuentaTotal)
-        ->with('ventaMensual',$MonthSales[0]->cuentaTotal)->with('hoy',$today)->with('mes',$month)->with('ano',$year)->with('maxBuyer',$MaxBuyerCostumer[0]->nombre)->with('maxCat',$bestSellingCategory[0]->categoria)
-        ->with('lastUser',$lastUserRegister[0]->usuario)->with('maxProducts',$bestSellingProducts)->with('maxCategories',$bestSellingCategories)->with('maxBuyers',$MaxBuyerCostumers)
+      // return $YearSales;
+        return view('backend.home')->with('sellingProduct',$bestSellingProduct)->with('ventaAnual',$YearSales)->with('ventaDiaria',$DailySales)
+        ->with('ventaMensual',$MonthSales)->with('hoy',$today)->with('mes',$month)->with('ano',$year)->with('maxBuyer',$MaxBuyerCostumer)->with('maxCat',$bestSellingCategory)
+        ->with('lastUser',$lastUserRegister)->with('maxProducts',$bestSellingProducts)->with('maxCategories',$bestSellingCategories)->with('maxBuyers',$MaxBuyerCostumers)
         ->with('minBuyers',$MinBuyerCostumers)->with('notifications', $notifications);
     }
 

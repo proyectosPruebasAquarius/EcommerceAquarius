@@ -1,13 +1,13 @@
 <?php return array (
-  'barryvdh/laravel-debugbar' => 
+  'barryvdh/laravel-dompdf' => 
   array (
     'providers' => 
     array (
-      0 => 'Barryvdh\\Debugbar\\ServiceProvider',
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
     ),
     'aliases' => 
     array (
-      'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
     ),
   ),
   'darryldecode/cart' => 

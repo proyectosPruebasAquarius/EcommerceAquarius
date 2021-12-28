@@ -20,7 +20,14 @@
                                 </div>
                                 <div class="col-md-9">
                                     <h6 class="text-muted font-semibold">Producto mas Vendido</h6>
-                                    <h6 class="font-extrabold mb-0">{{ $sellingProduct }}</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        @forelse ($sellingProduct as $sp)
+                                        {{ $sp->producto }}
+                                        @empty
+                                        No hay Datos Registrados
+                                        @endforelse
+
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +44,15 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Mayor Comprador</h6>
-                                    <h6 class="font-extrabold mb-0">{{ $maxBuyer }}</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        @forelse ($maxBuyer as $mb)
+                                        {{ $mb->nombre }}
+                                        @empty
+                                        No hay Datos Registrados
+                                        @endforelse
+
+
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +69,15 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Categoria mas Vendida</h6>
-                                    <h6 class="font-extrabold mb-0">{{ $maxCat }}</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        @forelse ($maxCat as $mc)
+                                        {{ $mc->categoria }}
+                                        @empty
+                                        No hay Datos Registrados
+                                        @endforelse
+
+
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +94,18 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Ultimo Usuario Registrado</h6>
-                                    <h6 class="font-extrabold mb-0">{{ $lastUser }}</h6>
+                                    <h6 class="font-extrabold mb-0">
+
+                                        @foreach ($lastUser as $lu)
+                                        @if ($lu->usuario == null)
+                                        No hay Usuarios Registrados
+                                        @else
+                                        {{ $lu->usuario }}
+                                        @endif
+                                        @endforeach
+
+
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -98,11 +132,14 @@
                                             <h5 class="card-title">Venta Diaria <i class="fal fa-clock"></i></h5>
                                             <br>
                                             <p class="card-text">
-                                                @if ($ventaDiaria == 0)
+                                                @foreach ($ventaDiaria as $vd)
+                                                @if ($vd->cuentaTotal == null)
                                                 Sin ventas diarias
                                                 @else
-                                                ${{ $ventaDiaria }}
+                                                ${{ $vd->cuentaTotal }}
                                                 @endif
+                                                @endforeach
+
 
                                             </p>
                                         </div>
@@ -119,11 +156,15 @@
                                             </h5>
                                             <br>
                                             <p class="card-text">
-                                                @if ($ventaMensual == 0)
+
+                                                @foreach ($ventaMensual as $vm)
+                                                @if ($vm->cuentaTotal == null)
                                                 Sin ventas mensual
                                                 @else
-                                                ${{ $ventaMensual }}
+                                                ${{ $vm->cuentaTotal }}
                                                 @endif
+                                                @endforeach
+
 
                                             </p>
                                         </div>
@@ -139,11 +180,15 @@
                                             <h5 class="card-title">Venta Anual <i class="fal fa-calendar"></i></h5>
                                             <br>
                                             <p class="card-text">
-                                                @if ($ventaAnual == 0)
+
+                                                @foreach ($ventaAnual as $va)
+                                                @if ($va->cuentaTotal == null)
                                                 Sin ventas anual
                                                 @else
-                                                ${{ $ventaAnual }}
+                                                ${{ $va->cuentaTotal }}
                                                 @endif
+                                                @endforeach
+
 
                                             </p>
                                         </div>
@@ -238,7 +283,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center  me-5">
-                                        @foreach ($maxProducts as $p)
+                                        @forelse ($maxProducts as $p)
                                         <tr>
                                             <th class="h-25 w-25">
                                                 <img src="{{ json_decode($p->imagen)[0] }}" class="h-25 w-25">
@@ -246,7 +291,16 @@
                                             <th>{{ $p->producto }}</th>
                                             <th>{{ $p->cuentaTotal }}</th>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th>
+                                                <h1 class="text-center ">No hay Ventas Registradas</h1>
+                                            </th>
+                                            
+                                        </tr>
+                                        
+                                        @endforelse
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -273,13 +327,20 @@
                                 <table class="table table-borderless">
 
                                     <tbody class="text-center   me-5">
-                                        @foreach ($maxCategories as $c)
+                                        @forelse ($maxCategories as $c)
                                         <tr>
 
                                             <th>{{ $c->categoria }}</th>
 
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th>
+                                                <h1 class="text-center ">No hay Ventas Registradas</h1>
+                                            </th>
+                                            
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -308,7 +369,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center  me-5">
-                                        @foreach ($maxBuyers as $cs)
+                                        @forelse ($maxBuyers as $cs)
                                         <tr>
 
                                             <th>{{ $cs->nombre }}</th>
@@ -316,7 +377,14 @@
                                             <th>{{ $cs->cuentaCompras }}</th>
                                             <th>${{ $cs->sumtotal }}</th>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th>
+                                                <h1 class="text-center ">No hay Ventas Registradas</h1>
+                                            </th>
+                                            
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -343,7 +411,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center  me-5">
-                                        @foreach ($minBuyers as $cs)
+                                        @forelse ($minBuyers as $cs)
                                         <tr>
 
                                             <th>{{ $cs->nombre }}</th>
@@ -351,7 +419,14 @@
                                             <th>{{ $cs->cuentaCompras }}</th>
                                             <th>${{ $cs->sumtotal }}</th>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th>
+                                                <h1 class="text-center ">No hay Ventas Registradas</h1>
+                                            </th>
+                                            
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

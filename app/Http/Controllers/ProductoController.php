@@ -50,8 +50,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        
+       // return $request->all();
         $rules = [
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'imagen' => 'required|array',
+            'imagen.*' =>'image|mimes:jpeg,png,jpg,gif,svg,webp',
             'nombre' => ['required','max:200'],
             'descripcion' => ['required','max:1500'],
             'categoria' => ['required'],
@@ -69,6 +72,8 @@ class ProductoController extends Controller
             'marca.required' => 'La Marca es Obligatoria.',
             'proveedor.required' => 'El Proveedor es Obligatorio.',
             'subcat.required' => 'La Sub Categoria es Obligatoria.',
+            'imagen.required' => 'La Imagen del Producto es Obligatoria',
+            'imagen.*' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
 
         ];
         $this->validate($request, $rules, $messages);
@@ -149,16 +154,15 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $rules = [
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'imagen' => 'required|array',
+            'imagen.*' =>'image|mimes:jpeg,png,jpg,gif,svg,webp',
             'nombre' => ['required','max:200'],
             'descripcion' => ['required','max:1500'],
             'categoria' => ['required'],
             'marca' => ['required'],
             'proveedor' => ['required'],
             'subcat' => ['required'],
-
         ];
 
         $messages = [
@@ -170,6 +174,9 @@ class ProductoController extends Controller
             'marca.required' => 'La Marca es Obligatoria.',
             'proveedor.required' => 'El Proveedor es Obligatorio.',
             'subcat.required' => 'La Sub Categoria es Obligatoria.',
+            'imagen.required' => 'La Imagen del Producto es Obligatoria',
+            'imagen.*.image' => 'El archivo debe ser Imagen',
+            'imagen.*.mimes' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
 
         ];
         $id_decrypt = Crypt::decrypt($id);

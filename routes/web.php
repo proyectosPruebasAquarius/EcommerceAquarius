@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Direccion;
 use App\MetodoPago;
 use App\Inventario;
+use Barryvdh\DomPDF\Facade as PDF;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -243,7 +244,7 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::get('/ventas/notificacion/{id}/{type}', 'VentaController@notify');
     Route::put('/ventas/detalle/verificacion/{id}','VentaController@update');
     Route::post('/ventas/enviar/mail','VentaController@mailuser');
-
+    Route::post('/ventas/pdf','VentaController@printPDF');
    
 
     /*END VENTAS BACKEND */

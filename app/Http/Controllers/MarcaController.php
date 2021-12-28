@@ -57,7 +57,7 @@ class MarcaController extends Controller
      }*/
       
         $rules = [
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'nombre' => ['required','max:45']
         ];
         
@@ -117,7 +117,7 @@ class MarcaController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'nombre' => ['required','max:45'],
             'estado' => ['required'],
         ];

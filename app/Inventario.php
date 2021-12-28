@@ -14,6 +14,7 @@ class Inventario extends Model
         'codigo',
         'stock',
         'id_producto',
-        'min_stock'
+        'min_stock',
+        'precio_descuento'
         ];
 }

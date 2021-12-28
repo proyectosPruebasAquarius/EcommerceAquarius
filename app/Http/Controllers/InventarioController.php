@@ -45,7 +45,7 @@ class InventarioController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [                       
+        /*$rules = [                       
             'codigo' => ['required'],
             'stock' => ['required','numeric'],
             'min_stock' => ['required','numeric'],
@@ -69,17 +69,74 @@ class InventarioController extends Controller
             
             
         ];
-        $this->validate($request, $rules, $messages);
+        $this->validate($request, $rules, $messages);*/
 
-        $inventario = new Inventario;
-        $inventario->precio_compra = $request->precio_compra;
-        $inventario->precio_venta = $request->precio_venta;
-        $inventario->codigo = $request->codigo;
-        $inventario->stock = $request->stock;
-        $inventario->id_producto = $request->producto;
-        $inventario->id_oferta  = $request->oferta;
-        $inventario->min_stock = $request->min_stock;
-        $inventario->save();
+        $oferta = Oferta::select('nombre')->where('id','=',$request->oferta)->get();
+
+        $descuento= $oferta[0]->nombre;
+
+        if ($request->oferta <> null) {
+          
+
+            $inventario = new Inventario;
+            $inventario->precio_compra = $request->precio_compra;
+            $inventario->precio_venta = $request->precio_venta;
+            $inventario->codigo = $request->codigo;
+            $inventario->stock = $request->stock;
+            $inventario->id_producto = $request->producto;
+            $inventario->id_oferta  = $request->oferta;
+            $inventario->min_stock = $request->min_stock;
+            switch ($descuento) {
+                case '10':
+                    $n = $request->precio_venta;
+
+                    $mult = $n * 0.10;
+                    $inventario->precio_descuento = $n - $mult;
+                    break;
+                    case '20':
+                        $n = $request->precio_venta;
+    
+                        $mult = $n * 0.20;
+                        $inventario->precio_descuento = $n - $mult;
+                        break;    
+                        case '30':
+                            $n = $request->precio_venta;
+        
+                            $mult = $n * 0.30;
+                            $inventario->precio_descuento = $n - $mult;
+                            break;  
+                            case '40':
+                                $n = $request->precio_venta;
+            
+                                $mult = $n * 0.40;
+                                $inventario->precio_descuento = $n - $mult;
+                                break;              
+                                case '50':
+                                    $n = $request->precio_venta;
+                
+                                    $mult = $n * 0.50;
+                                    $inventario->precio_descuento = $n - $mult;
+                                    break; 
+                                    case '60':
+                                        $n = $request->precio_venta;
+                    
+                                        $mult = $n * 0.60;
+                                        $inventario->precio_descuento = $n - $mult;
+                                        break;   
+            }
+           
+            $inventario->save();
+        } else {
+            $inventario = new Inventario;
+            $inventario->precio_compra = $request->precio_compra;
+            $inventario->precio_venta = $request->precio_venta;
+            $inventario->codigo = $request->codigo;
+            $inventario->stock = $request->stock;
+            $inventario->id_producto = $request->producto;
+            $inventario->id_oferta  = $request->oferta;
+            $inventario->min_stock = $request->min_stock;
+            $inventario->save();
+        }
 
         return redirect('admin/inventarios')->with('message','Registro ingresado correctamente')->with('alert','success');
 
