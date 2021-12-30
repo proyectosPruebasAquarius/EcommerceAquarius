@@ -180,11 +180,9 @@
                     <td class="unit">$ {{ $p->precio_descuento }}</td>
                     @endif
                     <td class="qty">{{ $p->cantidadTotal }}</td>
-                    @if ($p->precio_descuento == null)
-                    <td class="total">$ {{ $p->precio_unidad * $p->cantidadTotal }}</td>
-                    @else
-                    <td class="total">$ {{ $p->precio_descuento * $p->cantidadTotal }}</td>
-                    @endif
+                  
+                    <td class="total">$ {{ $p->ventaTotal }}</td>
+                   
                    
                 </tr>
                 @endforeach

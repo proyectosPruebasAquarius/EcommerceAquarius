@@ -57,9 +57,38 @@
 
                                             <br>
                                             <ul class="list-group list-group-flush">
-                                                @foreach ($productos as $pt)
-                                                    <li class="list-group-item"> {{ $pt->nombre }}</li>
-                                                @endforeach
+                                                <table class="table">
+                                                    <thead class="text-center">
+                                                      <tr>
+                                                        <th scope="col">Producto</th>
+                                                        <th scope="col">Precio</th>
+                                                        <th scope="col">Descuento</th>
+                                                       
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $pt)
+                                                      <tr class="text-center">
+                                                        <th scope="row">{{ $pt->nombre }}</th>
+                                                        <td>${{ $pt->precio_venta }}</td>
+                                                        @if ($pt->oferta == null)
+                                                           <td>Sin Oferta</td> 
+                                                        @else
+                                                        <td>{{ $pt->oferta }}%</td>
+                                                        @endif
+                                                        
+                                                      </tr>
+                                                      @endforeach 
+                                                    </tbody>
+                                                  </table>
+
+
+
+
+
+                                               
+                                                  
+                                                
                                             </ul>
 
 

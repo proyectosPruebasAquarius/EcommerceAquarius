@@ -10,7 +10,9 @@ class DetalleVenta extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['id_producto',
     'id_venta',
-    'cantidad'
+    'cantidad',
+    'precio_venta',
+    'oferta'
     
     ]; 
 }
