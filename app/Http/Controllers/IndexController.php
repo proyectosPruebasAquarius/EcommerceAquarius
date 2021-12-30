@@ -56,9 +56,11 @@ class IndexController extends Controller
         $today =date("Y-m-d");
         $year = date("Y");
         $month = date("m");
-        $DailySales =  Venta::whereDate('ventas.created_at','=',$today)->where('ventas.estado','=',1)
-        ->select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
+
+        $DailySales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereDate('ventas.created_at','=',$today)->where('ventas.estado','=',1)->get();
+
+
         $MonthSales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereMonth('ventas.created_at', $month)->where('ventas.estado','=',1)->get();
         $YearSales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
