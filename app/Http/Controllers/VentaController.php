@@ -51,8 +51,8 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::join('direcciones', 'direcciones.id', '=', 'ventas.id_direccion')->join('metodos_pagos', 'metodos_pagos.id', '=', 'ventas.id_metodo_pago')
-            ->select('direcciones.direccion', 'metodos_pagos.nombre as metodo_pago', 'ventas.estado as estado', 'ventas.id', 'ventas.total', 'ventas.created_at as fecha', DB::raw('CONCAT(first_name, " ",last_name) AS cliente'))
+        $ventas = Venta::join('direcciones', 'direcciones.id', '=', 'ventas.id_direccion')->join('metodos_pagos', 'metodos_pagos.id', '=', 'ventas.id_metodo_pago')->join('users','users.id','=','ventas.id_usuario')
+            ->select('direcciones.direccion', 'metodos_pagos.nombre as metodo_pago', 'ventas.estado as estado', 'ventas.id', 'ventas.total', 'ventas.created_at as fecha','users.name as cliente')
             ->orderBy('ventas.id', 'DESC')->get();
 
         return view('backend.ventas.index')->with('ventas', $ventas);

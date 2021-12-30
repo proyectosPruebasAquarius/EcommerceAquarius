@@ -85,7 +85,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="sumit" form="formPDF" class="btn btn-primary">Consultar <i class="fal fa-external-link-square-alt"></i></button>
+                                <button type="sumit" form="formPDF" class="btn btn-primary">Consultar <i class="fal fa-eye"></i></button>
                                
                             </div>
                         </div>

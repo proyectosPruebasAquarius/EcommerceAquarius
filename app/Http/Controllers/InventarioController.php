@@ -44,7 +44,7 @@ class InventarioController extends Controller
      */
     public function store(Request $request)
     {
-        /*$rules = [
+        $rules = [
         'codigo' => ['required'],
         'stock' => ['required','numeric'],
         'min_stock' => ['required','numeric'],
@@ -67,14 +67,12 @@ class InventarioController extends Controller
         'producto.required' => 'El Producto es Obligatorio.',
 
         ];
-        $this->validate($request, $rules, $messages);*/
+        $this->validate($request, $rules, $messages);
 
         $oferta = Oferta::select('nombre')->where('id', '=', $request->oferta)->get();
-
-        $descuento = $oferta[0]->nombre;
-
+        $descuento = NULL;
         if ($request->oferta != null) {
-
+            $descuento = $oferta[0]->nombre;
             $inventario = new Inventario;
             $inventario->precio_compra = $request->precio_compra;
             $inventario->precio_venta = $request->precio_venta;
@@ -83,50 +81,13 @@ class InventarioController extends Controller
             $inventario->id_producto = $request->producto;
             $inventario->id_oferta = $request->oferta;
             $inventario->min_stock = $request->min_stock;
-            switch ($descuento) {
-                case '10':
-                    $n = $request->precio_venta;
+            function porcentaje($cantidad,$porciento,$decimales){
+                return number_format($cantidad*$porciento/100 ,$decimales);
+                }
+                $porciento =  porcentaje($request->precio_venta,intval($descuento),2);
 
-                    $mult = $n * 0.10;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '20':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.20;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '30':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.30;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '40':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.40;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '50':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.50;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '60':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.60;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '70':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.70;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-            }
+            $inventario->precio_descuento = $request->precio_venta - $porciento;
+           
 
             $inventario->save();
         } else {
@@ -219,11 +180,11 @@ class InventarioController extends Controller
 
         $id_decrypt = Crypt::decrypt($id);
         $oferta = Oferta::select('nombre')->where('id', '=', $request->oferta)->get();
-
-        $descuento = $oferta[0]->nombre;
+        $descuento = NULL;
+        
 
         if ($request->oferta != null) {
-
+            $descuento = $oferta[0]->nombre;
             $inventario = Inventario::where('id','=',$id_decrypt)->first();
             $inventario->precio_compra = $request->precio_compra;
             $inventario->precio_venta = $request->precio_venta;
@@ -232,52 +193,16 @@ class InventarioController extends Controller
             $inventario->id_producto = $request->producto;
             $inventario->id_oferta = $request->oferta;
             $inventario->min_stock = $request->min_stock;
-            switch ($descuento) {
-                case '10':
-                    $n = $request->precio_venta;
+            function porcentaje($cantidad,$porciento,$decimales){
+                return number_format($cantidad*$porciento/100 ,$decimales);
+                }
+                $porciento =  porcentaje($request->precio_venta,intval($descuento),2);
 
-                    $mult = $n * 0.10;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '20':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.20;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '30':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.30;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '40':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.40;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '50':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.50;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '60':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.60;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-                case '70':
-                    $n = $request->precio_venta;
-
-                    $mult = $n * 0.70;
-                    $inventario->precio_descuento = $n - $mult;
-                    break;
-            }
+            $inventario->precio_descuento = $request->precio_venta - $porciento;
+           
 
             $inventario->save();
+
         } else {
             $inventario = Inventario::where('id','=',$id_decrypt)->first();
             $inventario->precio_compra = $request->precio_compra;

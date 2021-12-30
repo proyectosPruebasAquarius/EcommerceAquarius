@@ -131,7 +131,8 @@ Route::get('/checkout', function () {
     ->join('municipios', 'direcciones.id_municipio', '=', 'municipios.id')
     ->join('departamentos', 'municipios.id_departamento', '=', 'departamentos.id')
     ->join('users', 'direcciones.id_user', '=', 'users.id')
-    ->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'users.name as user', 'direcciones.first_name', 'direcciones.last_name', 'direcciones.email', 'direcciones.telefono', 'direcciones.direccion', 'direcciones.id')
+    ->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'users.name as user', 'direcciones.first_name', 'direcciones.last_name', 
+    'direcciones.email', 'direcciones.telefono', 'direcciones.direccion', 'direcciones.id', 'direcciones.facturacion', 'direcciones.referencia', 'direcciones.referencia_facturacion', 'departamentos.id as id_departamento', 'municipios.id as id_municipio')
     ->get();
 
     $metodos_pagos = MetodoPago::get();
