@@ -55,6 +55,7 @@
                             <th>Producto</th>
                             <th>Precio de Compra</th>
                             <th>Precio de Venta</th>
+                            <th>Precio Descuento</th>
                             <th>Codigo del Producto</th>
                             <th>Stock Minimo</th>
                             <th>Stock</th>
@@ -71,6 +72,14 @@
                                 {{$inventario->precio_compra}}
                             </td>
                             <td>{{$inventario->precio_venta}}</td>
+                            <td>
+                                @if ($inventario->precio_descuento != null)
+                                {{$inventario->precio_descuento}}
+                                @else
+                                    Sin precio de oferta
+                                @endif
+
+                           </td>
                            <td>{{$inventario->codigo}}</td>
                            <td>{{ $inventario->min_stock }}</td>
                            <td>{{ $inventario->stock }}</td>

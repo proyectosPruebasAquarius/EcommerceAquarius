@@ -17,10 +17,10 @@
             }
 
             body {
-            position: relative;
-            width: 21cm;  
-            height: 29.7cm; 
-            margin: 0 auto; 
+            position: center;
+            width: 100%;  
+            height: 28cm; 
+            margin: auto; 
             color: #001028;
             background: #FFFFFF; 
             font-family: Arial, sans-serif; 
@@ -164,6 +164,7 @@
                     <th class="service">PRODUCTO</th>
                     <th class="desc">CODIGO</th>
                     <th class="unit">PRECIO</th>
+                    
                     <th class="qty">QTY</th>
                     <th class="total">TOTAL</th>
                 </tr>
@@ -173,9 +174,18 @@
                 <tr>
                     <td class="service">{{ $p->producto }}</td>
                     <td class="desc">{{ $p->codigo }}</td>
+                    @if ($p->precio_descuento == null)
                     <td class="unit">$ {{ $p->precio_unidad }}</td>
+                    @else
+                    <td class="unit">$ {{ $p->precio_descuento }}</td>
+                    @endif
                     <td class="qty">{{ $p->cantidadTotal }}</td>
+                    @if ($p->precio_descuento == null)
                     <td class="total">$ {{ $p->precio_unidad * $p->cantidadTotal }}</td>
+                    @else
+                    <td class="total">$ {{ $p->precio_descuento * $p->cantidadTotal }}</td>
+                    @endif
+                   
                 </tr>
                 @endforeach
                 
