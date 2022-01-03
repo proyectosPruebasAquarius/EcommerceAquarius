@@ -9,42 +9,42 @@
             content: "";
             display: table;
             clear: both;
-            }
+        }
 
-            a {
+        a {
             color: #5D6975;
             text-decoration: underline;
-            }
+        }
 
-            body {
+        body {
             position: center;
-            width: 100%;  
-            height: 28cm; 
-            margin: auto; 
+            width: 100%;
+            height: 28cm;
+            margin: auto;
             color: #001028;
-            background: #FFFFFF; 
-            font-family: Arial, sans-serif; 
-            font-size: 12px; 
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
             font-family: Arial;
-            }
+        }
 
-            header {
+        header {
             padding: 10px 0;
             margin-bottom: 30px;
-            }
+        }
 
-            #logo {
+        #logo {
             text-align: center;
             margin-bottom: 10px;
-            }
+        }
 
-            #logo img {
+        #logo img {
             width: 90px;
-            }
+        }
 
-            h1 {
-            border-top: 1px solid  #5D6975;
-            border-bottom: 1px solid  #5D6975;
+        h1 {
+            border-top: 1px solid #5D6975;
+            border-bottom: 1px solid #5D6975;
             color: #5D6975;
             font-size: 2.4em;
             line-height: 1.4em;
@@ -52,86 +52,87 @@
             text-align: center;
             margin: 0 0 20px 0;
             background: url(dimension.png);
-            }
+        }
 
-            #project {
+        #project {
             float: left;
-            }
+        }
 
-            #project span {
+        #project span {
             color: #5D6975;
             text-align: right;
             width: 40px;
             margin-right: 10px;
             display: inline-block;
             font-size: 0.8em;
-            }
+        }
 
-            #company {
+        #company {
             float: right;
             text-align: right;
-            }
+        }
 
-            #project div,
-            #company div {
-            white-space: nowrap;        
-            }
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
 
-            table {
+        table {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 20px;
-            }
+        }
 
-            table tr:nth-child(2n-1) td {
+        table tr:nth-child(2n-1) td {
             background: #F5F5F5;
-            }
+        }
 
-            table th,
-            table td {
+        table th,
+        table td {
             text-align: left;
-            }
+        }
 
-            table th {
+        table th {
             padding: 5px 20px;
             color: #5D6975;
             border-bottom: 1px solid #C1CED9;
-            white-space: nowrap;        
+            white-space: nowrap;
             font-weight: normal;
-            }
+        }
 
-            table .service,
-            table .desc {
+        table .service,
+        table .desc {
             text-align: left;
-            }
+        }
 
-            table td {
+        table td {
             padding: 20px;
             text-align: left;
-            }
+        }
 
-            table td.service,
-            table td.desc {
+        table td.service,
+        table td.desc {
             vertical-align: top;
-            }
+        }
 
-            table td.unit,
-            table td.qty,
-            table td.total {
+        table td.unit,
+        table td.qty,
+        table td.total {
             font-size: 1.2em;
-            }
+        }
 
-            table td.grand {
-            border-top: 1px solid #5D6975;;
-            }
+        table td.grand {
+            border-top: 1px solid #5D6975;
+            ;
+        }
 
-            #notices .notice {
+        #notices .notice {
             color: #5D6975;
             font-size: 1.2em;
-            }
+        }
 
-            footer {
+        footer {
             color: #5D6975;
             width: 100%;
             height: 30px;
@@ -140,7 +141,7 @@
             border-top: 1px solid #C1CED9;
             padding: 8px 0;
             text-align: center;
-            }
+        }
     </style>
 </head>
 
@@ -150,10 +151,10 @@
             <img src="mitiendita.png">
         </div>
         <h1>Mi Tiendita</h1>
-       
+
         <div id="project">
-          
-         
+
+
             <div><span>FECHA</span>{{ $fecha }}</div>
         </div>
     </header>
@@ -161,10 +162,11 @@
         <table>
             <thead>
                 <tr>
+                    <th class="desc">C&Oacute;DIGO</th>
                     <th class="service">PRODUCTO</th>
-                    <th class="desc">CODIGO</th>
-                    <th class="unit">PRECIO</th>
                     
+                    <th class="unit">PRECIO</th>
+
                     <th class="qty">QTY</th>
                     <th class="total">TOTAL</th>
                 </tr>
@@ -172,34 +174,35 @@
             <tbody>
                 @foreach ($detail as $p)
                 <tr>
-                    <td class="service">{{ $p->producto }}</td>
                     <td class="desc">{{ $p->codigo }}</td>
-                    @if ($p->precio_descuento == null)
-                    <td class="unit">$ {{ $p->precio_unidad }}</td>
-                    @else
-                    <td class="unit">$ {{ $p->precio_descuento }}</td>
-                    @endif
+                    <td class="service">{{ $p->producto }}</td>
+                   
+                    
+                    <td class="unit">$ {{ $p->precio_venta}}</td>
+                   
                     <td class="qty">{{ $p->cantidadTotal }}</td>
-                  
-                    <td class="total">$ {{ $p->ventaTotal }}</td>
-                   
-                   
+
+                    <td class="total">
+                        $ {{ $p->precio_venta  * $p->cantidadTotal}}
+                    </td>
+
+
                 </tr>
                 @endforeach
-                
-              
+
+
                 <tr>
                     <td colspan="4" class="grand total">TOTAL</td>
                     <td class="grand total">
                         @foreach ($sumTotal as $suma)
-                            $ {{ $suma->cuentaTotal  }}
+                        $ {{ $suma->cuentaTotal }}
                         @endforeach
                     </td>
                 </tr>
             </tbody>
         </table>
         <div id="notices">
-           
+
         </div>
     </main>
     <footer>

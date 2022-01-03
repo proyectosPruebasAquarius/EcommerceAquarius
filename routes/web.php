@@ -247,7 +247,7 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::post('/ventas/enviar/mail','VentaController@mailuser');
     Route::post('/ventas/pdf','VentaController@printPDF');
    
-
+    Route::get('/test','VentaController@test');
     /*END VENTAS BACKEND */
 });
 

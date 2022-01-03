@@ -27,7 +27,7 @@
 
                                     <div class="col-md-3 col-12">
                                         <div class="form-group">
-                                            <label for="name" class="form-label">Direccion:</label>
+                                            <label for="name" class="form-label">Dirección:</label>
                                             <br>
 
                                             <label class="form-label">{{ $ventas->direccion }}</label>

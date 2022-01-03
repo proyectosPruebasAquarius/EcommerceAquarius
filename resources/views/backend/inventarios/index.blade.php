@@ -52,11 +52,11 @@
                 <table class="table table-striped text-center table-bordered pt-3 pb-3" id="prodTable">
                     <thead class="bg-primary text-white">
                         <tr>
+                            <th>Código del Producto</th>
                             <th>Producto</th>
                             <th>Precio de Compra</th>
                             <th>Precio de Venta</th>
-                            <th>Precio Descuento</th>
-                            <th>Codigo del Producto</th>
+                            <th>Precio Descuento</th>                           
                             <th>Stock Minimo</th>
                             <th>Stock</th>
                             <th>Oferta</th>
@@ -67,6 +67,7 @@
                     <tbody>
                         @foreach ($inventarios as $inventario)
                         <tr>
+                            <td>{{$inventario->codigo}}</td>
                             <td>{{$inventario->producto}}</td>
                             <td>
                                 {{$inventario->precio_compra}}
@@ -80,7 +81,7 @@
                                 @endif
 
                            </td>
-                           <td>{{$inventario->codigo}}</td>
+                         
                            <td>{{ $inventario->min_stock }}</td>
                            <td>{{ $inventario->stock }}</td>
                            <td>

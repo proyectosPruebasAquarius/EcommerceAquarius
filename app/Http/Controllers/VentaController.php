@@ -18,6 +18,13 @@ use Illuminate\Support\Facades\Crypt;
 
 class VentaController extends Controller
 {
+    public function test()
+    {
+        return view('backend.ventas.test');
+    }
+
+
+
     public function printPDF(Request $request)
     {
         $rules = [
@@ -31,11 +38,11 @@ class VentaController extends Controller
         $this->validate($request, $rules, $messages);
         $detail = Venta::join('detalle_ventas', 'detalle_ventas.id_venta', '=', 'ventas.id')->join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')
             ->join('inventarios', 'inventarios.id_producto', '=', 'productos.id')->where('ventas.estado', '=', 1)->whereDate('ventas.created_at', $request->fecha)
-            ->select('productos.nombre as producto', 'inventarios.precio_venta as precio_unidad', 'inventarios.codigo', 'inventarios.precio_descuento',
-                DB::raw('SUM(detalle_ventas.cantidad) AS cantidadTotal'),DB::raw('SUM(detalle_ventas.precio_venta) AS ventaTotal'))->groupBy('productos.nombre')->orderBy('cantidadTotal', 'DESC')->get();
+            ->select('productos.nombre as producto','detalle_ventas.precio_venta', 'inventarios.codigo',
+                DB::raw('SUM(detalle_ventas.cantidad) AS cantidadTotal'))->groupBy('productos.nombre')->orderBy('cantidadTotal', 'DESC')->get();
         $sumTotal = Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
             ->whereDate('ventas.created_at', $request->fecha)->where('ventas.estado', '=', 1)->get();
-        //return $sumTotal;
+        //return $detail;
         if ($sumTotal[0]->cuentaTotal == null) {
             return redirect()->back()->with('message', 'No hay Ventas registradas con la Fecha: ' . $request->fecha)->with('alert', 'warning');
         } else {
@@ -175,13 +182,15 @@ class VentaController extends Controller
 
         $id_decrypt = Crypt::decrypt($id);
         $venta = Venta::join('detalle_ventas', 'detalle_ventas.id_venta', '=', 'ventas.id')->join('users', 'users.id', '=', 'ventas.id_usuario')->join('direcciones', 'direcciones.id', 'ventas.id_direccion')
+        ->join('municipios','municipios.id','=','direcciones.id_municipio')->join('departamentos','departamentos.id','=','municipios.id_departamento')
             ->join('metodos_pagos', 'metodos_pagos.id', '=', 'ventas.id_metodo_pago')->join('datos_ventas', 'datos_ventas.id_venta', '=', 'ventas.id')->join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')
             ->select('direcciones.direccion', 'direcciones.telefono', 'direcciones.facturacion', 'direcciones.referencia', 'ventas.total as totalVenta', 'ventas.estado as estadoVenta', 'datos_ventas.numero as numeroTransaccion',
-                'datos_ventas.imagen as imagenDatoVenta', 'ventas.id as id_venta', 'users.id as id_usuario','users.name as cliente')->where('ventas.id', '=', $id_decrypt)->distinct()->first();
-        $productosVenta = DetalleVenta::join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')->select('productos.nombre','detalle_ventas.precio_venta','detalle_ventas.oferta')
+                'datos_ventas.imagen as imagenDatoVenta', 'ventas.id as id_venta', 'users.id as id_usuario','users.name as cliente','users.email as correo','municipios.nombre as municipio','departamentos.nombre as departamento',
+                'direcciones.referencia_facturacion','metodos_pagos.nombre as metodo_pago','ventas.num_transaccion as numeroTransaccionVenta')->where('ventas.id', '=', $id_decrypt)->distinct()->first();
+        $productosVenta = DetalleVenta::join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')->select('productos.nombre','detalle_ventas.precio_venta','detalle_ventas.oferta','productos.imagen','detalle_ventas.cantidad')
         ->where('detalle_ventas.id_venta', '=', $id_decrypt)->get();
-       // return $productosVenta;
-        return view('backend.ventas.form')->with('ventas', $venta)->with('productos', $productosVenta);
+        //return $productosVenta;
+       return view('backend.ventas.form2')->with('ventas', $venta)->with('productos', $productosVenta);
     }
 
     /**
@@ -199,13 +208,15 @@ class VentaController extends Controller
 
         }
         $venta = Venta::join('detalle_ventas', 'detalle_ventas.id_venta', '=', 'ventas.id')->join('users', 'users.id', '=', 'ventas.id_usuario')->join('direcciones', 'direcciones.id', 'ventas.id_direccion')
+        ->join('municipios','municipios.id','=','direcciones.id_municipio')->join('departamentos','departamentos.id','=','municipios.id_departamento')
             ->join('metodos_pagos', 'metodos_pagos.id', '=', 'ventas.id_metodo_pago')->join('datos_ventas', 'datos_ventas.id_venta', '=', 'ventas.id')->join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')
             ->select('direcciones.direccion', 'direcciones.telefono', 'direcciones.facturacion', 'direcciones.referencia', 'ventas.total as totalVenta', 'ventas.estado as estadoVenta', 'datos_ventas.numero as numeroTransaccion',
-                'datos_ventas.imagen as imagenDatoVenta', 'ventas.id as id_venta', 'users.id as id_usuario','users.name as cliente')->where('ventas.id', '=', $id_decrypt)->distinct()->first();
-                $productosVenta = DetalleVenta::join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')->select('productos.nombre','detalle_ventas.precio_venta','detalle_ventas.oferta')
+                'datos_ventas.imagen as imagenDatoVenta', 'ventas.id as id_venta', 'users.id as id_usuario','users.name as cliente','users.email as correo','municipios.nombre as municipio','departamentos.nombre as departamento',
+                'direcciones.referencia_facturacion','metodos_pagos.nombre as metodo_pago','ventas.num_transaccion as numeroTransaccionVenta')->where('ventas.id', '=', $id_decrypt)->distinct()->first();
+                $productosVenta = DetalleVenta::join('productos', 'productos.id', '=', 'detalle_ventas.id_producto')->select('productos.nombre','detalle_ventas.precio_venta','detalle_ventas.oferta','productos.imagen','detalle_ventas.cantidad')
                 ->where('detalle_ventas.id_venta', '=', $id_decrypt)->get();
         //return $venta;
-        return view('backend.ventas.form')->with('ventas', $venta)->with('productos', $productosVenta);
+        return view('backend.ventas.form2')->with('ventas', $venta)->with('productos', $productosVenta);
     }
 
     /**
