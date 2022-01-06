@@ -14,19 +14,20 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/tiny-slider.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/assets/css/glightbox.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/assets/css/main.css')}}" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 
 <body>
   
 
-    <div class="preloader">
+    {{-- <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
                 <span></span>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     
 
@@ -40,7 +41,8 @@
     <script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/tiny-slider.js')}}"></script>
     <script src="{{asset('frontend/assets/js/glightbox.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/main.js')}}"></script>
+    {{-- <script src="{{asset('frontend/assets/js/main.js')}}"></script> --}}
+    @stack('scripts')
 </body>
 
 </html>

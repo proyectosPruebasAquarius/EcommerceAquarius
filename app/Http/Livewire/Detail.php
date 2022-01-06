@@ -16,12 +16,13 @@ class Detail extends Component
     
     public function updateQty($qty) 
     {
-        \Debugbar::info($qty);
+        /* \Debugbar::info($qty); */
     }
 
-    public function addToCart($p) {
+    public function addToCart($p, $value) {
 
-        
+        /* \Debugbar::info($p); */
+        $this->qty = $value;
         if (\Cart::isEmpty()) {
             if ($this->corroborate($p['id'], $this->qty)) {
                 # code...
@@ -113,7 +114,8 @@ class Detail extends Component
         }
     }
 
-    public function addAndRedirect($p) {
+    public function addAndRedirect($p, $value) {
+        $this->qty = $value;
         if (\Cart::isEmpty()) {
             if ($this->corroborate($p['id'], $this->qty)) {
                 # code...

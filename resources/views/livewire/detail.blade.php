@@ -1,5 +1,5 @@
 <div>
-    <div class="top-area">
+    <div class="top-area border-0">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12 col-12">
                 <div class="product-images">
@@ -41,9 +41,9 @@
                             <span>${{ $productos->precio_venta }}</span>
                         @endif
                     </h3>
-                    <p class="info-text">
+                    {{-- <p class="info-text">
                         {{ $productos->descripcion }}
-                    </p>
+                    </p> --}}
                     <div class="row">
                         {{-- <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group color-option">
@@ -92,10 +92,20 @@
                                 @if ($productos->stock > 0)
                                     @if (isset($localCart))
                                         @if($localCart['quantity'] < $productos->stock)
-                                            <input class="form-control" type="number" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1" wire:model.debounce.500ms="qty">
+                                            {{-- <input class="form-control" type="number" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1" wire:model.debounce.500ms="qty"> --}}
+                                            <div class="qtyI text-center">
+                                                <span class="minus bg-dark">-</span>
+                                                <input type="number" class="count w-50" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1">
+                                                <span class="plus bg-dark">+</span>
+                                            </div>
                                         @endif
                                     @else
-                                    <input class="form-control" type="number" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1" wire:model.debounce.500ms="qty">
+                                    {{-- <input class="form-control" type="number" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1" wire:model.debounce.500ms="qty"> --}}
+                                    <div class="qtyI text-center">
+                                                <span class="minus bg-dark">-</span>
+                                                <input type="number" class="count w-50" min="1" max="{{ $productos->stock }}" name="quantity" id="quantity" value="1">
+                                                <span class="plus bg-dark">+</span>
+                                            </div>
                                     @endif
                                    
                                 @endif
@@ -121,12 +131,12 @@
                                     @if ($productos->stock > 0)
                                         @if (isset($localCart))
                                             @if($localCart['quantity'] < $productos->stock)
-                                                <button class="btn bg-white text-dark border" style="width: 100%;" wire:click="addToCart({{ $productos }})">Agregar al Carrito</button>
+                                                <button class="btn bg-white text-dark border" style="width: 100%;" wire:click="addToCart({{ $productos }}, document.querySelector('.count').value)">Agregar al Carrito</button>
                                             @else
                                                 <button class="btn bg-white text-dark border" style="width: 100%;" disabled><i class="fas fa-ban"></i> Agotado</button>
                                             @endif
                                         @else
-                                            <button class="btn bg-white text-dark border" style="width: 100%;" wire:click="addToCart({{ $productos }})">Agregar al Carrito</button>
+                                            <button class="btn bg-white text-dark border" style="width: 100%;" wire:click="addToCart({{ $productos }}, document.querySelector('.count').value)">Agregar al Carrito</button>
                                         @endif
                                     @else
                                     <button class="btn bg-white text-dark border" style="width: 100%;" disabled><i class="fas fa-ban"></i> Agotado</button>
@@ -138,10 +148,10 @@
                                     @if ($productos->stock > 0)
                                         @if (isset($localCart))
                                             @if($localCart['quantity'] < $productos->stock)
-                                                <button class="btn" style="width: 100%" wire:click="addAndRedirect({{ $productos }})">Comprar -></button>
+                                                <button class="btn" style="width: 100%" wire:click="addAndRedirect({{ $productos }}, document.querySelector('.count').value)">Comprar -></button>
                                             @endif
                                         @else
-                                            <button class="btn" style="width: 100%" wire:click="addAndRedirect({{ $productos }})">Comprar -></button>
+                                            <button class="btn" style="width: 100%" wire:click="addAndRedirect({{ $productos }}, document.querySelector('.count').value)">Comprar -></button>
                                         @endif
                                     @endif
                                 </div>
@@ -162,4 +172,22 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+    <script>
+        $(document).ready(function(){
+		    $('.count').prop('disabled', true);
+   			$(document).on('click','.plus',function(){
+				if (parseInt(document.querySelector('.count').value) < parseInt(document.querySelector('.count').max)) {
+                    $('.count').val(parseInt($('.count').val()) + 1 );
+                }
+    		});
+        	$(document).on('click','.minus',function(){
+    			$('.count').val(parseInt($('.count').val()) - 1 );
+    				if ($('.count').val() == 0) {
+						$('.count').val(1);
+					}
+    	    	});
+ 		});
+    </script>
+    @endpush
 </div>

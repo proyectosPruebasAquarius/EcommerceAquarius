@@ -32,7 +32,7 @@ class LoadMoreReviews extends Component
         
         if (auth()->check()) {
             
-            $coments = Review::join('users', 'users.id', '=', 'opiniones.id_usuario')->select('opiniones.*', 'users.image', 'users.name')
+            $coments = Review::join('users', 'users.id', '=', 'opiniones.id_usuario')->select('opiniones.*', 'users.image', 'users.name', 'users.email')
             ->whereNotIn('opiniones.id_usuario', [auth()->user()->id])->where('opiniones.id_producto', $this->data)->latest()->simplePaginate($this->limitPerPage);
 
         } else {

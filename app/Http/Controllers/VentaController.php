@@ -6,11 +6,14 @@ use App\DatoVenta;
 use App\DetalleVenta;
 use App\Direccion;
 use App\Inventario;
+use App\Producto;
 use App\Mail\ContactUser;
 use App\Notifications\EstadoVenta;
 use App\Notifications\MinStock;
 use App\User;
 use App\Venta;
+use App\PedidoProveedor;
+use App\Facturacion;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Illuminate\Http\Request;
@@ -18,11 +21,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class VentaController extends Controller
 {
-    public function test()
-    {
-        return view('backend.ventas.test');
-    }
-
+   
 
 
     public function printPDF(Request $request)
@@ -84,35 +83,55 @@ class VentaController extends Controller
     public function store(Request $request)
     {
 
-        /* $all = $request->all();
+       /* $all = $request->all();
 
         return $all;*/
+
 
         $contentCart = \Cart::getContent();
         $totalCart = \Cart::getTotal();
         $id_direccion;
-        //return $contentCart;
 
         try {
             \DB::beginTransaction();
-
-            if ($request->id_direccion == "on" || empty($request->id_direccion)) {
-                $direccion = new Direccion;
-                $direccion->direccion = $request->direccion;
-                $direccion->first_name = $request->first_name;
-                $direccion->last_name = $request->last_name;
-                $direccion->email = $request->email;
-                $direccion->telefono = $request->telefono;
-                $direccion->id_user = auth()->user()->id;
-                $direccion->id_municipio = $request->id_municipio;
-                $direccion->facturacion = $request->facturacion;
-                $direccion->referencia = $request->referencia;
-                $direccion->save();
-                $id_direccion = $direccion->id;
-            } else {
-                $id_direccion = $request->id_direccion;
+            $id_direccion = null;
+            $facturacion = null;
+            if (empty($request->recoger_tienda)) {
+                /* direccion de envio */
+                if ($request->id_direccion == "on" || empty($request->id_direccion)) {
+                    $direccion = new Direccion;
+                    $direccion->direccion = $request->direccion;
+                    $direccion->first_name = $request->first_name;
+                    $direccion->last_name = $request->last_name;
+                    $direccion->email = $request->email;
+                    $direccion->telefono = $request->telefono;
+                    $direccion->id_user =  auth()->user()->id;
+                    $direccion->id_municipio = $request->id_municipio;
+                    /* $direccion->facturacion = $request->facturacion; */
+                    $direccion->referencia = $request->referencia;
+                    /* $direccion->referencia_facturacion = $request->referencia_facturacion; */
+                    $direccion->save();
+                    $id_direccion = $direccion->id;
+                } else {
+                    $id_direccion = $request->id_direccion;
+                }
+                
+                /* direccion facturacion */
+                if ($request->id_facturacion) {
+                    $facturacion = $request->id_facturacion;
+                } else {
+                    $fct = new Facturacion;
+                    $fct->direccion = $request->facturacion;
+                    $fct->id_municipio = $request->municipio_facturacion;
+                    $fct->id_user = auth()->user()->id;
+                    $fct->referencia = $request->referencia_facturacion;
+                    $fct->save();
+    
+                    $facturacion = $fct->id;
+                }
             }
 
+            /* venta */
             $venta = new Venta;
             $venta->id_usuario = auth()->user()->id;
             $venta->total = $totalCart;
@@ -120,39 +139,41 @@ class VentaController extends Controller
             $venta->id_direccion = $id_direccion;
             $venta->id_metodo_pago = $request->id_metodo_pago;
             $venta->estado = $request->nombre_metodo_pago == "Chivo Wallet" || $request->nombre_metodo_pago == "Banco Agricola" ? 0 : 1;
+            $venta->id_facturacion = $facturacion;
+            $venta->recoger_tienda = $request->recoger_tienda;
             $venta->save();
 
-            foreach ($contentCart as $ct) {
-                $detail = new DetalleVenta;
-                $detail->id_producto = $ct['attributes']['id_producto'];
-                $detail->id_venta = $venta->id;
-                $detail->cantidad = $ct->quantity;
-                $detail->precio_venta = $ct->price;
-                $oferta = null;
-                $oferta = Inventario::join('ofertas','ofertas.id','=','inventarios.id_oferta')->select('ofertas.nombre as ofertas')->where('inventarios.id',$ct->id)->first();
+            foreach ($contentCart as $ct ) {
+               $detail = new DetalleVenta;
+               $detail->id_producto = $ct['attributes']['id_producto'];
+               $detail->id_venta = $venta->id;
+               $detail->cantidad = $ct->quantity;
+               $detail->precio_venta = $ct->price;
+               $oferta = null;
+               $oferta = Inventario::join('ofertas','ofertas.id','=','inventarios.id_oferta')->select('ofertas.nombre as ofertas')->where('inventarios.id',$ct->id)->first();
+              
+               if ($oferta <> null) {
+                  $detail->oferta = $oferta->ofertas;
+               }else{
+                   $detail->oferta = $oferta;
+               }
+
                
-                if ($oferta <> null) {
-                   $detail->oferta = $oferta->ofertas;
-                }else{
-                    $detail->oferta = $oferta;
-                }
-
-                
-               $detail->save();
-
+              $detail->save();
+             
             }
             if ($request->nombre_metodo_pago == "Chivo Wallet" || $request->nombre_metodo_pago == "Banco Agricola") {
-
-                if ($request->hasfile('imagen')) {
+                
+                if ($request->hasfile('imagen')) {                    
                     $datoVenta = new DatoVenta;
                     $datoVenta->numero = $request->numero;
-                    $imageExt = time() . '.' . $request->imagen->extension();
-                    $imageName = $request->imagen->move(public_path('storage/imagenes/datosCliente/' . auth()->user()->id), $imageExt);
+                    $imageExt = time().'.'.$request->imagen->extension();
+                    $imageName = $request->imagen->move(public_path('storage/imagenes/datosCliente/'.auth()->user()->id), $imageExt);
                     //$url = \Storage::url($imageName);
-
+                    
                     $datoVenta->imagen = $imageExt;
                     $datoVenta->id_venta = $venta->id;
-                   $datoVenta->save();
+                    $datoVenta->save();
                 }
 
             }
@@ -162,13 +183,13 @@ class VentaController extends Controller
             \Notification::send($admins, new EstadoVenta($venta));
             \Cart::clear();
             \DB::commit();
-            return redirect('/profile')->with('correlative', $venta->num_transaccion);
+            return redirect('/profile')->with('correlative',$venta->num_transaccion);
         } catch (Throwable $e) {
             \DB::rollback();
             throw $e;
-
+            
         }
-
+        
     }
 
     /**
@@ -234,12 +255,22 @@ class VentaController extends Controller
             \Config::set('firts', 0); //$firts = 0;
             foreach ($productosVenta as $key => $p) {
 
-                $inventarioStock = Inventario::select('id as id_inventario', 'stock', 'min_stock')->where('id_producto', '=', $p->id_producto)->first();
-                $id_test = $inventarioStock->id_inventario;
+                $inventarioStock = Inventario::select('id as id_inventario', 'stock', 'min_stock','precio_compra')->where('id_producto', '=', $p->id_producto)->first();
+               
+              
+                $id_notify = $inventarioStock->id_inventario;
                 if ($inventarioStock->stock == $inventarioStock->min_stock || $inventarioStock->stock < $inventarioStock->min_stock) {
                     $admins = User::where('id_tipo_usuario', 1)->get();
                     // return $id_test;
-                    \Notification::send($admins, new MinStock($id_test));
+                   
+
+                    \Notification::send($admins, new MinStock($id_notify));
+                    
+                    $pedido_proveedor = new PedidoProveedor;
+                    $pedido_proveedor->id_producto =  $p->id_producto;                    
+                    $pedido_proveedor->precio = $inventarioStock->precio_compra;
+                    $pedido_proveedor->created_at = date("Y-m-d");
+                    $pedido_proveedor->save();
                 }
                 if ($p->cantidad > $inventarioStock->stock) {
                     \Config::set('firts', 1);

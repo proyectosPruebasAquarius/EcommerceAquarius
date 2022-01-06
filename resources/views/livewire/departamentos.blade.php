@@ -4,7 +4,7 @@
             <label>Departamento</label>
             <div class="form-input form">
                 <div class="select-items">
-                    <select class="form-control" wire:model="id_departamento">
+                    <select class="form-control" name="departamento" wire:model="id_departamento">
                         <option value="0" selected>Departamento</option>
                         @forelse ($departamentos as $departamento)
                             <option value="{{ $departamento->id }}" >{{ $departamento->nombre }}</option>  

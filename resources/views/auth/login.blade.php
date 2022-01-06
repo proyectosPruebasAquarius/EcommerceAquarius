@@ -40,6 +40,10 @@
                         <div class="form-group input-group">
                             <label for="reg-fn">Contraseña</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="password" id="reg-pass" name="password" required autocomplete="current-password">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input width-auto" id="showOrHide" onclick="showPass(this)">
+                                <label class="form-check-label">Mostrar contraseña</label>
+                            </div>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -78,7 +82,7 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="name">{{ __('Nombre de Usuario') }}</label>
+                                <label for="name">{{ __('Nombres y Apellidos') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -108,6 +112,10 @@
                             <div class="form-group">
                                 <label for="password">{{ __('Contraseña') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input width-auto" onclick="showPass(this)">
+                                    <label class="form-check-label">Mostrar contraseña</label>
+                                </div>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -191,6 +199,24 @@
                 }
             })
         });
+
+        let showPass = (e) => {
+            let password = document.querySelectorAll('input[name="password"]')
+            if (e.checked)
+            {
+                password.forEach(element => {
+                    if (element.type === "password") {
+                        element.type = "text"
+                    }
+                });
+            } else {
+                password.forEach(element => {
+                    if (element.type === "text") {
+                        element.type = "password"
+                    }
+                });
+            }
+        }
     </script>
 
 @endsection

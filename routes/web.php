@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Direccion;
 use App\MetodoPago;
 use App\Inventario;
+use App\Facturacion;
 use Barryvdh\DomPDF\Facade as PDF;
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Auth::routes(['verify' => true]);
 }); */
 Route::put('/direccion/update/{id}', 'DireccionController@update')->middleware('auth')->name('update.direccion');
 Route::delete('/direccion/delete/{id}', 'DireccionController@destroy')->middleware('auth')->name('delete.direccion');
-
+Route::delete('/direccion/delete/facturacion/{id}', 'DireccionController@destroyFacturacion')->middleware('auth')->name('delete.direccion.facturacion');
 Route::get('/contrasena/reset/{session}', 'ResetPassController@updatePassword')->name('pass.reset')->middleware('signed');
 Route::get('/productos/filter/{search}', function () {
     //session(['categoria' => true]);
@@ -135,9 +136,13 @@ Route::get('/checkout', function () {
     'direcciones.email', 'direcciones.telefono', 'direcciones.direccion', 'direcciones.id', 'direcciones.facturacion', 'direcciones.referencia', 'direcciones.referencia_facturacion', 'departamentos.id as id_departamento', 'municipios.id as id_municipio')
     ->get();
 
+    $facturaciones = Facturacion::where('direcciones_facturaciones.id_user', auth()->user()->id)->join('municipios', 'direcciones_facturaciones.id_municipio', '=', 'municipios.id')
+    ->join('departamentos', 'municipios.id_departamento', '=', 'departamentos.id')->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'direcciones_facturaciones.direccion',
+    'direcciones_facturaciones.referencia', 'direcciones_facturaciones.id')->get();
+
     $metodos_pagos = MetodoPago::get();
 
-    return view('frontend.checkout')->with('direcciones', $direcciones)->with('metodos_pagos', $metodos_pagos);
+    return view('frontend.checkout')->with('direcciones', $direcciones)->with('metodos_pagos', $metodos_pagos)->with('facturaciones', $facturaciones);
 })->middleware('auth')->name('checkout');
 
 Route::post('/save/direccion', 'ProductController@store');
@@ -220,6 +225,7 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::get('/inventarios/selectp','InventarioController@selectproducto');
     Route::get('/inventarios/selecto','InventarioController@selectoferta');
     Route::get('/inventarios/notificacion/{id}/{type}','InventarioController@notify');
+    Route::get('/inventarios/detail/{id}','InventarioController@detail');
     /*END INVENTARIOS */
 
 
@@ -247,8 +253,16 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::post('/ventas/enviar/mail','VentaController@mailuser');
     Route::post('/ventas/pdf','VentaController@printPDF');
    
-    Route::get('/test','VentaController@test');
+    Route::get('/test','PedidoProveedorController@test');
     /*END VENTAS BACKEND */
+
+
+    /*PEDIDOS PROVEEDORES*/
+    Route::get('/pedidos','PedidoProveedorController@index');
+    Route::get('/pedidos/edit/{id}','PedidoProveedorController@edit');
+    Route::put('/pedidos/update/{id}','PedidoProveedorController@update');
+    Route::post('/pedidos/pdf','PedidoProveedorController@pdf');   
+    /*END PEDIDOS PROVEEDORES*/
 });
 
 /*END BACKEND */

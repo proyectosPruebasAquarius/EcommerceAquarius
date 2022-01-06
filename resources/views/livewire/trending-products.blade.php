@@ -120,76 +120,88 @@
     </section> --}}
 
 
-    <section class="trending-product section">
+    @if(count($offerts) > 0)
+    <section class="special-offer section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Últimos Productos</h2>
+                        <h2>Ofertas Especiales</h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @forelse ($trending as $tr)
-
-                @php                    
+                @forelse ($offerts as $offert)
+               
+                @php
                     if (!\Cart::isEmpty()) {
-                        $localCartUTr = \Cart::get($tr->id);
-                        if ($localCartUTr) {
-                            $localCartTr[$loop->index] = \Cart::get($tr->id)->toArray();
+                        $localCartU = \Cart::get($offert->id);
+                        if ($localCartU) {
+                            $localCart[$loop->index] = \Cart::get($offert->id)->toArray();
                         }
                     } 
                 @endphp
-                <div class="col-lg-3 col-md-6 col-12">
+                    
+                    <div class="col-lg-3 col-md-6 col-12">
 
-                    <div class="single-product" style="cursor: pointer;" onclick="javascript:window.location.href='{{ route('detalle', Crypt::encrypt($tr->id_producto)) }}'">
-                        <div class="product-image">
-                            {{-- {{ json_decode($tr->imagen)[0] }} --}}
-                            <img src="{{ json_decode($tr->imagen)[0] }}" alt="#" width="300" height="300">
-                            {{--  <div class="button">
-                                @if ($tr->stock > 0)
-                                    @if (isset($localCartTr[$loop->index]))
-                                        @if($localCartTr[$loop->index]['quantity'] < $tr->stock)
-                                        <button wire:click="addToCart({{ $tr }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
+                        <div class="single-product" style="cursor: pointer;" onclick="javascript:window.location.href='{{ route('detalle', Crypt::encrypt($offert->id_producto)) }}'">
+                            <div class="product-image">
+                                <img src="{{ json_decode($offert->imagen)[0] }}" alt="#" width="100" height="250">
+                                <span class="sale-tag">{{ $offert->oferta }}%</span>
+                                {{-- <div class="button">
+                                    @if($offert->stock > 0)
+                                        @if (isset($localCart[$loop->index]))
+                                            @if($localCart[$loop->index]['quantity'] < $offert->stock)
+                                                <button wire:click="addToCart({{ $offert }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
+                                            @else
+                                            <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
+                                            @endif
                                         @else
-                                        <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
+                                        <button wire:click="addToCart({{ $offert }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
                                         @endif
                                     @else
-                                        <button wire:click="addToCart({{ $tr }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
+                                    <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
                                     @endif
-                                @else
-                                <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
-                                @endif
-                            </div> --}}
-                        </div>
-                        <div class="product-info">
-                            <span class="category">{{ $tr->categoria }}</span>
-                            <h4 class="title">
-                                <a href="{{ route('detalle', Crypt::encrypt($tr->id_producto)) }}">{{ $tr->nombre }}</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>{{ $tr->state == 1 ? 'Oferta $'. number_format($tr->precio_venta * (('100' - number_format($tr->oferta)) / '100'), 2, '.', '')  : '$'. $tr->precio_venta }}</span>
+                                </div> --}}
+                            </div>
+                            <div class="product-info">
+                                <span class="category">
+                                    <span class="badge rounded-pill bg-light text-dark">{{ $offert->categoria }}</span>
+                                    <span class="badge rounded-pill text-dark" style="background: #fcde67">{{ $offert->marca }}</span>
+                                </span>
+                                <h4 class="title">
+                                    <a href="{{ route('detalle', Crypt::encrypt($offert->id_producto)) }}">{{ $offert->nombre }}</a>
+                                </h4>
+                                {{-- <ul class="review">
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><span>5.0 Review(s)</span></li>
+                                </ul> --}}
+                                <div class="price">
+                                    <span>{{ $offert->state == 1 ? 'Oferta $'. number_format($offert->precio_venta * (('100' - number_format($offert->oferta)) / '100'), 2, '.', '')  : '$'. $offert->precio_venta }}</span>
+                                    <span class="discount-price">${{ $offert->precio_venta }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                   
+                   
                 @empty
-                    {{ __('No se encontraron productos.') }}
+                    <p class="text-center">{{ __('No se encontraron productos en oferta') }}</p>
                 @endforelse
+
+
+
 
             </div>
         </div>
     </section>
+    @endif
 
 
     <section class="banner section">
@@ -221,86 +233,86 @@
         </div>
     </section>
 
-    @if(count($offerts) > 0)
-    <section class="special-offer section">
+    
+    <section class="trending-product section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Ofertas Especiales</h2>
+                        <h2>Últimos Productos</h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @forelse ($offerts as $offert)
-               
-                @php
+                @forelse ($trending as $tr)
+
+                @php                    
                     if (!\Cart::isEmpty()) {
-                        $localCartU = \Cart::get($offert->id);
-                        if ($localCartU) {
-                            $localCart[$loop->index] = \Cart::get($offert->id)->toArray();
+                        $localCartUTr = \Cart::get($tr->id);
+                        if ($localCartUTr) {
+                            $localCartTr[$loop->index] = \Cart::get($tr->id)->toArray();
                         }
                     } 
                 @endphp
-                    
-                    <div class="col-lg-3 col-md-3 col-12">
+                <div class="col-lg-3 col-md-6 col-12">
 
-                        <div class="single-product" style="cursor: pointer;" onclick="javascript:window.location.href='{{ route('detalle', Crypt::encrypt($offert->id_producto)) }}'">
-                            <div class="product-image">
-                                <img src="{{ json_decode($offert->imagen)[0] }}" alt="#" width="100" height="250">
-                                <span class="sale-tag">{{ $offert->oferta }}%</span>
-                                {{-- <div class="button">
-                                    @if($offert->stock > 0)
-                                        @if (isset($localCart[$loop->index]))
-                                            @if($localCart[$loop->index]['quantity'] < $offert->stock)
-                                                <button wire:click="addToCart({{ $offert }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
-                                            @else
-                                            <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
-                                            @endif
+                    <div class="single-product" style="cursor: pointer;" onclick="javascript:window.location.href='{{ route('detalle', Crypt::encrypt($tr->id_producto)) }}'">
+                        <div class="product-image">
+                            {{-- {{ json_decode($tr->imagen)[0] }} --}}
+                            <img src="{{ json_decode($tr->imagen)[0] }}" alt="#" width="300" height="300">
+                            @if ($tr->state)
+                            <span class="sale-tag">{{ $tr->oferta }}%</span>
+                            @endif
+                            {{--  <div class="button">
+                                @if ($tr->stock > 0)
+                                    @if (isset($localCartTr[$loop->index]))
+                                        @if($localCartTr[$loop->index]['quantity'] < $tr->stock)
+                                        <button wire:click="addToCart({{ $tr }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
                                         @else
-                                        <button wire:click="addToCart({{ $offert }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
+                                        <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
                                         @endif
                                     @else
-                                    <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
+                                        <button wire:click="addToCart({{ $tr }})" class="btn"><i class="lni lni-cart"></i> Agregar al Carrito</button>
                                     @endif
-                                </div> --}}
-                            </div>
-                            <div class="product-info">
-                                <span class="category">{{ $offert->categoria }}</span>
-                                <h4 class="title">
-                                    <a href="{{ route('detalle', Crypt::encrypt($offert->id_producto)) }}">{{ $offert->nombre }}</a>
-                                </h4>
-                                <ul class="review">
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><span>5.0 Review(s)</span></li>
-                                </ul>
-                                <div class="price">
-                                    <span>{{ $offert->state == 1 ? 'Oferta $'. number_format($offert->precio_venta * (('100' - number_format($offert->oferta)) / '100'), 2, '.', '')  : '$'. $offert->precio_venta }}</span>
-                                    <span class="discount-price">${{ $offert->precio_venta }}</span>
-                                </div>
+                                @else
+                                <button class="btn" disabled><i class="fas fa-ban"></i> Agotado</button>
+                                @endif
+                            </div> --}}
+                        </div>
+                        <div class="product-info">
+                            <span class="category">
+                                <span class="badge rounded-pill bg-light text-dark">{{ $tr->categoria }}</span>
+                                <span class="badge rounded-pill text-dark" style="background: #fcde67">{{ $tr->marca }}</span>
+                            </span>
+                            <h4 class="title">
+                                <a href="{{ route('detalle', Crypt::encrypt($tr->id_producto)) }}">{{ $tr->nombre }}</a>
+                            </h4>
+                            {{-- <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> --}}
+                            <div class="price">
+                                <span>{{ $tr->state == 1 ? 'Oferta $'. number_format($tr->precio_venta * (('100' - number_format($tr->oferta)) / '100'), 2, '.', '')  : '$'. $tr->precio_venta }}</span>
+                                @if ($tr->state)
+                                <span class="discount-price">${{ $tr->precio_venta }}</span>
+                                @endif
                             </div>
                         </div>
-
                     </div>
-                   
-                   
+
+                </div>
                 @empty
-                    <p class="text-center">{{ __('No se encontraron productos en oferta') }}</p>
+                    {{ __('No se encontraron productos.') }}
                 @endforelse
-
-
-
 
             </div>
         </div>
     </section>
-    @endif
-
 
 
     {{-- <section class="home-product-list section">

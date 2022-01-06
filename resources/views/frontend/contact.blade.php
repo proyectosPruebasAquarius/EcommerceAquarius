@@ -1,8 +1,14 @@
 @extends('app')
 
 @section('title',  'Contactanos')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+<li class="breadcrumb-item active" aria-current="page">Contáctanos</li>
+
+@endsection
+
 @section('content')
-<div class="breadcrumbs">
+{{-- <div class="breadcrumbs">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6 col-12">
@@ -18,7 +24,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <section id="contact-us" class="contact-us section">

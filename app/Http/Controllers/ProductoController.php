@@ -179,6 +179,8 @@ class ProductoController extends Controller
             'imagen.*.mimes' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
 
         ];
+        $this->validate($request, $rules, $messages);
+
         $id_decrypt = Crypt::decrypt($id);
 
         $producto = Producto::where('id','=',$id_decrypt)->first();

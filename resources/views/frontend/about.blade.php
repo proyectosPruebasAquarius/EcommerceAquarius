@@ -1,5 +1,10 @@
 @extends('app')
 
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+<li class="breadcrumb-item active" aria-current="page">Sobre Nosotros</li>
+
+@endsection
 
 @section('content')
 <section class="about-us section">

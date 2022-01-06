@@ -35,18 +35,20 @@ class TrendingProducts extends Component
     {
         $this->trending = Inventario::join('productos', 'inventarios.id_producto', '=', 'productos.id')
         ->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
-        ->join('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')
-        ->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
+        ->leftJoin('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')
+        ->leftJoin('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
+        ->join('marcas', 'productos.id_marca', '=', 'marcas.id')
         ->select('inventarios.*', 'productos.nombre', 'productos.imagen', 'categorias.nombre as categoria', 'ofertas.nombre as oferta', 'ofertas.tiempo_limite', 'productos.descripcion', 
-        'tipos_ofertas.nombre as tipo_oferta', 'ofertas.estado as state')->where('inventarios.estado','=',1)->latest()->limit(8)->get();
+        'tipos_ofertas.nombre as tipo_oferta', 'ofertas.estado as state', 'marcas.nombre as marca')->where('inventarios.estado','=',1)->latest()->limit(8)->get();
 
         $this->offerts = Inventario::join('productos', 'inventarios.id_producto', '=', 'productos.id')
         ->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
         ->join('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')
+        ->join('marcas', 'productos.id_marca', '=', 'marcas.id')
         ->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
-        ->select('inventarios.*', 'ofertas.nombre as oferta', 'ofertas.tiempo_limite', 'productos.nombre', 'productos.imagen', 'productos.descripcion', 'categorias.nombre as categoria', 'tipos_ofertas.nombre as tipo_oferta', 'ofertas.estado as state')
+        ->select('inventarios.*', 'ofertas.nombre as oferta', 'ofertas.tiempo_limite', 'productos.nombre', 'productos.imagen', 'productos.descripcion', 'categorias.nombre as categoria', 'tipos_ofertas.nombre as tipo_oferta', 'ofertas.estado as state', 'marcas.nombre as marca')
         ->where('ofertas.estado', 1)->where('inventarios.estado','=',1)
-        ->latest()->limit(5)->get();
+        ->latest()->limit(8)->get();
 
         $this->marcas = Marca::select('imagen')->get();
 

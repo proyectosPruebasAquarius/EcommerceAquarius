@@ -6,8 +6,22 @@
             <div class="card text-center border-0">
                 <div class="card-body">
                     {{ $p->name }}
-                    <img class="img-thumbnail rounded float-start" src="{{ $p->image }}" alt="{{ $p->name }}"
+                    <img class="img-thumbnail rounded float-start" src="{{ asset('frontend/assets/images/no-image-avatar.png') }}" alt="User image"
                         width="100px" height="100px">
+                        @auth
+                            @if (auth()->user()->id_tipo_usuario === 1)
+                            <br>
+                            {{ $p->email }}
+                            <form method="POST" action="{{ route('review.delete', $p->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="btn btn-outline-danger rounded-circle btn-sm"
+                                    onclick="return confirm('¿Estas seguro que deseas eliminar el comentario?')"><i
+                                        class="lni lni-trash-can"></i></button>
+                            </form>
+                            @endif
+                        @endauth
                     <div class="row">
                         <div class="col">
                             <div class='card_right__rating'>
@@ -160,7 +174,7 @@
     @endforeach
     <div class="d-flex justify-content-center">
         {{-- $coments->links('vendor.pagination.pagination-custom-load-more') --}}
-        
+
         @if($limitPerPage !== 5)
         <nav>
             <ul class="pagination">
@@ -170,7 +184,7 @@
             </ul>
         </nav>
         @endif
-        
+
         {{ $coments->links('vendor.livewire.custom-paginate-simple') }}
     </div>
 </div>

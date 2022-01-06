@@ -32,224 +32,288 @@
 
 <body>
 
-    <div class="preloader">
+    {{-- <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
                 <span></span>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
-    <header class="header navbar-area">
+    <header class="header navbar-area">        
 
-        <div class="topbar">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-left">
-                            Mi Tiendita
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-middle">
-                            <ul class="useful-links">
-                                <li><a href="{{ url('/') }}">Inicio</a></li>
-                                <li><a href="{{ url('sobre-nosotros') }}">Sobre Nosotros</a></li>
-                                <li><a href="{{ url('contacto') }}">Contactanos</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-end">
-
-                            @auth
-                            @if (Auth::user()->id_tipo_usuario == 1)
-                            <div class="user">
-                                <a href="{{ url('admin/inicio') }}">{{ __('Administración') }}</a>
+        <div id="navPrincipal">
+            <div class="header-middle">
+                <div class="container">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-2 d-md-none">
+                                @livewire('categorie-preview')
                             </div>
-                            | &nbsp;
-                            @endif
-
-                            <div class="user">
-                                <div class="dropdown">
-                                    <button class="btn dropdown-toggle btn-sm mb-1" type="button" id="drMenu"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span {{-- style="color: #0d6efd" --}}>{{ auth()->user()->name }}</span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="drMenu">
-                                        <li><a class="dropdown-item" href="{{ route('profile') }}"><i
-                                                    class="lni lni-user"></i> Perfil</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li>{{-- LogOut Form --}}
-                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
-                                                <i class="fal fa-sign-out-alt"></i> Cerrar sesión
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                class="d-none">
-                                                @csrf
-                                            </form>
-                                            {{-- End LogOut Form --}}
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                {{-- Bienvenido
-                                &nbsp; --}}
-
+                            <div class="col-lg-3 col-md-3 col-2 ">
+        
+                                {{-- @livewire('scroll-category') --}}
+                                <a class="navbar-brand" href="{{ url('/') }}">
+                                    <h3 class="d-inline text-danger">Mi Tiendita</h3>{{-- <img src="{{ asset('frontend/assets/images/logo/logo.svg') }}"
+                                        alt="Logo"> --}}
+                                </a>
+        
                             </div>
-
-                            @endauth
-
-                            @guest
-                            <ul class="user-login">
-                                <li>
-                                    <a href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
-                                </li>
-                                {{-- <li>
-                                    <a href="{{ route('register') }}">{{ __('Registrar') }}</a>
-                                </li>--}}
-                            </ul>
-                            @endguest
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="header-middle">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3 col-7">
-
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            <h3>Mi Tiendita</h3>{{-- <img src="{{ asset('frontend/assets/images/logo/logo.svg') }}"
-                                alt="Logo"> --}}
-                        </a>
-
-                    </div>
-                    <div class="col-lg-5 col-md-7 d-xs-none">
-
-                        @livewire('search-bar')
-
-                    </div>
-                    <div class="col-lg-4 col-md-2 col-5">
-                        <div class="middle-right-area">
-                            <div class="nav-hotline">
-                                <i class="lni lni-phone"></i>
-                                <h3>Número de télefono:
-                                    <span>(+503) 2323 2323</span>
-                                </h3>
-                            </div>
-                            <div class="navbar-cart">
-                                <div class="wishlist">
-                                    <a href="javascript:void(0)">
-                                        <i class="lni lni-heart"></i>
-                                        <span class="total-items">0</span>
-                                    </a>
-                                </div>
-                                <div class="cart-items">
-                                    <!--<a href="javascript:void(0)" class="main-btn">
-                                            <i class="lni lni-cart"></i>
-                                            <span class="total-items">2</span>
-                                        </a>
-
-                                        <div class="shopping-item">
-                                            <div class="dropdown-cart-header">
-                                                <span>2 Items</span>
-                                                <a href="cart.html">View Cart</a>
-                                            </div>
-                                            <ul class="shopping-list">
+                            <div class="col-6 d-md-none text-end">
+                                @auth
+                                <div class="user">
+                                    <div>
+                                        <div class="dropdown">
+                                            <button class="btn rounded-circle border dropdown-toggle btn-sm mb-1" type="button" id="drMenu"
+                                                data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px; width: 40px">
+                                                <i {{-- style="color: #0d6efd" --}} class="fas fa-user"></i>
+                                            </button>
+                                            <ul class="dropdown-menu " aria-labelledby="drMenu">
                                                 <li>
-                                                    <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
-                                                    <div class="cart-img-head">
-                                                        <a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h4><a href="product-details.html">
-                                                            Apple Watch Series 6</a></h4>
-                                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                                    </div>
+                                                    @if (Auth::user()->id_tipo_usuario == 1)
+                                                    <a class="dropdown-item badge text-wrap w-100 border-0 text-start text-dark" href="{{ url('admin/inicio') }}" style="border-radius: 5px  !important;"><i class="fal fa-user-secret d-inline"></i> <p class="d-inline">{{ __('Administración') }}</p></a>
+                                                    @endif
+                                                </li>
+                                                <li><a class="dropdown-item badge text-wrap w-100 border-0 text-start text-dark" href="{{ route('profile') }}" style="border-radius: 5px  !important;"><i
+                                                            class="lni lni-user d-inline text-dark"></i> <p class="d-inline">Perfil</p></a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
-                                                    <div class="cart-img-head">
-                                                        <a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                                    </div>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li>{{-- LogOut Form --}}
+                                                    <a class="dropdown-item badge text-wrap w-100 border-0 text-start text-dark" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();" style="border-radius: 5px  !important;">
+                                                        <i class="fal fa-sign-out-alt d-inline"></i> <p class="d-inline">Cerrar sesión</p>
+                                                    </a>
+        
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                        class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                    {{-- End LogOut Form --}}
                                                 </li>
                                             </ul>
-                                            <div class="bottom">
-                                                <div class="total">
-                                                    <span>Total</span>
-                                                    <span class="total-amount">$134.00</span>
+                                        </div>
+                                    </div>
+    
+                                    {{-- Bienvenido
+                                    &nbsp; --}}
+    
+                                </div>
+                                @endauth
+                                @guest
+                                    <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                                @endguest
+                            </div>
+                            <div class="col-2 d-md-none">
+                                <div class="navbar-cart">
+                                    <div class="cart-items">
+                                        @if (request()->route()->uri() !== 'carrito')
+                                        @livewire('preview-cart')
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-7 d-xs-none">
+        
+                                @livewire('search-bar')
+        
+                            </div>
+                            <div class="col-lg-4 col-md-2 d-xs-none">
+                                <div class="middle-right-area">
+                                    <div class="nav-hotline">
+                                        <i class="lni lni-phone"></i>
+                                        <h3>Número de télefono:
+                                            <span>(+503) 2323 2323</span>
+                                        </h3>
+                                    </div>
+                                    <div class="navbar-cart">
+                                        <div class="wishlist">
+                                            <div class="top-end">
+    
+                                                @auth
+                                               {{--  @if (Auth::user()->id_tipo_usuario == 1)
+                                                <div class="user">
+                                                    <a class="w-auto fs-6" href="{{ url('admin/inicio') }}">{{ __('Administración') }}</a>
                                                 </div>
-                                                <div class="button">
-                                                    <a href="checkout.html" class="btn animate">Checkout</a>
+                                                | &nbsp;
+                                                @endif --}}
+                    
+                                                <div class="user">
+                                                    <div>
+                                                        <div class="dropdown">
+                                                            <button class="btn rounded-circle border dropdown-toggle btn-sm mb-1" type="button" id="drMenu"
+                                                                data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px; width: 40px">
+                                                                <i {{-- style="color: #0d6efd" --}} class="fas fa-user"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu " aria-labelledby="drMenu">
+                                                                <li>
+                                                                    @if (Auth::user()->id_tipo_usuario == 1)
+                                                                    <a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ url('admin/inicio') }}" style="border-radius: 5px  !important;"><i class="fal fa-user-secret d-inline"></i> <p class="d-inline">{{ __('Administración') }}</p></a>
+                                                                    @endif
+                                                                </li>
+                                                                <li><a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ route('profile') }}" style="border-radius: 5px  !important;"><i
+                                                                            class="lni lni-user d-inline"></i> <p class="d-inline">Perfil</p></a>
+                                                                </li>
+                                                                <li>
+                                                                    <hr class="dropdown-divider">
+                                                                </li>
+                                                                <li>{{-- LogOut Form --}}
+                                                                    <a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                                        document.getElementById('logout-form').submit();" style="border-radius: 5px  !important;">
+                                                                        <i class="fal fa-sign-out-alt d-inline"></i> <p class="d-inline">Cerrar sesión</p>
+                                                                    </a>
+                        
+                                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                                        class="d-none">
+                                                                        @csrf
+                                                                    </form>
+                                                                    {{-- End LogOut Form --}}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                    
+                                                    {{-- Bienvenido
+                                                    &nbsp; --}}
+                    
                                                 </div>
+                    
+                                                @endauth
+                    
+                                                @guest
+                                                <ul class="user-login">
+                                                    <li>
+                                                        <a href="{{ route('login') }}" class="w-auto h-auto badge text-wrap text-center border-0" style="border-radius: 5px  !important;"><p >Iniciar Sesión</p></a>
+                                                        
+                                                    </li>
+                                                    {{-- <li>
+                                                        <a href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                                                    </li>--}}
+                                                </ul>
+                                                @endguest
+                    
                                             </div>
-                                        </div>-->
-
-
-                                    @if (request()->route()->uri() !== 'carrito')
-                                    @livewire('preview-cart')
-                                    @endif
-
+                                        </div>
+                                        <div class="cart-items">
+                                            <!--<a href="javascript:void(0)" class="main-btn">
+                                                    <i class="lni lni-cart"></i>
+                                                    <span class="total-items">2</span>
+                                                </a>
+        
+                                                <div class="shopping-item">
+                                                    <div class="dropdown-cart-header">
+                                                        <span>2 Items</span>
+                                                        <a href="cart.html">View Cart</a>
+                                                    </div>
+                                                    <ul class="shopping-list">
+                                                        <li>
+                                                            <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
+                                                            <div class="cart-img-head">
+                                                                <a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                                                            </div>
+                                                            <div class="content">
+                                                                <h4><a href="product-details.html">
+                                                                    Apple Watch Series 6</a></h4>
+                                                                <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
+                                                            <div class="cart-img-head">
+                                                                <a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+                                                            </div>
+                                                            <div class="content">
+                                                                <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
+                                                                <p class="quantity">1x - <span class="amount">$35.00</span></p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="bottom">
+                                                        <div class="total">
+                                                            <span>Total</span>
+                                                            <span class="total-amount">$134.00</span>
+                                                        </div>
+                                                        <div class="button">
+                                                            <a href="checkout.html" class="btn animate">Checkout</a>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+        
+        
+                                            @if (request()->route()->uri() !== 'carrito')
+                                            @livewire('preview-cart')
+                                            @endif
+        
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="container">
-            <div class="row align-items-center" style="height:60px">
-                <div class="col-lg-8 col-md-6 col-12">
-                    <div class="nav-inner">
-
-                        @livewire('categorie-preview')
-
-
-
-
+    
+    
+            <div class="container">
+                <div class="row align-items-center" style="height:60px" id="header-latest">
+                    <div class="col-lg-2 col-md-1 col-12 d-none d-md-block">
+                        <div class="nav-inner">
+    
+                            @livewire('categorie-preview')
+    
+    
+    
+    
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="nav-social">
-                        <h5 class="title">Nuestras redes sociales:</h5>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)" class="facebook"><i
-                                        class="lni lni-facebook-filled"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="twitter"><i
-                                        class="lni lni-twitter-original"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                            </li>
-                            <li>
-                                {{-- <a href="javascript:void(0)"><i class="lni lni-skype"></i></a> --}}
-                                <a href="https://wa.me/50377948668" target="_blank" class="whatsapp"><i
-                                        class="lni lni-whatsapp"></i></a>
-                            </li>
-                        </ul>
+                    <div class="col-lg-4 col-md-6 col-12 mt-3 ">
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb" style="font-size: 13px">
+                              @yield('breadcrumb')
+                            </ol>
+                          </nav>
                     </div>
-
+                    <div class="col-lg-6 col-md-5 col-12">
+    
+                        <div class="nav-social">
+                            <h5 class="title">Nuestras redes sociales:</h5>
+                            <ul>
+                                <li>
+                                    <a href="https://m.me/110812464804606" target="_blank" class="facebook"><i
+                                            class="lni lni-facebook-filled"></i></a>
+                                </li>
+                                {{-- <li>
+                                    <a href="javascript:void(0)" class="twitter"><i
+                                            class="lni lni-twitter-original"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
+                                </li> --}}
+                                <li>
+                                    {{-- <a href="javascript:void(0)"><i class="lni lni-skype"></i></a> --}}
+                                    <a href="https://wa.me/50377948668" target="_blank" class="whatsapp"><i
+                                            class="lni lni-whatsapp"></i></a>
+                                </li>
+                               
+                                {{-- <li class="d-block-inline d-md-none">
+                                    <div class="navbar-cart">
+                                        <div class="cart-items">
+                                            @if (request()->route()->uri() !== 'carrito')
+                                            @livewire('preview-cart')
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li> --}}
+                                {{-- <li>
+                                    <h5 class="title">Preguntas Frecuentes</h5>
+                                </li> --}}
+                            </ul>
+                        </div>
+    
+                    </div>
                 </div>
             </div>
         </div>
@@ -428,14 +492,14 @@
                 navbarToggler.addEventListener('click', function() { navbarToggler.classList.toggle("active"); });
             })(); */
 
-           window.onscroll =  () => {
+            window.onscroll =  () => {
                if ('{{ request()->route()->getName() }}' != 'carrito') {
                     if(window.scrollY > 0){
-                        document.querySelector('.header-middle').classList.add('fixed-top')
-                        document.querySelector('.header-middle').classList.add('bg-white')
+                       let bar = document.getElementById('navPrincipal');
+                       bar.classList.add('bg-white', 'fixed-top')
                     }else{
-                        document.querySelector('.header-middle').classList.remove('fixed-top')
-                        document.querySelector('.header-middle').classList.remove('bg-white')
+                        let bar = document.getElementById('navPrincipal');
+                        bar.classList.remove('bg-white', 'fixed-top')
                     }     
                }
                            
@@ -450,6 +514,12 @@
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl)
 })
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 
 
                 document.addEventListener("DOMContentLoaded", function(){

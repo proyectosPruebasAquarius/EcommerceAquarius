@@ -70,12 +70,13 @@
                             <td>{{$inventario->codigo}}</td>
                             <td>{{$inventario->producto}}</td>
                             <td>
-                                {{$inventario->precio_compra}}
+                               $ {{$inventario->precio_compra}}
                             </td>
-                            <td>{{$inventario->precio_venta}}</td>
+                            <td>
+                                $ {{$inventario->precio_venta}}</td>
                             <td>
                                 @if ($inventario->precio_descuento != null)
-                                {{$inventario->precio_descuento}}
+                                $ {{$inventario->precio_descuento}}
                                 @else
                                     Sin precio de oferta
                                 @endif
@@ -122,7 +123,9 @@
                                             
                                             <button type="submit" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fal fa-trash-alt"></i></button>
                                           </form>
-                                        
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="inventarios/detail/{{$parameter}}" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Detalle del Inventario"><i class="fal fa-eye"></i></a>
                                     </li>
                                 </ul>
                             </td>                         

@@ -1,17 +1,17 @@
 (function() {
-    window.onload = function() {
-        window.setTimeout(fadeout, 500);
+    if (location.pathname != '/carrito' && location.pathname != '/login') {
 
-        if (location.pathname != '/carrito' && location.pathname != '/login') {
-
-            if(window.scrollY > 0){
-                document.querySelector('.header-middle').classList.add('fixed-top')
-                document.querySelector('.header-middle').classList.add('bg-white')
-            }else{
-                document.querySelector('.header-middle').classList.remove('fixed-top')
-                document.querySelector('.header-middle').classList.remove('bg-white')
-            }
+        if(window.scrollY > 0){
+            let bar = document.getElementById('navPrincipal');
+            bar.classList.add('bg-white', 'fixed-top')
+        }else{
+            let bar = document.getElementById('navPrincipal');
+            bar.classList.remove('bg-white', 'fixed-top')
         }
+
+        /* if (document.getElementById('menuScroll').classList.contains('active')) {
+            document.getElementById('menuScroll').classList.remove('active', 'show')
+        } */
     }
 
     function fadeout() {

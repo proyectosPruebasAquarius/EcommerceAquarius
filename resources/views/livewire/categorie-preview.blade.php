@@ -1,5 +1,5 @@
 <div>
-    <div class="dropdown d-none d-md-block">
+    <div class="dropdown d-none d-lg-block">
         <button class="btn bg-transparent" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false">
             <i class="lni lni-menu"></i> <span>Todas las categorías</span>
@@ -37,7 +37,7 @@
         </ul>
     </div>
 
-    <nav class="navbar  d-sm-block d-md-none d-xl-none ">
+    <nav class="navbar  d-sm-block d-md-block d-lg-none d-xl-none ">
                                
         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="toggler-icon"></span>
@@ -49,7 +49,7 @@
             {{-- <a href="/productos" class="cat-button me-5" style="margin-left: -300px">Todas las Categorias</a> --}}
         </div>
         
-        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse sub-menu-bar w-auto" id="navbarSupportedContent">
            
             <ul id="nav" class="navbar-nav ms-auto">
                 <li><a href="{{ url('/productos')}}" class="dropdown-item" style="background-color: #f9f9f9 !important;">Todos los Productos</a></li>

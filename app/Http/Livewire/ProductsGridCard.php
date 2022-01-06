@@ -73,6 +73,9 @@ class ProductsGridCard extends Component
             if (!empty($cat) && !empty($this->categoriaFilt)) {
                 
                 $this->reset('categoriaFilt');
+                if ($this->sub_categoria) {
+                    $this->reset('sub_categoria');
+                }
 
             } else {
                 
@@ -82,7 +85,19 @@ class ProductsGridCard extends Component
             
         } else {
             
-            $this->categoriaFilt = $cat ? $cat : null;
+            if ($this->sub_categoria) {
+                # code...
+                
+                if ($cat) {
+                    # code...
+                    $this->categoriaFilt = $cat;
+                } else {
+                    $this->reset('sub_categoria');
+                    $this->reset('categoriaFilt');
+                }
+            } else {
+                $this->categoriaFilt = $cat ? $cat : null;
+            }
 
         }
         
@@ -106,7 +121,10 @@ class ProductsGridCard extends Component
 
     public function subCategoria($subCat) 
     {
-        if ($subCat == $this->sub_categoria) {
+        if ($subCat == $this->sub_categoria && request()->session()->exists('newSubCat')) {
+            request()->session()->forget('newSubCat');
+            return redirect()->to('/productos');
+        } elseif ($subCat == $this->sub_categoria) {
             
             if (!empty($this->sub_categoria) && !empty($subCat)) {
                 
@@ -267,6 +285,16 @@ class ProductsGridCard extends Component
     {
         request()->session()->forget('newSubCat');
         return redirect()->to('/productos');
+    }
+
+    public function listOrGrid($view) 
+    {
+       /*  if (request()->session()->has('listOrGrid')) {
+            
+        } else { */
+        session(['listOrGrid' =>  $view]);
+        
+        
     }
 
     public function render()

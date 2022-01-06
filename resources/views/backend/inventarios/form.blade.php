@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-md-2 col-12">
                                     <div class="form-group">
-                                        <label for="country-floating" class="form-label">Stock Minimo</label>
+                                        <label for="country-floating" class="form-label">Stock Mínimo</label>
                                         <input type="number" class="form-control" name="min_stock" min=0
                                             placeholder="Stock Minimo del producto">
                                         <div class="form-text">
@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="col-md-2 col-12">
                                     <div class="form-group">
-                                        <label for="country-floating" class="form-label">Stock Minimo del
+                                        <label for="country-floating" class="form-label">Stock Mínimo del
                                             producto</label>
                                         <input type="number" class="form-control" name="min_stock" min=0
                                             value="{{$inventario->min_stock}}">

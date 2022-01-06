@@ -1,9 +1,15 @@
 @extends('app')
 
 @section('title',  'Ubicación')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+<li class="breadcrumb-item active" aria-current="page">Nuestra Ubicación</li>
+
+@endsection
+
 @section('content')
 
-<div class="breadcrumbs">
+{{-- <div class="breadcrumbs">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6 col-12">
@@ -19,7 +25,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- End Breadcrumbs -->
 
 <div class="container">

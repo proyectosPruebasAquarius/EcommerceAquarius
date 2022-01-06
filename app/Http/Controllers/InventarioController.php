@@ -12,6 +12,22 @@ use Illuminate\Support\Facades\View;
 
 class InventarioController extends Controller
 {
+    public function detail($id)
+    {
+        $id_decrypt = Crypt::decrypt($id);
+        $inventario = Inventario::join('productos', 'productos.id', '=', 'inventarios.id_producto')->join('proveedores','proveedores.id','=','productos.id_proveedor')->join('marcas','marcas.id','=','productos.id_marca')
+        ->join('categorias','categorias.id','=','productos.id_categoria')->join('sub_categorias','sub_categorias.id','=','productos.id_subcat')   ->leftJoin('ofertas', 'ofertas.id', '=', 'inventarios.id_oferta')
+            ->select('inventarios.estado', 'inventarios.id as id_inventario', 'inventarios.precio_compra', 'inventarios.precio_venta', 'inventarios.codigo', 'inventarios.stock', 
+            'inventarios.min_stock', 'ofertas.id as id_oferta', 'ofertas.nombre as oferta', 'productos.id as id_producto', 'productos.nombre as producto','proveedores.nombre as proveedor','productos.imagen',
+            'marcas.nombre as marca','categorias.nombre as categoria','sub_categorias.nombre as subcat')
+            ->where('inventarios.id', '=', $id_decrypt)->get();
+        //return $inventario;
+        return view('backend.inventarios.detail')->with('inventarios', $inventario);
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      *

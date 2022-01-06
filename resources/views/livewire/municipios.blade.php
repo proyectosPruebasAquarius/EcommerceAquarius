@@ -5,7 +5,7 @@
             @forelse ($municipios as $municipio)
             <option value="{{ $municipio->id }}">{{ $municipio->nombre }}</option>
             @empty
-            <option disabled selected>Seleccione el departamento</option>
+            <option disabled selected>Seleccione un departamento</option>
             @endforelse
         </select>
     </div>

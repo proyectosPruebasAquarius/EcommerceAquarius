@@ -4,11 +4,11 @@
 
             <div class="product-sidebar">
 
-                <div class="single-widget search">
-                    <h3>Buscar Producto</h3>
+                <div class="single-widget search" style="padding: 22px !important">
+                    {{-- <h3>Buscar Producto</h3> --}}
                     
                     <form action="/productos" method="GET">
-                        <input type="text" placeholder="Buscar..." wire:model="search"  >
+                        <input type="text" placeholder="Buscar Producto..." wire:model="search"  >
                         {{-- <buttontype="submit"id="btnSearch"><iclass="lnilni-search-alt"></i></button> --}}
                     </form>
                 </div>
@@ -338,12 +338,26 @@
                         <div class="col-lg-5 col-md-4 d-none d-md-block">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
+                                    <button class="nav-link 
+                                    @if (request()->session()->exists('listOrGrid'))
+                                        @if(session('listOrGrid') == 'grid')
+                                            active
+                                        @endif
+                                    @else
+                                        active
+                                    @endif
+                                    " id="nav-grid-tab" data-bs-toggle="tab"
                                         data-bs-target="#nav-grid" type="button" role="tab" aria-controls="nav-grid"
-                                        aria-selected="true"><i class="lni lni-grid-alt"></i></button>
-                                    <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
+                                        aria-selected="true" wire:click="listOrGrid('grid')"><i class="lni lni-grid-alt"></i></button>
+                                    <button class="nav-link
+                                    @if (request()->session()->exists('listOrGrid'))
+                                        @if(session('listOrGrid') == 'list')
+                                            active
+                                        @endif
+                                    @endif
+                                    " id="nav-list-tab" data-bs-toggle="tab"
                                         data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list"
-                                        aria-selected="false"><i class="lni lni-list"></i></button>
+                                        aria-selected="false" wire:click="listOrGrid('list')"><i class="lni lni-list"></i></button>
                                 </div>
                             </nav>
                             
@@ -351,7 +365,17 @@
                     </div>
                 </div>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
+                    <div class="tab-pane fade 
+                    @if (request()->session()->exists('listOrGrid'))
+                        @if(session('listOrGrid') == 'grid')
+                            show
+                            active
+                        @endif
+                    @else
+                    show
+                    active
+                    @endif
+                    " id="nav-grid" role="tabpanel"
                         aria-labelledby="nav-grid-tab">
 
                         <div class="row">                            
@@ -359,16 +383,19 @@
                             @forelse ($productos as $p)
                                 @php
                                     $opiniones = DB::table('opiniones')->where('id_producto', $p->id_producto);
-                                    $total_rate = $opiniones->count();
+                                    /* $total_rate = $opiniones->count();
                                     $fSum =  $total_rate*$opiniones->max('rating');
                                     $total = $opiniones->sum('rating');
-                                    if ($total) {
-                                        # code...
+                                    if ($total) {                                        
                                         $countOp = ($total*5) / $fSum;
                                     } else {
                                         $countOp = 0;
-                                    }
+                                    } */
 
+                                    $countOp = $opiniones->avg('rating');
+                                    if (empty($countOp)) {
+                                        $countOp = 0;
+                                    }
                                     $ofertas;
 
                                     if ($p->id_oferta) {
@@ -522,22 +549,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
+                    
+                    <div class="tab-pane fade
+                    @if (request()->session()->exists('listOrGrid'))
+                        @if(session('listOrGrid') == 'list')
+                            show
+                            active
+                        @endif
+                    @endif
+                    " id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                         <div class="row">
                             {{-- Editar --}}
                             @forelse ($productos as $p)
                                 @php
                                     $opiniones = DB::table('opiniones')->where('id_producto', $p->id_producto);
-                                    $total_rate = $opiniones->count();
+                                    /* $total_rate = $opiniones->count();
                                     $fSum =  $total_rate*$opiniones->max('rating');
                                     $total = $opiniones->sum('rating');
-                                    if ($total) {
-                                        # code...
+                                    if ($total) {                                        
                                         $countOp = ($total*5) / $fSum;
                                     } else {
                                         $countOp = 0;
-                                    }
+                                    } */
 
+                                    $countOp = $opiniones->avg('rating');
+                                    if (empty($countOp)) {
+                                        $countOp = 0;
+                                    }
+                                    
                                     if ($p->id_oferta) {
                                         $ofertas = DB::table('ofertas')->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
                                         ->where([

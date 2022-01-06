@@ -80,6 +80,9 @@
                                 <li class="submenu-item" id="ventas">
                                     <a href="/admin/ventas">Ventas</a>
                                 </li>
+                                <li class="submenu-item" id="pedidos">
+                                    <a href="/admin/pedidos">Pedidos</a>
+                                </li>
 
                             </ul>
                         </li>
@@ -163,16 +166,7 @@
             </header>
             <div class="mx-3">
                 @yield('content')
-                <footer class="footer mt-auto py-3 ">
-                    <div class="mb-0 col-11 mx-5 text-muted">
-                        <div class="float-start">
-                            <p>2021 &copy; Mazer</p>
-                        </div>
-                        <div class="float-end">
-                            <p>Hecho con <span class="text-primary"><i class="fas fa-heart"></i></span> en El Salvador</p>
-                        </div>
-                    </div>
-                  </footer>
+               
                <!-- <footer class="mt-auto">
                     <div class="mb-0 col-11 mx-5 text-muted">
                         <div class="float-start">

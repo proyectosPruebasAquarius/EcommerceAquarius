@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direccion;
+use App\Facturacion;
 use Illuminate\Http\Request;
 
 class DireccionController extends Controller
@@ -74,7 +75,9 @@ class DireccionController extends Controller
         $direccion->direccion = $request->direccion;
         $direccion->facturacion = $request->facturacion;
         $direccion->referencia = $request->referencia;
+        $direccion->referencia_facturacion = $request->referencia_facturacion;
         $direccion->telefono = $request->telefono;
+        $direccion->id_municipio = $request->id_municipio;
         $direccion->update();
 
         return redirect()->back();
@@ -89,6 +92,12 @@ class DireccionController extends Controller
     public function destroy($id)
     {
         Direccion::findOrFail($id)->delete();
+        return redirect()->back();
+    }
+
+    public function destroyFacturacion($id)
+    {
+        Facturacion::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

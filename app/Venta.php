@@ -12,6 +12,8 @@ class Venta extends Model
     'total',
     'num_transaccion',
     'estado',
-    'id_metodo_pago'
+    'id_metodo_pago',
+    'id_facturacion',
+    'recoger_tienda'
     ]; 
 }

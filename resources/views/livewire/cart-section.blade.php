@@ -19,7 +19,10 @@
                                     <p>Cantidad</p>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-12">
-                                    <p>Subtotal</p>
+                                    <p>Precio</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <p>Total</p>
                                 </div>
                                 {{--<div class="col-lg-2 col-md-2 col-12">
                                     <p>Discount</p>
@@ -55,6 +58,9 @@
                                         </select>--}}
                                         <livewire:update-qty :item="$c" :key="$c['id']"/>
                                     </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <p>${{ number_format($c['price'], 2, '.', '') }}</p>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-12">
                                     <p>${{ number_format($c['price']*$c['quantity'], 2, '.', '') }}</p>
