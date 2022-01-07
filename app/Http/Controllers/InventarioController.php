@@ -9,14 +9,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use App\HistorialInventario;
+
 
 class InventarioController extends Controller
 {
+
+    public function historial($id)
+    {
+        $id_decrypt = Crypt::decrypt($id);
+        $historial = HistorialInventario::where('inventarios.id','=',$id_decrypt)->join('productos','productos.id','=','historial_inventarios.id_producto')->join('inventarios','inventarios.id_producto','=','productos.id')
+        ->select('historial_inventarios.precio_compra as precio_compra_historial','historial_inventarios.precio_venta as precio_venta_historial','historial_inventarios.stock','historial_inventarios.stock_minimo',
+        'productos.nombre as producto','historial_inventarios.created_at as fecha')->get();
+
+        $actual = Inventario::join('productos','productos.id','=','inventarios.id_producto')->select('inventarios.codigo','inventarios.precio_venta as precio_venta_actual',
+        'inventarios.precio_compra as precio_compra_actual','productos.imagen')->where('inventarios.id','=',$id_decrypt)->get();
+
+        if (sizeof($historial) === 0) {
+            return redirect('admin/inventarios')->with('message', 'No hay registro de Historial para el Producto Selecionado')->with('alert', 'warning');
+
+        }else {
+            return view('backend.inventarios.historial')->with('historial',$historial)->with('actual',$actual);
+        }
+       
+       
+
+    }
+
+
     public function detail($id)
     {
         $id_decrypt = Crypt::decrypt($id);
         $inventario = Inventario::join('productos', 'productos.id', '=', 'inventarios.id_producto')->join('proveedores','proveedores.id','=','productos.id_proveedor')->join('marcas','marcas.id','=','productos.id_marca')
-        ->join('categorias','categorias.id','=','productos.id_categoria')->join('sub_categorias','sub_categorias.id','=','productos.id_subcat')   ->leftJoin('ofertas', 'ofertas.id', '=', 'inventarios.id_oferta')
+        ->join('categorias','categorias.id','=','productos.id_categoria')->join('sub_categorias','sub_categorias.id','=','productos.id_subcat')->leftJoin('ofertas', 'ofertas.id', '=', 'inventarios.id_oferta')
             ->select('inventarios.estado', 'inventarios.id as id_inventario', 'inventarios.precio_compra', 'inventarios.precio_venta', 'inventarios.codigo', 'inventarios.stock', 
             'inventarios.min_stock', 'ofertas.id as id_oferta', 'ofertas.nombre as oferta', 'productos.id as id_producto', 'productos.nombre as producto','proveedores.nombre as proveedor','productos.imagen',
             'marcas.nombre as marca','categorias.nombre as categoria','sub_categorias.nombre as subcat')
@@ -100,12 +125,19 @@ class InventarioController extends Controller
             function porcentaje($cantidad,$porciento,$decimales){
                 return number_format($cantidad*$porciento/100 ,$decimales);
                 }
-                $porciento =  porcentaje($request->precio_venta,intval($descuento),2);
-
+            $porciento =  porcentaje($request->precio_venta,intval($descuento),2);
             $inventario->precio_descuento = $request->precio_venta - $porciento;
-           
-
             $inventario->save();
+            
+            $historial = new HistorialInventario;
+            $historial->precio_compra = $request->precio_compra;
+            $historial->precio_venta = $request->precio_venta;
+            $historial->id_producto = $request->producto;
+            $historial->stock_minimo = $request->min_stock;
+            $historial->stock = $request->stock;
+            $historial->created_at = date('Y/m/d h:i:s');        
+            $historial->save();
+
         } else {
             $inventario = new Inventario;
             $inventario->precio_compra = $request->precio_compra;
@@ -116,6 +148,14 @@ class InventarioController extends Controller
             $inventario->id_oferta = $request->oferta;
             $inventario->min_stock = $request->min_stock;
             $inventario->save();
+            $historial = new HistorialInventario;
+            $historial->precio_compra = $request->precio_compra;
+            $historial->precio_venta = $request->precio_venta;
+            $historial->id_producto = $request->producto;
+            $historial->stock_minimo = $request->min_stock;
+            $historial->stock = $request->stock;
+            $historial->created_at = date('Y/m/d h:i:s');    
+            $historial->save();
         }
 
         return redirect('admin/inventarios')->with('message', 'Registro ingresado correctamente')->with('alert', 'success');
@@ -167,6 +207,8 @@ class InventarioController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+    
         $rules = [
             'codigo' => ['required'],
             'stock' => ['required', 'numeric'],
@@ -201,34 +243,56 @@ class InventarioController extends Controller
 
         if ($request->oferta != null) {
             $descuento = $oferta[0]->nombre;
-            $inventario = Inventario::where('id','=',$id_decrypt)->first();
+            $inventario = Inventario::where('id','=',$id_decrypt)->first(); 
+            if ($request->precio_compra <> $inventario->precio_compra || $request->precio_venta <> $inventario->precio_venta) {
+                $historial = new HistorialInventario;
+                 $historial->precio_compra = $request->precio_compra;
+                 $historial->precio_venta = $request->precio_venta;
+                 $historial->id_producto = $request->producto;
+                 $historial->stock_minimo = $request->min_stock;
+                 $historial->stock = $request->stock;
+                 $historial->created_at = date('Y/m/d h:i:s');        
+                 $historial->save();
+                
+             }                   
             $inventario->precio_compra = $request->precio_compra;
             $inventario->precio_venta = $request->precio_venta;
             $inventario->codigo = $request->codigo;
             $inventario->stock = $request->stock;
             $inventario->id_producto = $request->producto;
             $inventario->id_oferta = $request->oferta;
-            $inventario->min_stock = $request->min_stock;
+          
             function porcentaje($cantidad,$porciento,$decimales){
                 return number_format($cantidad*$porciento/100 ,$decimales);
                 }
                 $porciento =  porcentaje($request->precio_venta,intval($descuento),2);
 
-            $inventario->precio_descuento = $request->precio_venta - $porciento;
-           
-
+            $inventario->precio_descuento = $request->precio_venta - $porciento;           
             $inventario->save();
+            
 
         } else {
             $inventario = Inventario::where('id','=',$id_decrypt)->first();
+            if ($request->precio_compra <> $inventario->precio_compra || $request->precio_venta <> $inventario->precio_venta) {
+                $historial = new HistorialInventario;
+                $historial->precio_compra = $request->precio_compra;
+                $historial->precio_venta = $request->precio_venta;
+                $historial->id_producto = $request->producto;
+                $historial->stock_minimo = $request->min_stock;
+                $historial->stock = $request->stock;   
+                $historial->created_at = date('Y/m/d h:i:s');        
+                $historial->save();
+            }
             $inventario->precio_compra = $request->precio_compra;
             $inventario->precio_venta = $request->precio_venta;
             $inventario->codigo = $request->codigo;
             $inventario->stock = $request->stock;
             $inventario->id_producto = $request->producto;
             $inventario->id_oferta = $request->oferta;
-            $inventario->min_stock = $request->min_stock;
+            $inventario->min_stock = $request->min_stock;           
             $inventario->save();
+
+           
         }
 
         return redirect('admin/inventarios')->with('message', 'Registro actualizado correctamente')->with('alert', 'success');

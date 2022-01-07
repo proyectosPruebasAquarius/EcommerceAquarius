@@ -226,6 +226,9 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::get('/inventarios/selecto','InventarioController@selectoferta');
     Route::get('/inventarios/notificacion/{id}/{type}','InventarioController@notify');
     Route::get('/inventarios/detail/{id}','InventarioController@detail');
+    Route::get('/inventarios/historial/{id}','InventarioController@historial');
+
+
     /*END INVENTARIOS */
 
 

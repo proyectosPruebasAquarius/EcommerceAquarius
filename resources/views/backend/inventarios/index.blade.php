@@ -104,17 +104,17 @@
                             @endif   
                             <td>
 
-                                <ul class="list-inline m-0">
+                                <ul class="list-group list-group-horizontal">
                                     @php
                                         $parameter =[
                                             'id' => $inventario->id,
                                         ];
                                         $parameter= Crypt::encrypt($parameter);
                                     @endphp 
-                                    <li class="list-inline-item">
+                                    <li class="list-group-item">
                                         <a href="inventarios/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fal fa-pencil-alt"></i></a>
                                     </li>
-                                    <li class="list-inline-item">
+                                    <li class="list-group-item">
                                         <form action="{{url('admin/inventarios/delete/')}}/{{$parameter}}" method="post" id="formDel">
                                             @method('DELETE')
                                             @csrf
@@ -124,8 +124,11 @@
                                             <button type="submit" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fal fa-trash-alt"></i></button>
                                           </form>
                                     </li>
-                                    <li class="list-inline-item">
+                                    <li class="list-group-item">
                                         <a href="inventarios/detail/{{$parameter}}" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Detalle del Inventario"><i class="fal fa-eye"></i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="inventarios/historial/{{$parameter}}" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Historial del Producto"><i class="fas fa-history"></i></a>
                                     </li>
                                 </ul>
                             </td>                         

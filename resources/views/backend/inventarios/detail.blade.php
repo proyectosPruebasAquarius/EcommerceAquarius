@@ -25,7 +25,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col-md-2 col-4">
+                                <div class="col-md-4 col-4">
                                     <div class="form-group">
                                         <label for="producto" class="form-label">Producto</label>
                                         <input type="text" class="form-control" name="min_stock" min=0 disabled
@@ -58,18 +58,17 @@
                                     </div>
                                 </div>
                               
-                                <div class="col-md-2 col-12">
+                                <div class="col-md-1 col-12">
                                     <div class="form-group">
-                                        <label for="country-floating" class="form-label">Stock del producto</label>
+                                        <label for="country-floating" class="form-label">Stock</label>
                                         <input type="number" class="form-control" name="stock" min=0 disabled
                                             value="{{$inventario->stock}}">
                                        
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-12">
+                                <div class="col-md-1 col-12">
                                     <div class="form-group">
-                                        <label for="country-floating" class="form-label">Stock Mínimo del
-                                            producto</label>
+                                        <label for="country-floating" class="form-label">Stock Mínimo</label>
                                         <input type="number" class="form-control" name="min_stock" min=0 disabled
                                             value="{{$inventario->min_stock}}">
                                        
