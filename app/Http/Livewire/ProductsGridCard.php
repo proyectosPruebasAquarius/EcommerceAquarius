@@ -314,7 +314,7 @@ class ProductsGridCard extends Component
                     ->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
                     ->join('marcas', 'productos.id_marca', '=', 'marcas.id')//Product::where('nombre', 'like', $search)->orderBy($this->sortField, $this->sortDirection)->paginate(9),
                     ->join('sub_categorias', 'productos.id_subcat', '=', 'sub_categorias.id')
-                    ->select('inventarios.*', 'productos.nombre', 'productos.imagen', 'categorias.nombre as id_categoria', 'marcas.nombre as marca')->where('productos.nombre', 'like', $search)->where('inventarios.estado','=',1)
+                    ->select('inventarios.*', 'productos.nombre', 'productos.imagen','productos.imagen_principal', 'categorias.nombre as id_categoria', 'marcas.nombre as marca')->where('productos.nombre', 'like', $search)->where('inventarios.estado','=',1)
                     ->where('inventarios.estado', 1)->where('inventarios.stock', '>', 0)
                     ->when($categoriaFilt, function ($query) use ($categoriaFilt) {
                         $query->where('categorias.nombre', $categoriaFilt);

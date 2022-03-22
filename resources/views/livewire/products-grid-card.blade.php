@@ -420,7 +420,7 @@
                                     <div class="single-product" style="cursor: pointer;" onclick="javascript:window.location.href='{{ route('detalle', Crypt::encrypt($p->id_producto)) }}'">
                                         <div class="product-image">
                                             {{-- \Debugbar::info(json_decode($p->imagen)[0]) --}}
-                                            <img src="{{ json_decode($p->imagen)[0] }}" style="height: 288px; " alt="Product Image">
+                                            <img src="{{ asset($p->imagen_principal) }}" style="height: 288px; " alt="Product Image">
                                             @if($p->id_oferta && strtolower($ofertas[0]->type) == 'descuento' || $p->id_oferta && strtolower($ofertas[0]->type) == 'descuentos')
                                                 <span class="sale-tag">{{ $ofertas[0]->oferta }}%</span>
                                             @endif

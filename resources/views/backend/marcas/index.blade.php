@@ -66,7 +66,7 @@
                                     <td>{{ $marca->nombre }}</td>
                                     <td>
                                         <img src="/storage/imagenes/marcas/{{ $marca->imagen }}" alt=""
-                                            class="mw-25">
+                                            class="w-25 h-25">
                                     </td>
                                     @if ($marca->estado == 1)
                                         <td>
@@ -122,7 +122,8 @@
     </div>
 @endsection
 
-@push('partial-scripts')
+@push('scripts')
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js">
     </script>
 
