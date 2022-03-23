@@ -316,17 +316,19 @@ class InventarioController extends Controller
     {
         $data = [];
 
+        $productUsed = Inventario::select('id_producto')->get();
+
         if ($request->q == null) {
 
             $data = Producto::orderby('productos.nombre', 'asc')->join('marcas', 'marcas.id', '=', 'productos.id_marca')
                 ->select("productos.id", DB::raw("CONCAT('Producto: ',productos.nombre,', ','Marca: ',marcas.nombre) as text"))
-                ->where('estado', '=', 1)->get();
+                ->where('estado', '=', 1)->whereNotIn('productos.id',$productUsed)->get();
 
         } else {
             $search = $request->q;
             $data = Producto::orderby('productos.nombre', 'asc')->join('marcas', 'marcas.id', '=', 'productos.id_marca')
                 ->select("productos.id", DB::raw("CONCAT('Producto: ',productos.nombre,', ','Marca: ',marcas.nombre) as text"))
-                ->where('estado', '=', 1)->where('productos.nombre', 'like', '%' . $search . '%')->get();
+                ->where('estado', '=', 1)->where('productos.nombre', 'like', '%' . $search . '%')->whereNotIn('productos.id',$productUsed)->get();
         }
 
         return response()->json($data);
@@ -335,6 +337,8 @@ class InventarioController extends Controller
     public function selectoferta(Request $request)
     {
         $data = [];
+
+        
 
         if ($request->q == null) {
 

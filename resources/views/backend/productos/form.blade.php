@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label for="nombre" class="form-label">Nombre del producto</label>
                                         <input type="text" id="nombre" class="form-control" name="nombre"
-                                            placeholder="Escriba el nombre del producto" name="nombre" max="200">
+                                            placeholder="Escriba el nombre del producto"  max="200">
                                         <div class="form-text">
                                             El nombre del <strong>Producto</strong> debe contener un máximo de
                                             200 caracteres
@@ -170,7 +170,7 @@
                                 <div class="col-md-2 col-2">
                                     <div class="form-group">
                                         <label for="nombre" class="form-label">Nombre del producto</label>
-                                        <input type="text" id="nombre" class="form-control" name="nombre"
+                                        <input type="text" id="nombre" class="form-control" name="nombre2"
                                             placeholder="Escriba el nombre del producto" value="{{$producto->nombre}}"
                                             max="200">
                                         <div class="form-text">

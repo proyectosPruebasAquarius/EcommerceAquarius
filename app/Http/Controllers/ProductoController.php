@@ -154,10 +154,12 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+       // return $request->all();
         $rules = [
-            'imagen' => 'required|array',
+           // 'imagen' => 'required|array',
             'imagen.*' =>'image|mimes:jpeg,png,jpg,gif,svg,webp',
-            'nombre' => ['required','max:200'],
+            'nombre2' => ['required','max:200'],
             'descripcion' => ['required','max:1500'],
             'categoria' => ['required'],
             'marca' => ['required'],
@@ -166,8 +168,8 @@ class ProductoController extends Controller
         ];
 
         $messages = [
-            'nombre.required' => 'Nombre del Producto es Obligatorio.',
-            'nombre.max' =>'El nombre del Producto no puede ser mayor a :max caracteres.',
+            'nombre2.required' => 'Nombre del Producto es Obligatorio.',
+            'nombre2.max' =>'El nombre del Producto no puede ser mayor a :max caracteres.',
             'descripcion.required' => 'La Descripción del Producto es Obligatoria.',
             'descripcion.max' =>'La Descripción del Producto no puede ser mayor a :max caracteres.',
             'categoria.required' => 'La Categoria es Obligatoria.',
@@ -184,7 +186,7 @@ class ProductoController extends Controller
         $id_decrypt = Crypt::decrypt($id);
 
         $producto = Producto::where('id','=',$id_decrypt)->first();
-        $producto->nombre = $request->nombre;
+        $producto->nombre = $request->nombre2;
         $producto->descripcion = $request->descripcion;
         $producto->id_categoria = $request->categoria;
         $producto->id_marca = $request->marca;
