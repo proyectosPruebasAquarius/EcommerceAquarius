@@ -208,10 +208,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="background-image:url('frontend/assets/images/banner/banner-1-bg.jpg')">
+                    <div class="single-banner" style="background-image:url('frontend/assets/images/banner/banner-car.png')">
                         <div class="content">
-                            <h2>Productos Nuevos!</h2>
-                            <p>Productos de ultima generacion, <br>Con las mejores marcas.</p>
+                            <h2>Productos Nuevos</h2>
+                            <p class="text-black" style="color:black !important;">Productos<br>de las mejores marcas.</p>
                             <div class="button">
                                 <a href="{{ route('productos') }}" class="btn">Ver los productos</a>
                             </div>
@@ -219,10 +219,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin" style="background-image:url('frontend/assets/images/banner/banner-2-bg.jpg')">
+                    <div class="single-banner custom-responsive-margin" style="background-image:url('frontend/assets/images/banner/banner-car-2.png')">
                         <div class="content">
-                            <h2>Descubre Productos Interesantes!</h2>
-                            <p>Variedad de Productos, <br>Variedad de Marcas.</p>
+                            <h2>Descubre nuestro catalogo</h2>
+                            <p class="text-black" style="color:black !important;">Variedad de Productos, <br>Variedad de Marcas.</p>
                             <div class="button">
                                 <a href="{{ route('productos') }}" class="btn">Comprar</a>
                             </div>
