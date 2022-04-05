@@ -80,7 +80,9 @@ class ProductsGridCard extends Component
             } else {
                 
                 $this->categoriaFilt = $cat;
-
+                if ($this->sub_categoria) {
+                    $this->reset('sub_categoria');
+                }
             }
             
         } else {
@@ -91,12 +93,18 @@ class ProductsGridCard extends Component
                 if ($cat) {
                     # code...
                     $this->categoriaFilt = $cat;
+                    if ($this->sub_categoria) {
+                        $this->reset('sub_categoria');
+                    }
                 } else {
                     $this->reset('sub_categoria');
                     $this->reset('categoriaFilt');
                 }
             } else {
                 $this->categoriaFilt = $cat ? $cat : null;
+                if ($this->sub_categoria) {
+                    $this->reset('sub_categoria');
+                }
             }
 
         }

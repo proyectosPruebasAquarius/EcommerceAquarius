@@ -108,7 +108,7 @@ class ProductoController extends Controller
                 if(++$i === $numItems) {
                     $producto->imagen = json_encode($data);
                     $producto->save();
-                    return redirect('admin/productos')->with('message','Nuevo productos agregado')->with('alert','success');
+                    return redirect('admin/productos')->with('message','Nuevo producto agregado')->with('alert','success');
                 }
             }
          }
@@ -146,7 +146,7 @@ class ProductoController extends Controller
         ->join('proveedores','proveedores.id','=','productos.id_proveedor')
         ->join('sub_categorias','sub_categorias.id','=','productos.id_subcat')
         ->where('productos.id','=',$id_decrypt)
-        ->select('productos.id as id','productos.nombre','productos.imagen','productos.descripcion',
+        ->select('productos.id as id','productos.nombre','productos.imagen','productos.descripcion','productos.imagen_principal',
         'categorias.nombre as categoria','categorias.id as id_categoria','marcas.nombre as marca',
         'marcas.id as id_marca','proveedores.nombre as proveedor','proveedores.id as id_proveedor',
         'sub_categorias.id as id_subcategoria','sub_categorias.nombre as subcat')
@@ -169,6 +169,7 @@ class ProductoController extends Controller
         $rules = [
            // 'imagen' => 'required|array',
             'imagen.*' =>'image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'imagen_principal' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'nombre2' => ['required','max:200'],
             'descripcion' => ['required','max:1500'],
             'categoria' => ['required'],
@@ -188,6 +189,7 @@ class ProductoController extends Controller
             'subcat.required' => 'La Sub Categoria es Obligatoria.',
             'imagen.required' => 'La Imagen del Producto es Obligatoria',
             'imagen.*.image' => 'El archivo debe ser Imagen',
+            'imagen_principal.mimes' => 'La imagen principal debe contener estas extenciones(jpeg,png,jpg,gif,svg,webp)',
             'imagen.*.mimes' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
 
         ];
@@ -226,15 +228,28 @@ class ProductoController extends Controller
                    if(++$i === $numItems) {
                        $producto->imagen = json_encode($data);
                        $producto->save();
-                       return redirect('admin/productos')->with('message','Producto Actualizado')->with('alert','success');
+                       return redirect('admin/productos')->with('message','Producto actualizado')->with('alert','success');
                    }
                }
             }
 
 
         }else{
+
+            if ($request->hasfile('imagen_principal')) {
+                $imageName = time().'.'.$request->imagen_principal->extension();
+                $url_img_principal = 'storage/imagenes/productos/'.$imageName;
+        
+                $request->imagen_principal->move(public_path('storage/imagenes/productos'), $imageName);
+                $producto->imagen_principal = $url_img_principal;
+            }
+
+
+
+
+
             $producto->save();
-            return redirect('admin/productos')->with('message','Producto Actualizado')->with('alert','success');
+            return redirect('admin/productos')->with('message','Producto actualizado')->with('alert','success');
         }
 
 
@@ -263,7 +278,7 @@ class ProductoController extends Controller
                  }
                 }
           }
-            return redirect('admin/productos')->with('message','Producto Eliminado Correctamente')->with('alert','success');
+            return redirect('admin/productos')->with('message','Producto eliminado.')->with('alert','success');
         } else {
 
             return redirect('admin/productos')->with('message','El producto no se puede eliminar por que hay inventarios relacionados')->with('alert','warning');

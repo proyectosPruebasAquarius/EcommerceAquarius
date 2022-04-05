@@ -42,9 +42,9 @@
     </div> --}}
 
 
-    <header class="header navbar-area">        
+    <header class="header navbar-area" style="z-index: 1000">        
 
-        <div id="navPrincipal">
+        <div>
             <div class="header-middle">
                 <div class="container">
                     <div class="container-fluid">
@@ -186,7 +186,7 @@
                                                 @guest
                                                 <ul class="user-login">
                                                     <li>
-                                                        <a href="{{ route('login') }}" class="w-auto h-auto badge text-wrap text-center border-0" style="border-radius: 5px  !important;"><p >Iniciar Sesión</p></a>
+                                                        <a href="{{ route('login') }}" class="w-auto h-auto badge text-wrap text-center border-0" style="border-radius: 5px  !important;"><p >Acceder</p></a>
                                                         
                                                     </li>
                                                     {{-- <li>
@@ -256,62 +256,72 @@
                 </div>
             </div>
     
-    
-            <div class="container">
-                <div class="row align-items-center" style="height:60px" id="header-latest">
-                    <div class="col-lg-6 col-md-6 col-sm-12 d-none d-md-block">
-                        <div class="nav-inner">    
-                            @livewire('categorie-preview') 
-                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="laptop-only">
-                                <ol class="breadcrumb" style="font-size: 13px">
-                                  @yield('breadcrumb')
-                                </ol>
-                              </nav>           
-                        </div>
-                        
-                    </div>
-                   
-                    <div class="col-lg-6 col-md-5 col-12">
-    
-                        <div class="nav-social">
+            <div id="navPrincipal">
+                <div class="container">
+                    <div class="row align-items-center" style="height:60px" id="header-latest">
+                        <div class="col-lg-6 col-md-6 col-sm-12 d-none d-md-block">
+                            <div class="nav-inner">    
+                                @livewire('categorie-preview') 
+                                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="tablet-only">
+                                    <ol class="breadcrumb" style="font-size: 13px">
+                                      @yield('breadcrumb')
+                                    </ol>
+                                  </nav>           
+                            </div>
                             
-                            <h5 class="title">Nuestras redes sociales:</h5>
-                            <ul>
-                                <li>
-                                    <a href="https://m.me/110812464804606" target="_blank" class="facebook"><i
-                                            class="lni lni-facebook-filled"></i></a>
-                                </li>
-                                {{-- <li>
-                                    <a href="javascript:void(0)" class="twitter"><i
-                                            class="lni lni-twitter-original"></i></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                                </li> --}}
-                                <li>
-                                    {{-- <a href="javascript:void(0)"><i class="lni lni-skype"></i></a> --}}
-                                    <a href="https://wa.me/50377948668" target="_blank" class="whatsapp"><i
-                                            class="lni lni-whatsapp"></i></a>
-                                </li>
-                               
-                                {{-- <li class="d-block-inline d-md-none">
-                                    <div class="navbar-cart">
-                                        <div class="cart-items">
-                                            @if (request()->route()->uri() !== 'carrito')
-                                            @livewire('preview-cart')
-                                            @endif
-                                        </div>
-                                    </div>
-                                </li> --}}
-                                {{-- <li>
-                                    <h5 class="title">Preguntas Frecuentes</h5>
-                                </li> --}}
-                            </ul>
                         </div>
-    
+                       
+                        <div class="col-lg-6 col-md-5 col-12">
+        
+                            <div class="col-12 d-md-none">
+                                <nav style="--bs-breadcrumb-divider: '>'; position: relative;top: 6vw; right: 40px" aria-label="breadcrumb" class="tablet-only">
+                                    <ol class="breadcrumb" style="font-size: 13px">
+                                      @yield('breadcrumb')
+                                    </ol>
+                                  </nav>
+                            </div>
+                            <div class="@if (request()->path() != '/') d-none d-md-block @endif">
+                                <div class="nav-social">
+                                    <h5 class="title">Nuestras redes sociales:</h5>
+                                    <ul>
+                                        <li>
+                                            <a href="https://m.me/110812464804606" target="_blank" class="facebook"><i
+                                                    class="lni lni-facebook-filled"></i></a>
+                                        </li>
+                                        {{-- <li>
+                                            <a href="javascript:void(0)" class="twitter"><i
+                                                    class="lni lni-twitter-original"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
+                                        </li> --}}
+                                        <li>
+                                            {{-- <a href="javascript:void(0)"><i class="lni lni-skype"></i></a> --}}
+                                            <a href="https://wa.me/50377948668" target="_blank" class="whatsapp"><i
+                                                    class="lni lni-whatsapp"></i></a>
+                                        </li>
+                                       
+                                        {{-- <li class="d-block-inline d-md-none">
+                                            <div class="navbar-cart">
+                                                <div class="cart-items">
+                                                    @if (request()->route()->uri() !== 'carrito')
+                                                    @livewire('preview-cart')
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </li> --}}
+                                        {{-- <li>
+                                            <h5 class="title">Preguntas Frecuentes</h5>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </div>
+        
+                        </div>
                     </div>
                 </div>
             </div>
+            
         </div>
 
     </header>
@@ -436,7 +446,7 @@
 
                         <div class="col-lg-12 col-12">
                             <div class="copyright">
-                                <p style="color:black!important;">Hecho por&nbsp;<a style="color:black!important;" target="_blank" href="http://aquariusit-sv.com">Aquarius IT</a></p>
+                                <p>Hecho con&nbsp; <i class="fas fa-heart"></i>&nbsp; en El Salvador</p>
                             </div>
                         </div>
 
@@ -490,7 +500,7 @@
 
             window.onscroll =  () => {
                if ('{{ request()->route()->getName() }}' != 'carrito') {
-                    if(window.scrollY > 0){
+                    if(window.scrollY > 50){
                        let bar = document.getElementById('navPrincipal');
                        bar.classList.add('bg-white', 'fixed-top')
                     }else{

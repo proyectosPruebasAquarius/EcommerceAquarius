@@ -239,11 +239,7 @@
 </div>
 @endsection
 
-@push('partial-scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js">
-</script>
 
-@endpush
 
 @push('datatable-scripts')
 <script>
@@ -264,7 +260,3 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 @endpush
 
-@push('partial-style')
-<link rel="stylesheet" href="{{asset('backend/assets/css/datatables.css')}}">
-
-@endpush

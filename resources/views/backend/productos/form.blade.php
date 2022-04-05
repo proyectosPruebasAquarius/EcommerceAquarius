@@ -189,7 +189,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col-md-2 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="nombre" class="form-label">Nombre del producto</label>
                                         <input type="text" id="nombre" class="form-control" name="nombre2"
@@ -200,18 +200,7 @@
                                             200 caracteres
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label for="imagen" class="form-label">Imagenes del Producto</label>
-                                        <input class="form-control" type="file" id="imagen" accept="image/*"
-                                            name="imagen[]" multiple>
-                                        <div class="form-text">
-                                            Las imagenes del <strong>Producto</strong> debe contener un alguna de estas
-                                            extenciones <strong>(jpeg,png,jpg,gif,svg)</strong>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>                            
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="city-column" class="form-label">Descripcion del Producto</label>
@@ -226,6 +215,39 @@
 
                                     </div>
                                 </div>
+
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="imagen_principal" class="form-label">Imagen principal</label>
+                                        <input class="form-control" type="file" id="imagen_principal" accept="image/*"
+                                            name="imagen_principal">
+                                        <div class="form-text">
+                                            La imagen principal del <strong>producto</strong> debe contener un alguna de estas
+                                            extenciones <strong>(jpeg,png,jpg,gif,svg)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="imagen" class="form-label">Imagenes del Producto</label>
+                                        <input class="form-control" type="file" id="imagen" accept="image/*"
+                                            name="imagen[]" multiple>
+                                        <div class="form-text">
+                                            Las imagenes del <strong>Producto</strong> debe contener un alguna de estas
+                                            extenciones <strong>(jpeg,png,jpg,gif,svg)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
 
                                 <div class="col-md-3 col-12">
                                     <div class="form-group">
@@ -280,17 +302,35 @@
 
                                 <h4 class="text-center pt-5 pb-5">Imagenes del producto</h4>
 
-                                @foreach(json_decode($producto->imagen) as $key => $value)
+                                
                                 <div class="col-md-6 col-12">
-                                    <div class="form-group">
 
 
-                                        <img src="{{ $value }}" class="d-block img-fluid " alt="Product Image">
-
-
-                                    </div>
+                                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                         @foreach(json_decode($producto->imagen) as $key => $value)
+                                          <div class="carousel-item @if($loop->first) active @endif">
+                                            <img src="{{ asset($value) }}" class="d-block img-fluid " alt="Product Image">
+                                          </div>
+                                          @endforeach
+                                         
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Next</span>
+                                        </button>
+                                      </div>
                                 </div>
-                                @endforeach
+                                <br>
+                                <div class="col-md-6 col-12 ">
+                                    <h3 class="text-center" >Imagen principal</h3>
+                                    <img src="{{ asset($producto->imagen_principal) }}" class="d-block img-fluid " alt="Product Image">
+                                </div>
+                                
 
 
                                 <div class="col-12 d-flex justify-content-end mt-3 ">

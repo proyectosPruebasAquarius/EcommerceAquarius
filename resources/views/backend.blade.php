@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('backend/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('backend/assets/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('backend/assets/css/select2.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/datatables.css') }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend/assets/images/favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend/assets/images/favicons/favicon-32x32.png') }}">
@@ -191,9 +192,9 @@
     <script src="{{asset('backend/assets/js/main.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     @stack('partial-scripts')
-    @stack('datatable-scripts')
 </body>
 
 </html>
-
+@stack('datatable-scripts')

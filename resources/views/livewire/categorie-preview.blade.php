@@ -2,7 +2,7 @@
     <div class="dropdown d-none d-lg-block d-inline-block">
         <button class="btn bg-transparent" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <span class="" ><i class="lni lni-menu"></i>&nbsp;  Todas las categorías</span>
+            <span class="" ><i class="lni lni-menu"></i>   Todas las categorías</span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="font-size: 14px;">
             <li>
