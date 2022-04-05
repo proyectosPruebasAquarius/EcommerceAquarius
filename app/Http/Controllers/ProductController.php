@@ -63,7 +63,8 @@ class ProductController extends Controller
      */
     public function show($categoria)
     {
-        $marcas = Product::join('categorias', 'productos.id_categoria', '=', 'categorias.id')->join('marcas', 'productos.id_marca', '=', 'marcas.id')->where('categorias.nombre', $categoria)->select('marcas.nombre')->distinct()->get();
+        $marcas = Product::join('categorias', 'productos.id_categoria', '=', 'categorias.id')->join('marcas', 'productos.id_marca', '=', 'marcas.id')
+        ->where('categorias.nombre', $categoria)->select('marcas.nombre')->distinct()->get();
         return $marcas;
     }
 

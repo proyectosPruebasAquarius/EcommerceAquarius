@@ -40,14 +40,15 @@
 
     @endswitch
     @endif
-    <section class="section mx-3">
+    <section class="mx-auto">
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
 
-                <a href="/admin/productos/add" class="btn btn-primary mx-4">Agregar</a>
+                <a href="{{ url('/admin/productos/add') }}" class="btn btn-primary mx-4"><i class="far fa-plus"></i>&nbsp;Nuevo</a>
             </div>
             <div class="card-body">
-                <table class="table table-striped  text-center pt-3 pb-3" id="prodTable">
+                <div class="table-responsive">
+                <table class="table table-striped  text-center pt-3 pb-3 table-sm" id="prodTable">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>Nombre</th>
@@ -57,6 +58,7 @@
                             <th>Proveedor</th>
                             <th>Sub Categoria</th>
                             <th>Imagenes</th>
+                            <th>Imagen principal</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -65,19 +67,20 @@
                         <tr>
                             <td>{{$p->nombre}}</td>
                             <td>
-                                <!-- Button trigger modal -->
+                                <!-- Button description preview -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#descripcionModal{{ $producto }}">
                                     Descripción
                                 </button>
 
-                                <!-- Modal -->
+                                <!-- Modal description preview -->
                                 <div class="modal fade mt-5" id="descripcionModal{{ $producto }}" tabindex="-1"
                                     aria-labelledby="descripcionModal{{ $producto }}Label" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="descripcionModal{{ $producto }}Label">Descripción del Producto: {{ $p->nombre }}</h5>
+                                                <h5 class="modal-title" id="descripcionModal{{ $producto }}Label">
+                                                    Descripción del Producto: {{ $p->nombre }}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -87,9 +90,9 @@
                                                 </p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -103,17 +106,16 @@
                             </td>
                             <td>{{$p->sub_categoria}}</td>
                             <td>
-                                <!-- Button trigger modal -->
+                                <!-- Button modal img-preview -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#imagesModal{{ $producto }}">
-                                    Ver Imagenes del producto
+                                    <i class="bi bi-eye"></i>
                                 </button>
 
-                                <!-- Modal -->
+                                <!-- Modal img-preview-->
                                 <div class="modal fade" id="imagesModal{{ $producto }}" tabindex="-1"
-                                    aria-labelledby="imagesModalLabel{{ $producto }}" aria-hidden="true"
-                                    style="padding-top: 8%">
-                                    <div class="modal-dialog">
+                                    aria-labelledby="imagesModalLabel{{ $producto }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header ">
                                                 <h5 class="modal-title text-center col-11"
@@ -125,19 +127,14 @@
                                                 <div id="carouselExampleControls{{ $producto }}"
                                                     class="carousel slide carousel-fade" data-bs-ride="carousel">
                                                     <div class="carousel-inner">
+
+
                                                         @foreach(json_decode($p->imagen) as $key => $value)
-                                                        @if($key === 0)
-                                                        <div class="carousel-item active">
-                                                            <img src="{{ $value }}" class="d-block img-fluid "
-                                                                alt="Product Image">
-                                                        </div>
-                                                        @else
-                                                        <div class="carousel-item">
-                                                            <img src="{{ $value }}" class="d-block img-fluid"
+
+                                                        <div class="carousel-item @if($loop->first) active @endif    ">
+                                                            <img src="{{ asset($value) }}" class="d-block img-fluid"
                                                                 alt="Producct Image">
                                                         </div>
-                                                        @endif
-
                                                         @endforeach
 
                                                     </div>
@@ -172,6 +169,36 @@
 
                             </td>
                             <td>
+
+                                <!-- Button img-principal preview -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#imgPrincipalModal{{ $producto }}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                                <!-- Modal img-principal preview -->
+                                <div class="modal fade" id="imgPrincipalModal{{ $producto }}" tabindex="-1"
+                                    aria-labelledby="imgPrincipalModal{{ $producto }}Label" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title col-11 text-center" id="imgPrincipalModal{{ $producto }}Label">Imagen principal</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="{{ asset($p->imagen_principal) }}" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </td>
+                            <td>
                                 <ul class="list-inline m-0">
                                     @php
                                     $parameter =[
@@ -181,17 +208,14 @@
                                     @endphp
                                     <li class="list-inline-item" data-toggle="tooltip" data-placement="top"
                                         title="Editar">
-                                        <a href="productos/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0"
+                                        <a href="{{ ('productos/edit')}}/{{ $parameter }}" class="btn btn-success btn-sm rounded-0"
                                             type="button"><i class="fal fa-pencil-alt"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <form action="{{url('admin/productos/delete/')}}/{{$parameter}}" method="post"
+                                        <form action="{{url('admin/productos/delete')}}/{{$parameter}}" method="post"
                                             id="formDel">
                                             @method('DELETE')
                                             @csrf
-
-
-
                                             <button type="submit" class="btn btn-danger btn-sm rounded-0" type="button"
                                                 data-toggle="tooltip" data-placement="top" title="Eliminar"><i
                                                     class="fal fa-trash-alt"></i></button>
@@ -207,6 +231,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 

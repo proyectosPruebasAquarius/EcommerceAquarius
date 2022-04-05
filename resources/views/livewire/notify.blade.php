@@ -11,7 +11,7 @@
     </span>
         @endif
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
         <li>
             <h6 class="dropdown-header">Notificaciones </h6>
         </li>
@@ -34,7 +34,7 @@
             </li>
             @empty
             <li>
-                <p class="badge text-wrap text-black">{{ __('No hay notificaciones disponibles') }}</p>
+                <h6 class="badge text-wrap text-black">{{ __('No hay notificaciones disponibles') }}</h6>
             </li>
             @endforelse
         </div>

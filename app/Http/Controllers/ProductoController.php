@@ -25,7 +25,7 @@ class ProductoController extends Controller
        ->join('categorias','categorias.id','=','productos.id_categoria')
        ->join('proveedores','proveedores.id','=','productos.id_proveedor')
        ->join('sub_categorias','sub_categorias.id','=','productos.id_subcat')
-       ->select('productos.id as id','productos.nombre','productos.imagen','productos.descripcion',
+       ->select('productos.id as id','productos.nombre','productos.imagen','productos.descripcion','productos.imagen_principal',
        'categorias.nombre as categoria','marcas.nombre as marca','proveedores.nombre as proveedor',
        'sub_categorias.nombre as sub_categoria')
        ->get();
@@ -54,6 +54,7 @@ class ProductoController extends Controller
        // return $request->all();
         $rules = [
             'imagen' => 'required|array',
+            'imagen_principal' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'imagen.*' =>'image|mimes:jpeg,png,jpg,gif,svg,webp',
             'nombre' => ['required','max:200'],
             'descripcion' => ['required','max:1500'],
@@ -73,7 +74,9 @@ class ProductoController extends Controller
             'proveedor.required' => 'El Proveedor es Obligatorio.',
             'subcat.required' => 'La Sub Categoria es Obligatoria.',
             'imagen.required' => 'La Imagen del Producto es Obligatoria',
-            'imagen.*' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
+            'imagen.*' => 'Las Imagenes deben contener estas extenciones(jpeg,png,jpg,gif,svg,webp)',
+            'imagen_principal.required' => 'La imagen principal del producto es obligatoria',
+            'imagen_principal.mimes' => 'La imagen principal debe contener estas extenciones(jpeg,png,jpg,gif,svg,webp)'
 
         ];
         $this->validate($request, $rules, $messages);
@@ -85,6 +88,13 @@ class ProductoController extends Controller
         $producto->id_marca = $request->marca;
         $producto->id_proveedor = $request->proveedor;
         $producto->id_subcat = $request->subcat;
+
+        
+        $imageName = time().'.'.$request->imagen_principal->extension();
+        $url_img_principal = 'storage/imagenes/productos/'.$imageName;
+
+        $request->imagen_principal->move(public_path('storage/imagenes/productos'), $imageName);
+        $producto->imagen_principal = $url_img_principal;
         if($request->hasfile('imagen'))
          {
             $numItems = count($request->file('imagen'));
@@ -98,7 +108,7 @@ class ProductoController extends Controller
                 if(++$i === $numItems) {
                     $producto->imagen = json_encode($data);
                     $producto->save();
-                    return redirect('admin/productos')->with('message','Producto Guardado')->with('alert','success');
+                    return redirect('admin/productos')->with('message','Nuevo productos agregado')->with('alert','success');
                 }
             }
          }

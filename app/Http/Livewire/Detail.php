@@ -225,7 +225,7 @@ class Detail extends Component
         $hasOfferta = Inventario::where('id_producto', $this->data)->value('id_oferta');
         $this->productos = Inventario::join('productos', 'inventarios.id_producto', '=', 'productos.id')->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
         ->join('sub_categorias', 'productos.id_subcat', '=', 'sub_categorias.id')
-        ->select('productos.nombre as producto', 'productos.imagen', 'productos.descripcion', 'inventarios.*', 'categorias.nombre as categoria', 'sub_categorias.nombre as sub_categoria')
+        ->select('productos.nombre as producto', 'productos.imagen', 'productos.descripcion', 'inventarios.*', 'categorias.nombre as categoria', 'sub_categorias.nombre as sub_categoria','productos.imagen_principal')
         ->when($hasOfferta, function($query) {
             $query->join('ofertas', 'inventarios.id_oferta', '=', 'ofertas.id')->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
             ->addSelect('tipos_ofertas.nombre as tipo_oferta', 'ofertas.nombre as oferta', 'ofertas.estado as state');

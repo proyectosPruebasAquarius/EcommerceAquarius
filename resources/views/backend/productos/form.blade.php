@@ -24,7 +24,7 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Agregar Producto</h4>
+                    <h4 class="card-title">Nuevo producto</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -39,22 +39,35 @@
                                         <input type="text" id="nombre" class="form-control" name="nombre"
                                             placeholder="Escriba el nombre del producto"  max="200">
                                         <div class="form-text">
-                                            El nombre del <strong>Producto</strong> debe contener un máximo de
+                                            El nombre del <strong>producto</strong> debe contener un máximo de
                                             200 caracteres
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-3 col-12">
+                                    <div class="form-group">
+                                        <label for="imagen_principal" class="form-label">Imagen principal</label>
+                                        <input class="form-control" type="file" id="imagen_principal" accept="image/*"
+                                            name="imagen_principal">
+                                        <div class="form-text">
+                                            La imagen principal del <strong>producto</strong> debe contener un alguna de estas
+                                            extenciones <strong>(jpeg,png,jpg,gif,svg)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="imagen" class="form-label">Imagenes del Producto</label>
                                         <input class="form-control" type="file" id="imagen" accept="image/*"
                                             name="imagen[]" multiple>
                                         <div class="form-text">
-                                            Las imagenes del <strong>Producto</strong> debe contener un alguna de estas
+                                            Las imagenes del <strong>producto</strong> debe contener un alguna de estas
                                             extenciones <strong>(jpeg,png,jpg,gif,svg)</strong>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="city-column" class="form-label">Descripción del Producto</label>
@@ -63,7 +76,7 @@
                                             id="textareaDescripcion" style="height: 100px"
                                             name="descripcion"></textarea>
                                         <div class="form-text">
-                                            La descripción del <strong>Producto</strong> debe contener un máximo de
+                                            La descripción del <strong>producto</strong> debe contener un máximo de
                                             1500 caracteres
                                         </div>
 
@@ -76,55 +89,64 @@
                                             <option></option>
                                         </select>
                                         <div class="form-text">
-                                            La <strong>Categoria</strong> determinará a que clientes irá dirigido el
+                                            La <strong>categoria</strong> determinará a que clientes irá dirigido el
                                             Producto
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="marca">Marca</label>
                                         <select class="marcas form-select" name="marca" id="marca">
                                             <option></option>
                                         </select>
                                         <div class="form-text">
-                                            La <strong>Marca</strong> determinará a que clientes irá dirigido el
+                                            La <strong>marca</strong> determinará a que clientes irá dirigido el
                                             Producto
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="proveedor">Proveedor</label>
                                         <select class="proveedores form-select" name="proveedor" id="proveedor">
                                             <option></option>
                                         </select>
                                         <div class="form-text">
-                                            El <strong>Proveedor</strong> es la entidad que proporciona el Producto
+                                            El <strong>proveedor</strong> es la entidad que proporciona el Producto
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="subcat">Sub Categoria</label>
                                         <select class="subcats form-select" name="subcat" id="subcat">
                                             <option></option>
                                         </select>
                                         <div class="form-text">
-                                            La <strong>Sub Categoria</strong> determinará a que clientes irá dirigido el
+                                            La <strong>sub categoria</strong> determinará a que clientes irá dirigido el
                                             Producto
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-3">
-
-                                    <a href="/admin/productos" class="btn btn-danger me-1 mb-1"><i
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ url('/admin/productos') }}" class="btn btn-danger me-1 mb-1"><i
                                             class="fal fa-long-arrow-left"></i> Regresar</a>
-                                    <button type="submit" form="prodForm" class="btn btn-success me-1 mb-1">Enviar
-                                        &nbsp;<i class="fal fa-arrow-up"></i></button>
+                                    <button type="submit" form="prodForm" class="btn btn-success me-1 mb-1">Guardar
+                                        &nbsp;<i class="fal fa-save"></i></button>
                                     <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear &nbsp; <i
-                                            class="fal fa-sync-alt"></i></button>
-                                </div>
+                                            class="fal fa-sync-alt"></i></button>                   
+                                    </div>
+                                    </div>
+                                 
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/productos') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
+                                  </div>
                             </div>
                         </form>
                     </div>
@@ -167,7 +189,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col-md-2 col-2">
+                                <div class="col-md-2 col-12">
                                     <div class="form-group">
                                         <label for="nombre" class="form-label">Nombre del producto</label>
                                         <input type="text" id="nombre" class="form-control" name="nombre2"
@@ -179,7 +201,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="imagen" class="form-label">Imagenes del Producto</label>
                                         <input class="form-control" type="file" id="imagen" accept="image/*"
@@ -190,7 +212,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="city-column" class="form-label">Descripcion del Producto</label>
 
@@ -205,7 +227,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-3">
+                                <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="categoria" class="form-label">Categoria</label>
                                         <select class="categorias form-select" name="categoria" id="categoria">
@@ -218,7 +240,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-3">
+                                <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="marca" class="form-label">Marca</label>
                                         <select class="marcas form-select" name="marca" id="marca">
@@ -230,7 +252,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-3">
+                                <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="proveedor" class="form-label">Proveedor</label>
                                         <select class="proveedores form-select" name="proveedor" id="proveedor">
@@ -242,7 +264,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-3">
+                                <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="subcat" class="form-label">Sub Categoria</label>
                                         <select class="subcats form-select" name="subcat" id="subcat">
@@ -271,15 +293,28 @@
                                 @endforeach
 
 
-                                <div class="col-12 d-flex justify-content-end mt-3">
+                                <div class="col-12 d-flex justify-content-end mt-3 ">
 
-                                    <a href="/admin/productos" class="btn btn-danger me-1 mb-1"><i
-                                            class="fal fa-long-arrow-left"></i> Regresar</a>
-                                    <button type="submit" form="prodForm" class="btn btn-success me-1 mb-1">Actualizar
-                                        &nbsp;<i class="fal fa-arrow-up"></i></button>
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear &nbsp; <i
-                                            class="fal fa-sync-alt"></i></button>
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ url('/admin/productos') }}" class="btn btn-danger me-1 mb-1">
+                                            <i class="fal fa-long-arrow-left"></i> Regresar
+                                        </a>
+                                        <button type="submit" form="prodForm" class="btn btn-success me-1 mb-1">
+                                            Actualizar&nbsp;<i class="fal fa-save"></i>
+                                        </button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+                                            Formatear&nbsp;
+                                            <i class="fal fa-sync-alt"></i>
+                                        </button>
+                                    </div>                                    
                                 </div>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Actualizar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/productos') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
+                                  </div>
                             </div>
                         </form>
                         @endforeach

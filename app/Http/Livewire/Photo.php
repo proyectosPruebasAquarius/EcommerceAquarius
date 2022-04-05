@@ -7,6 +7,7 @@ use Livewire\Component;
 class Photo extends Component
 {
     public $productos;
+    public $img;
     public $photo = 0;
 
     protected $listeners = ['changeValue'];

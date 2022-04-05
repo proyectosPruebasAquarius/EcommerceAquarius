@@ -259,26 +259,22 @@
     
             <div class="container">
                 <div class="row align-items-center" style="height:60px" id="header-latest">
-                    <div class="col-lg-2 col-md-1 col-12 d-none d-md-block">
-                        <div class="nav-inner">
-    
-                            @livewire('categorie-preview')
-    
-    
-    
-    
+                    <div class="col-lg-6 col-md-6 col-sm-12 d-none d-md-block">
+                        <div class="nav-inner">    
+                            @livewire('categorie-preview') 
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="laptop-only">
+                                <ol class="breadcrumb" style="font-size: 13px">
+                                  @yield('breadcrumb')
+                                </ol>
+                              </nav>           
                         </div>
+                        
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12 mt-3 ">
-                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                            <ol class="breadcrumb" style="font-size: 13px">
-                              @yield('breadcrumb')
-                            </ol>
-                          </nav>
-                    </div>
+                   
                     <div class="col-lg-6 col-md-5 col-12">
     
                         <div class="nav-social">
+                            
                             <h5 class="title">Nuestras redes sociales:</h5>
                             <ul>
                                 <li>
@@ -440,7 +436,7 @@
 
                         <div class="col-lg-12 col-12">
                             <div class="copyright">
-                                <p>Hecho con&nbsp; <i class="fas fa-heart"></i>&nbsp; en El Salvador</p>
+                                <p style="color:black!important;">Hecho por&nbsp;<a style="color:black!important;" target="_blank" href="http://aquariusit-sv.com">Aquarius IT</a></p>
                             </div>
                         </div>
 

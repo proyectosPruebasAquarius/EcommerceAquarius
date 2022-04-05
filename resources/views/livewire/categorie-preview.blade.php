@@ -1,8 +1,8 @@
 <div>
-    <div class="dropdown d-none d-lg-block">
+    <div class="dropdown d-none d-lg-block d-inline-block">
         <button class="btn bg-transparent" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="lni lni-menu"></i> <span>Todas las categorías</span>
+            <span class="" ><i class="lni lni-menu"></i>&nbsp;  Todas las categorías</span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="font-size: 14px;">
             <li>
@@ -38,7 +38,7 @@
     </div>
 
     <nav class="navbar  d-sm-block d-md-block d-lg-none d-xl-none ">
-                               
+                          
         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="toggler-icon"></span>
             <span class="toggler-icon"></span>

@@ -15,6 +15,7 @@ class Producto extends Model
        'id_proveedor',
        'id_marca',
        'id_categoria',
-       'id_subcat'
+       'id_subcat',
+       'imagen_principal'
     ];
 }
