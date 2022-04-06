@@ -66,6 +66,9 @@
                                 <li class="submenu-item" id="categorias">
                                     <a href="/admin/categorias">Categorias</a>
                                 </li>
+                                <li class="submenu-item" id="sub-categorias">
+                                    <a href="/admin/sub-categorias">Sub Categorias</a>
+                                </li>
                                 <li class="submenu-item" id="proveedores">
                                     <a href="/admin/proveedores">Proveedores</a>
                                 </li>
@@ -76,7 +79,7 @@
                                     <a href="/admin/ofertas">Ofertas</a>
                                 </li>
                                 <li class="submenu-item" id="metodos">
-                                    <a href="/admin/metodos_pagos">Métodos de Pago</a>
+                                    <a href="/admin/metodos-pagos">Métodos de Pago</a>
                                 </li>
                                 <li class="submenu-item" id="ventas">
                                     <a href="/admin/ventas">Ventas</a>
@@ -190,10 +193,11 @@
     <script src="{{asset('backend/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/main.js')}}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @stack('partial-scripts')
+    @stack('select-scripts')
 </body>
 
 </html>

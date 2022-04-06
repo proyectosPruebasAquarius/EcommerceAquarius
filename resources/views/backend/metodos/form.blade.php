@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form" method="POST" action="{{url('admin/metodos_pagos/save')}}" enctype="multipart/form-data">
+                        <form class="form" method="POST" action="{{url('admin/metodos-pagos/save')}}" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             <div class="row">
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-3">
 
-                                        <a href="/admin/metodos_pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <a href="/admin/metodos-pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
                                         <button type="submit"
                                         class="btn btn-success me-1 mb-1">Enviar</button>
                                     <button type="reset"
@@ -107,7 +107,7 @@
                             ];
                         $parameter= Crypt::encrypt($parameter);
                         @endphp
-                        <form class="form" method="POST" action="{{url('admin/metodos_pagos/update/')}}/{{$parameter}}" enctype="multipart/form-data">
+                        <form class="form" method="POST" action="{{url('admin/metodos-pagos/update/')}}/{{$parameter}}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
 
@@ -189,7 +189,7 @@
                                 <input type="hidden" value="{{$mt->qr}}" name="imagen_actual">
                                 <div class="col-12 d-flex justify-content-end mt-3">
 
-                                        <a href="/admin/metodos_pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <a href="/admin/metodos-pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
                                         <button type="submit"
                                         class="btn btn-success me-1 mb-1">Actualizar</button>
                                     <button type="reset"

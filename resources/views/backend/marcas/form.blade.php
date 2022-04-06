@@ -1,7 +1,7 @@
 @extends('backend')
 
 @if ($type == 'add')
-    @section('title', 'Agregar Marca')
+    @section('title', 'Nueva Marca')
 @else
     @section('title', 'Edición de Marca')
 @endif
@@ -29,7 +29,7 @@
                 @if ($type == 'add')
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Agregar Marca</h4>
+                            <h4 class="card-title">Nueva Marca</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -73,7 +73,7 @@
                                             </div>
 
                                             <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
-                                                <button class="btn btn-success" type="submit" form="prodForm">Actualizar <i class="fal fa-save"></i></button>
+                                                <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
                                                 <a class="btn btn-danger" type="button" href="{{ url('/admin/marcas') }}">
                                                     <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
                                                 </a>
@@ -175,7 +175,7 @@
 
                                             </div>
                                             <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
-                                                <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
+                                                <button class="btn btn-success" type="submit" form="prodForm">Actualizar <i class="fal fa-save"></i></button>
                                                 <a class="btn btn-danger" type="button" href="{{ url('/admin/marcas') }}">
                                                     <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
                                                 </a>

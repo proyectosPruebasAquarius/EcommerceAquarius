@@ -45,9 +45,11 @@
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
                
-                <a href="/admin/proveedores/add" class="btn btn-primary mx-4">Agregar</a>
+                <a href="/admin/proveedores/add" class="btn btn-primary mx-4"><i class="far fa-plus"></i>&nbsp;Nuevo</a>
             </div>
             <div class="card-body">
+
+                <div class="table-responsive">
                 <table class="table table-striped text-center table-bordered pt-3 pb-3" id="prodTable">
                     <thead class="bg-primary text-white">
                         <tr>
@@ -89,7 +91,7 @@
                                         $parameter= Crypt::encrypt($parameter);
                                     @endphp 
                                     <li class="list-inline-item">
-                                        <a href="proveedores/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fal fa-pencil-alt"></i></a>
+                                        <a href="{{url('admin/proveedores/edit')}}/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fal fa-pencil-alt"></i></a>
                                     </li>
                                     <li class="list-inline-item">
                                         <form action="{{url('admin/proveedores/delete/')}}/{{$parameter}}" method="post" id="formDel">
@@ -111,19 +113,12 @@
                     </tbody>
                 </table>
             </div>
+            </div>
         </div>
 
     </section>
 </div>
 @endsection
-@push('partial-style')
-<link rel="stylesheet" href="{{asset('backend/assets/css/datatables.css')}}">
-@endpush
-
-@push('partial-scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
-
-@endpush
 
 @push('datatable-scripts')
 <script>

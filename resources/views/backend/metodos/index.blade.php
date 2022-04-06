@@ -44,7 +44,7 @@
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
                
-                <a href="/admin/metodos_pagos/add" class="btn btn-primary mx-4">Agregar</a>
+                <a href="/admin/metodos-pagos/add" class="btn btn-primary mx-4">Agregar</a>
             </div>
             <div class="card-body">
                 <table class="table table-striped text-center table-bordered pt-3 pb-3" id="prodTable">
@@ -91,10 +91,10 @@
                                         $parameter= Crypt::encrypt($parameter);
                                     @endphp 
                                     <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Editar">
-                                        <a href="metodos_pagos/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button"><i class="fal fa-pencil-alt"></i></a>
+                                        <a href="metodos-pagos/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button"><i class="fal fa-pencil-alt"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <form action="{{url('admin/metodos_pagos/delete/')}}/{{$parameter}}" method="post" id="formDel">
+                                        <form action="{{url('admin/metodos-pagos/delete/')}}/{{$parameter}}" method="post" id="formDel">
                                             @method('DELETE')
                                             @csrf
                                            

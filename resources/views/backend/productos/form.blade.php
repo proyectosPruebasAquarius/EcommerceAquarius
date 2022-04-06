@@ -140,13 +140,12 @@
                                     </div>
                                     </div>
                                  
-                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
-                                    <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
-                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/productos') }}">
-                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
-                                    </a>
-                                    
-                                  </div>
+                                    <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                        <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
+                                        <a class="btn btn-danger" type="button" href="{{ url('/admin/productos') }}">
+                                            <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                        </a>                                
+                                    </div>
                             </div>
                         </form>
                     </div>

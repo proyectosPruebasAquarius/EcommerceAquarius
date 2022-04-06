@@ -1,13 +1,13 @@
 @extends('backend')
 
-@section('title','Categorias')
+@section('title','Sub Categorias')
 
 @section('content')
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="text-center">
-                <h3>Lista de Categorias</h3>
+                <h3>Lista de Sub Categorias</h3>
                 
             </div>
            
@@ -51,8 +51,8 @@
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
                
-                <a href="{{ url('/admin/categorias/add') }}" class="btn btn-primary mx-4"><i class="fal fa-plus"></i> Nueva</a>
                 
+                <a href="{{ url('/admin/sub-categorias/add') }}" class="btn btn-primary mx-4"><i class="fal fa-plus"></i> Nueva</a>
             </div>
             <div class="card-body">
 
@@ -61,60 +61,32 @@
                         <thead class="bg-primary text-white">
                             <tr>
                                 <th>Nombre</th>
-                                <th>Sub Categorias</th>
-                                <th>Estado</th>
+                                <th>Categorias</th>
+                                
                                 <th>Acciones</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categorias as $categoria)
-                            @php
-                                $subcats = DB::select('select nombre from sub_categorias where id_categoria = ?', [$categoria->id])
-                            @endphp
+                            @foreach ($subc as $sub)
+                           
                                 <tr>
-                                    <td>{{$categoria->nombre}}</td>
-                                    
-                                    <td>
-                                        @if (empty($subcats))
-                                            No hay sub categorias dependinetes
-                                        @else
-                                        @foreach ($subcats as $subcat)
-                                        <ul  class="list-unstyled">
-                                            <li>{{$subcat->nombre}}</li>
-                                            
-                                          </ul>
-                                        
-                                        @endforeach
-                                        @endif
-                                       
-                                        
-                                    
-                                    </td>
-                                    @if ($categoria->estado == 1)
-                                    <td>
-                                        <span class="badge bg-success">Activa</span>
-                                    </td>
-                                    @else
-                                    <td>
-                                        <span class="badge bg-danger">Desactivada</span>
-                                    </td>
-                                    @endif
-    
+                                    <td>{{$sub->nombre}}</td>
+                                    <td>{{ $sub->categoria }}</td>
                                     <td>
     
                                         <ul class="list-inline m-0">
                                             @php
                                                 $parameter =[
-                                                    'id' =>$categoria->id,
+                                                    'id' =>$sub->id_sub,
                                                 ];
                                                 $parameter= Crypt::encrypt($parameter);
                                             @endphp 
                                             <li class="list-inline-item">
-                                                <a href="categorias/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fal fa-pencil-alt"></i></a>
+                                                <a href="{{url('admin/sub-categorias/edit')}}/{{$parameter}}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fal fa-pencil-alt"></i></a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <form action="{{url('admin/categorias/delete/')}}/{{$parameter}}" method="post" id="formDel">
+                                                <form action="{{url('admin/sub-categorias/delete/')}}/{{$parameter}}" method="post" id="formDel">
                                                     @method('DELETE')
                                                     @csrf
                                                    

@@ -166,14 +166,22 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     /*Categorias*/
     Route::get('/categorias','CategoriaController@index');
     Route::get('/categorias/edit/{id}','CategoriaController@edit');
-    Route::get('/categorias/add','CategoriaController@create');
-    Route::get('/categorias/subadd','CategoriaController@subcat');
+    Route::get('/categorias/add','CategoriaController@create');    
     Route::post('/categorias/save','CategoriaController@store');
     Route::put('/categorias/update/{id}','CategoriaController@update');
-    Route::post('/categorias/subsave','CategoriaController@savesubcat');
-    Route::get('/categorias/select','CategoriaController@selectCategoria');
     Route::delete('/categorias/delete/{id}','CategoriaController@destroy');
+    Route::get('/categorias/select','CategoriaController@selectCategoria');
     /*END Categorias*/
+
+    /*Sub Categorias */
+    Route::get('/sub-categorias','SubCategoriaController@index');
+    Route::get('/sub-categorias/add','SubCategoriaController@create');  
+    Route::get('/sub-categorias/edit/{id}','SubCategoriaController@show');
+    Route::post('/sub-categorias/save','SubCategoriaController@store');
+    Route::put('/sub-categorias/update/{id}','SubCategoriaController@update');
+    Route::delete('/sub-categorias/delete/{id}','SubCategoriaController@destroy');
+    /*En Sub Categorias */
+
 
     /*PROVEEDORES */
     Route::get('/proveedores','ProveedorController@index');
@@ -237,12 +245,12 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     /*END TEST */
 
     /*METODOS DE PAGO */   
-    Route::get('/metodos_pagos','MetodoPagoController@index');
-    Route::get('/metodos_pagos/edit/{id}', 'MetodoPagoController@edit');
-    Route::put('/metodos_pagos/update/{id}','MetodoPagoController@update');
-    Route::get('/metodos_pagos/add','MetodoPagoController@create');
-    Route::post('/metodos_pagos/save','MetodoPagoController@store');
-    Route::delete('/metodos_pagos/delete/{id}', 'MetodoPagoController@destroy');
+    Route::get('/metodos-pagos','MetodoPagoController@index');
+    Route::get('/metodos-pagos/edit/{id}', 'MetodoPagoController@edit');
+    Route::put('/metodos-pagos/update/{id}','MetodoPagoController@update');
+    Route::get('/metodos-pagos/add','MetodoPagoController@create');
+    Route::post('/metodos-pagos/save','MetodoPagoController@store');
+    Route::delete('/metodos-pagos/delete/{id}', 'MetodoPagoController@destroy');
     /* END DE METODOS DE PAGO*/
 
 
