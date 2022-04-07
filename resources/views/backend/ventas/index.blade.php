@@ -45,13 +45,13 @@
             <div class="col-12 d-flex justify-content-end mt-3">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary mx-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Detalle de Venta
+                    <i class="fal fa-file-chart-pie"></i> Detalle de Venta
                 </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel">Detalle de Venta por Fecha</h5>
@@ -93,6 +93,7 @@
                 </div>
             </div>
             <div class="card-body">
+                <div class="table-responsive">
                 <table class="table table-striped text-center table-bordered pt-3 pb-3" id="prodTable">
                     <thead class="bg-primary text-white">
                         <tr>
@@ -177,6 +178,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 
@@ -184,11 +186,6 @@
 </div>
 @endsection
 
-@push('partial-scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js">
-</script>
-
-@endpush
 
 @push('datatable-scripts')
 <script>
@@ -203,8 +200,4 @@
         });
 </script>
 
-@endpush
-
-@push('partial-style')
-<link rel="stylesheet" href="{{ asset('backend/assets/css/datatables.css') }}">
 @endpush

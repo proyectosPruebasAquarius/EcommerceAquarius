@@ -93,6 +93,7 @@
                                     <div class="col">
                                         <div class="col-md-12 col-12">
                                             <h3 class="mb-3 text-center"> Productos de la Compra </h3>
+                                            <div class="table-resonsive">
                                             <table class="table">
                                                 <thead class="bg-primary text-center text-white">
                                                     <tr>
@@ -120,6 +121,7 @@
 
                                                 </tbody>
                                             </table>
+                                            </div>
                                             <form
                                                 action="{{ url('admin/ventas/manual/update') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
                                                 method="post" id="formDel">

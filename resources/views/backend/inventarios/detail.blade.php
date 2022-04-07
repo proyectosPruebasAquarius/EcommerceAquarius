@@ -25,7 +25,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="producto" class="form-label">Producto</label>
                                         <input type="text" class="form-control" name="min_stock" min=0 disabled
@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                                
-                                <div class="col-md-2 col-4">
+                                <div class="col-md-2 col-12">
                                     <div class="form-group">
                                         <label for="oferta" class="form-label">Oferta</label>
                                       
@@ -92,7 +92,7 @@
                                         
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-4">
+                                <div class="col-md-2 col-12">
                                     <div class="form-group">
                                         <label for="estado" class="form-label">Estado</label>
 
@@ -107,7 +107,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="estado" class="form-label">Proveedor</label>
 
@@ -161,10 +161,17 @@
                                 @endforeach
 
                                 <div class="col-12 d-flex justify-content-end mt-3">
-
-                                    <a href="/admin/inventarios" class="btn btn-primary me-1 mb-1"><i
-                                            class="fal fa-long-arrow-left"></i> Regresar</a>
-                                   
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ url('/admin/inventarios') }}" class="btn btn-primary me-1 mb-1"><i
+                                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/inventarios') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
                                 </div>
                             </div>
                         </form>

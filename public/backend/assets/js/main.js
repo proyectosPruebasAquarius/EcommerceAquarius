@@ -114,7 +114,9 @@ const proveedores = document.getElementById("proveedores");
 const inventarios = document.getElementById("inventarios");
 const ofertas = document.getElementById("ofertas");
 const subCat = document.getElementById("sub-categorias");
-console.log(URLac);
+
+
+
 switch (URLac) {
     case "/admin/inicio":
         inicio.classList.add("active");

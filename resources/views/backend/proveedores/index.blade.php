@@ -45,7 +45,7 @@
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
                
-                <a href="/admin/proveedores/add" class="btn btn-primary mx-4"><i class="far fa-plus"></i>&nbsp;Nuevo</a>
+                <a href="{{ url('/admin/proveedores/add') }}" class="btn btn-primary mx-4"><i class="far fa-plus"></i>&nbsp;Nuevo</a>
             </div>
             <div class="card-body">
 

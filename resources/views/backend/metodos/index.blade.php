@@ -44,9 +44,11 @@
         <div class="card">
             <div class="col-12 d-flex justify-content-end mt-3">
                
-                <a href="/admin/metodos-pagos/add" class="btn btn-primary mx-4">Agregar</a>
+                <a href="{{ url('/admin/metodos-pagos/add') }}" class="btn btn-primary mx-4"><i class="fal fa-plus"></i> Nuevo</a>
             </div>
             <div class="card-body">
+
+                <div class="table-responsive">
                 <table class="table table-striped text-center table-bordered pt-3 pb-3" id="prodTable">
                     <thead class="bg-primary text-white">
                         <tr>
@@ -117,18 +119,13 @@
                        
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 
     </section>
 </div>
 @endsection
-
-@push('partial-scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
-
-@endpush
-
 @push('datatable-scripts')
 <script>
     $(document).ready(function() {
@@ -141,8 +138,4 @@
 
 </script>
 
-@endpush
-
-@push('partial-style')
-<link rel="stylesheet" href="{{asset('backend/assets/css/datatables.css')}}">
 @endpush

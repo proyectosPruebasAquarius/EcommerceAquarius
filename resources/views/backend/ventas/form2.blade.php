@@ -17,41 +17,44 @@
                   <span class="badge bg-primary rounded-pill">{{ sizeof($productos) }}</span>
                 </h4>
                 <ul class="list-group mb-3">
-                  <table class="table text-center">
-                    <thead>
-                      <tr>
-                        
-                        <th scope="col">Producto</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Descuento</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Imagen</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     
-                       
+                  <div class="table-responsive">
+
+
+                    <table class="table text-center">
+                      <thead>
+                        <tr>
+
+                          <th scope="col">Producto</th>
+                          <th scope="col">Precio</th>
+                          <th scope="col">Descuento</th>
+                          <th scope="col">Cantidad</th>
+                          <th scope="col">Imagen</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+
                         @foreach ($productos as $pt)
                         <tr>
-                        <td>{{ $pt->nombre }}</td>
-                        <td>${{ $pt->precio_venta }}</td>
-                        <td>@if ($pt->oferta == null)
-                         Sin Oferta
-                          @else
-                          {{ $pt->oferta }}%
-                          @endif
-                        </td>
-                        <td>
-                          {{ $pt->cantidad }}
-                        </td>
-                        <td><img src="{{ json_decode($pt->imagen)[0] }}" class="w-75 h-25" alt=""></td>
-                      </tr>
+                          <td>{{ $pt->nombre }}</td>
+                          <td>${{ $pt->precio_venta }}</td>
+                          <td>@if ($pt->oferta == null)
+                            Sin Oferta
+                            @else
+                            {{ $pt->oferta }}%
+                            @endif
+                          </td>
+                          <td>
+                            {{ $pt->cantidad }}
+                          </td>
+                          <td><img src="{{ json_decode($pt->imagen)[0] }}" class="w-75 h-25" alt=""></td>
+                        </tr>
                         @endforeach
-                      
-                      
-                    </tbody>
-                  </table>
-                  
+
+
+                      </tbody>
+                    </table>
+                  </div>
 
                   <!--  <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
@@ -145,68 +148,12 @@
                       <input type="text" class="form-control" id="address2" value="{{ $ventas->municipio }}">
                     </div>
 
-                    <!--<div class="col-md-5">
-                      <label for="country" class="form-label">Country</label>
-                      <select class="form-select" id="country" required>
-                        <option value="">Choose...</option>
-                        <option>United States</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please select a valid country.
-                      </div>
-                    </div>
-
-                    <div class="col-md-4">
-                      <label for="state" class="form-label">State</label>
-                      <select class="form-select" id="state" required>
-                        <option value="">Choose...</option>
-                        <option>California</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please provide a valid state.
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <label for="zip" class="form-label">Zip</label>
-                      <input type="text" class="form-control" id="zip" placeholder="" required>
-                      <div class="invalid-feedback">
-                        Zip code required.
-                      </div>
-                    </div>
-                  </div>-->
-
-                    <!--<hr class="my-4">
-
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="same-address">
-                    <label class="form-check-label" for="same-address">Shipping address is the same as my billing
-                      address</label>
-                  </div>
-
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="save-info">
-                    <label class="form-check-label" for="save-info">Save this information for next time</label>
-                  </div>-->
-
+                    
                     <hr class="my-4">
 
                     <h4 class="mb-3">Datos de Pago</h4>
 
-                    <!--   <div class="my-3">
-                    <div class="form-check">
-                      <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                      <label class="form-check-label" for="credit">Credit card</label>
-                    </div>
-                    <div class="form-check">
-                      <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                      <label class="form-check-label" for="debit">Debit card</label>
-                    </div>
-                    <div class="form-check">
-                      <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                      <label class="form-check-label" for="paypal">PayPal</label>
-                    </div>
-                  </div>-->
+                
 
                     <div class="row gy-3">
                       <div class="col-md-6">
@@ -225,7 +172,7 @@
                       </div>
                       <div class="col-md-6">
                         <label for="cc-expiration" class="form-label">Estado de la Venta</label>
-                       
+
                         @if ($ventas->estadoVenta == 0)
                         <input type="text" class="form-control" id="cc-expiration" value="Pendiente de revisión">
 
@@ -252,43 +199,76 @@
                         <br>
 
                         <img
-                          src="{{ asset('storage/imagenes/datosCliente/') }}/{{ $ventas->id_usuario }}/{{ $ventas->imagenDatoVenta }}" class="img-fluid">
+                          src="{{ asset('storage/imagenes/datosCliente/') }}/{{ $ventas->id_usuario }}/{{ $ventas->imagenDatoVenta }}"
+                          class="img-fluid">
                       </div>
 
 
                     </div>
 
                     <hr class="my-4">
-                   
-                       <div class="col-12 d-flex justify-content-end mt-3">
 
-                        <a href="/admin/ventas" class="btn btn-primary me-1 mb-1"><i
-                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                    <div class="col-12 d-flex justify-content-end mt-3">
+                      <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                        <a href="{{ url('/admin/ventas') }}" class="btn btn-primary me-1 mb-1"><i class="fal fa-long-arrow-left"></i>
+                          Regresar</a>
                         <form method="post" id="formApro">
 
-                            <button type="submit" hidden class="btn" form="formApro"></button>
+                          <button type="submit" hidden class="btn" form="formApro"></button>
                         </form>
                         @if ($ventas->estadoVenta == 0 || $ventas->estadoVenta == 4)
-                            <form
-                                action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
-                                method="post" id="formRepro">
-                                @method('PUT')
-                                @csrf
-                                <input type="hidden" value="0" name="aprobacion">
-                                <button type="submit" class="btn btn-danger me-1 mb-1"
-                                    form="formRepro"> <i class="fal fa-times-circle"></i> Rechazar</button>
-                            </form>
-                            <form
-                                action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
-                                method="post" id="formRepro2">
-                                @method('PUT')
-                                @csrf
-                                <input type="hidden" value="1" name="aprobacion">
-                                <button type="submit" class="btn btn-success me-1 mb-1"
-                                    form="formRepro2"><i class="fal fa-check"></i> Aprobar</button>
-                            </form>
+                        <form
+                          action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
+                          method="post" id="formRepro">
+                          @method('PUT')
+                          @csrf
+                          <input type="hidden" value="0" name="aprobacion">
+                          <button type="submit" class="btn btn-danger me-1 mb-1" form="formRepro"> <i
+                              class="fal fa-times-circle"></i> Rechazar</button>
+                        </form>
+                        <form
+                          action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
+                          method="post" id="formRepro2">
+                          @method('PUT')
+                          @csrf
+                          <input type="hidden" value="1" name="aprobacion">
+                          <button type="submit" class="btn btn-success me-1 mb-1" form="formRepro2"><i
+                              class="fal fa-check"></i> Aprobar</button>
+                        </form>
                         @endif
-                    </div>                                        
+                      </div>
+                    </div>
+                    <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+
+                      @if ($ventas->estadoVenta == 0 || $ventas->estadoVenta == 4)
+                      <form
+                        action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
+                        method="post" id="formRepro">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" value="0" name="aprobacion">
+                        
+                      </form>
+                      <form
+                        action="{{ url('admin/ventas/detalle/verificacion') }}/{{ Crypt::encrypt($ventas->id_venta) }}"
+                        method="post" id="formRepro2">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" value="1" name="aprobacion">
+                        
+                      </form>
+                      @endif
+                      @if ($ventas->estadoVenta == 0 || $ventas->estadoVenta == 4)
+
+                      <button type="submit" class="btn btn-success " form="formRepro2"><i
+                          class="fal fa-check"></i> Aprobar</button>
+                      <button type="submit" class="btn btn-danger" form="formRepro"><i
+                          class="fal fa-times-circle"></i> Rechazar </button>
+                      @endif
+                      <a class="btn btn-secondary" type="button" href="{{ url('/admin/ventas') }}">
+                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                      </a>
+                    </div>
                 </form>
               </div>
             </div>

@@ -1,9 +1,9 @@
 @extends('backend')
 
 @if ($type == 'add')
-@section('title','Agregar Metodo de Pago') 
+@section('title','Nuevo Metodo de Pago') 
 @else
-@section('title','Edicion de Metodo de Pago')
+@section('title','Edición de Metodo de Pago')
 @endif
 
 @section('content')
@@ -80,12 +80,20 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-3">
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ asset('/admin/metodos-pagos') }}" class="btn btn-danger me-1 mb-1"><i
+                                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <button type="submit" class="btn btn-success me-1 mb-1">Guardar <i class="fal fa-save"></i></button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear <i class="fal fa-sync-alt"></i></button>
+                                    </div>
+                                </div>
 
-                                        <a href="/admin/metodos-pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
-                                        <button type="submit"
-                                        class="btn btn-success me-1 mb-1">Enviar</button>
-                                    <button type="reset"
-                                        class="btn btn-light-secondary me-1 mb-1">Formatear</button>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/metodos-pagos') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
                                 </div>
                             </div>
                         </form>
@@ -188,12 +196,20 @@
                                 </div>
                                 <input type="hidden" value="{{$mt->qr}}" name="imagen_actual">
                                 <div class="col-12 d-flex justify-content-end mt-3">
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ asset('/admin/metodos-pagos') }}" class="btn btn-danger me-1 mb-1"><i
+                                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <button type="submit" class="btn btn-success me-1 mb-1">Actualizar <i class="fal fa-save"></i></button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear <i class="fal fa-sync-alt"></i></button>
+                                    </div>
+                                </div>
 
-                                        <a href="/admin/metodos-pagos" class="btn btn-danger me-1 mb-1"><i class="fal fa-long-arrow-left"></i> Regresar</a>
-                                        <button type="submit"
-                                        class="btn btn-success me-1 mb-1">Actualizar</button>
-                                    <button type="reset"
-                                        class="btn btn-light-secondary me-1 mb-1">Formatear</button>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Actualizar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/metodos-pagos') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
                                 </div>
                             </div>
 

@@ -45,11 +45,20 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-end mt-3">
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ asset('/admin/ofertas') }}" class="btn btn-danger me-1 mb-1"><i
+                                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <button type="submit" class="btn btn-success me-1 mb-1">Guardar <i class="fal fa-save"></i></button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear <i class="fal fa-sync-alt"></i></button>
+                                    </div>
+                                </div>
 
-                                    <a href="/admin/ofertas" class="btn btn-danger me-1 mb-1"><i
-                                            class="fal fa-long-arrow-left"></i> Regresar</a>
-                                    <button type="submit" class="btn btn-success me-1 mb-1">Enviar</button>
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear</button>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Guardar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/ofertas') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
                                 </div>
                             </div>
                         </form>
@@ -59,7 +68,7 @@
             @else
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edicion de Tipo de oferta</h4>
+                    <h4 class="card-title">Edición de Tipo de oferta</h4>
                 </div>
 
                 <div class="card-content">
@@ -76,7 +85,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-md-6 col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="name" class="form-label">Nombre</label>
 
@@ -90,7 +99,7 @@
                                 </div>
 
 
-                                <div class="col-md-6 col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="imagen" class="form-label">Estado</label>
                                         <select class="form-select" aria-label="Default select example" name="estado">
@@ -111,11 +120,20 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-end mt-3">
+                                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                                        <a href="{{ asset('/admin/ofertas') }}" class="btn btn-danger me-1 mb-1"><i
+                                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                                        <button type="submit" class="btn btn-success me-1 mb-1">Actualizar <i class="fal fa-save"></i></button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear <i class="fal fa-sync-alt"></i></button>
+                                    </div>
+                                </div>
 
-                                    <a href="/admin/ofertas" class="btn btn-danger me-1 mb-1"><i
-                                            class="fal fa-long-arrow-left"></i> Regresar</a>
-                                    <button type="submit" class="btn btn-success me-1 mb-1">Actualizar</button>
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Formatear</button>
+                                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    <button class="btn btn-success" type="submit" form="prodForm">Actualizar <i class="fal fa-save"></i></button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('/admin/ofertas') }}">
+                                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                                    </a>
+                                    
                                 </div>
                             </div>
 

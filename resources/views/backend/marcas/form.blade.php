@@ -180,7 +180,7 @@
                                                     <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
                                                 </a>
                                                 
-                                              </div>
+                                            </div>
                                         </div>
 
 

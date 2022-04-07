@@ -180,7 +180,7 @@ class OfertaController extends Controller
 
         $id_decrypt = Crypt::decrypt($id);
 
-        $tipo = TipoOferta::select('id','nombre','estado')->get();
+        $tipo = TipoOferta::select('id','nombre','estado')->where('id',$id_decrypt)->get();
         return view('backend.ofertas.tipos.form')->with('type','edit')->with('tipos',$tipo);
     }
 
@@ -237,12 +237,4 @@ class OfertaController extends Controller
     }
 
 
-
-
-    public function test()
-    {
-       $ofertVerify = Oferta::where('id_tipo_oferta','=',1)->get();
-       return $ofertVerify;
-       
-    }
 }

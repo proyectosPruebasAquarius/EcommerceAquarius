@@ -30,6 +30,9 @@
                 @endforeach
                 <div class="card-content">
                     <div class="card-body">
+                        <div class="table-responsive">
+
+                        
                         <table class="table">
                             <thead class="text-center">
                               <tr>
@@ -54,12 +57,21 @@
                              
                             </tbody>
                           </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-end mt-3">
+                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                        <a href="/admin/inventarios" class="btn btn-primary me-5 mb-5"><i
+                                class="fal fa-long-arrow-left"></i> Regresar</a>
+                    </div>
+                </div>
 
-                    <a href="/admin/inventarios" class="btn btn-primary me-5 mb-5"><i
-                            class="fal fa-long-arrow-left"></i> Regresar</a>
+                <div class="d-grid gap-2 col-12 mx-auto  d-sm-block d-md-none">
+                                    
+                    <a class="btn btn-danger" type="button" href="{{ url('/admin/inventarios') }}">
+                        <i class="fal fa-long-arrow-left"></i>&nbsp;Regresar
+                    </a>
                     
                 </div>
             </div>
