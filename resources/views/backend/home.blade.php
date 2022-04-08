@@ -93,18 +93,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Ultimo Usuario Registrado</h6>
+                                    <h6 class="text-muted font-semibold">Usuarios visitados</h6>
                                     <h6 class="font-extrabold mb-0">
-
-                                        @foreach ($lastUser as $lu)
-                                        @if ($lu->usuario == null)
-                                        No hay Usuarios Registrados
+    
+                                        @if ($lastUser == null)
+                                        No hay registros
                                         @else
-                                        {{ $lu->usuario }}
+                                        {{ $lastUser }}
                                         @endif
-                                        @endforeach
-
-
+                                    
                                     </h6>
                                 </div>
                             </div>

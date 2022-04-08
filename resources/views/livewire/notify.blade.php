@@ -11,7 +11,7 @@
     </span>
         @endif
     </a>
-    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-sm-end dropdown-menu-md-end dropdown-menu-lg-end dropdown-menu-xl-end dropdown-menu-xxl-end text-notification-sm" aria-labelledby="dropdownMenuButton">
         <li>
             <h6 class="dropdown-header">Notificaciones </h6>
         </li>

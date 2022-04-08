@@ -10326,3 +10326,16 @@ fieldset:disabled .btn {
         display: none!important
     }
 }
+
+
+
+@media (max-width:576px) {
+    .no-name-notification{
+        display:none;
+    }   
+    
+    
+    .text-notification-sm{
+        text-align: center;
+    }
+}

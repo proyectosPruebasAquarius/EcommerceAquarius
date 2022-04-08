@@ -277,3 +277,6 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
 });
 
 /*END BACKEND */
+
+Route::post('/wishlist', 'WishListController@store')->name('wishlist.store');
+Route::get('/lista-deseo', 'WishListController@index')->name('wishlist');

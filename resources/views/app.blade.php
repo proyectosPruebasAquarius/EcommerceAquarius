@@ -31,7 +31,51 @@
 </head>
 
 <body>
+    @php
 
+        function main() {
+            static $called = false;
+            static $count = 1;
+
+            if (!$called) {
+                $called = true;
+
+                $visitor = request()->ip();
+                $userAgent = request()->header('User-Agent');
+                $count = $count++;
+
+                \DB::table('track_services')->insert([
+                    ['ip' => request()->ip(), 'user_agent' => $userAgent],                
+                ]);
+            }
+        }
+
+        $visitor = request()->ip();
+        $userAgent = request()->header('User-Agent');
+        
+        $storeData = \DB::table('track_services')->where('ip', $visitor)->latest()->first();
+        /* \DB::table('track_services')->insert([
+                    ['ip' => request()->ip(), 'user_agent' => $userAgent, 'created_at' => now()],                
+                ]); */
+        if (!empty($storeData)) {
+            $date = new \DateTime(date("Y-m-d h:i:s"));
+            $date2 = new \DateTime(date('Y-m-d h:i:s', strtotime($storeData->created_at)));
+            //format("Difference => %Y years, %m months, %d days, %h hours, and %i minutes"));
+            
+            if (intval(date_diff($date2, $date)->format("%h")) >= 1) {
+                \DB::table('track_services')->insert([
+                    ['ip' => request()->ip(), 'user_agent' => $userAgent, 'created_at' => now()],                
+                ]);
+            }
+        } else {
+            \DB::table('track_services')->insert([
+                ['ip' => request()->ip(), 'user_agent' => $userAgent, 'created_at' => now()],                
+            ]);
+        }
+        /* main(); */
+
+        /* $data = [$visitor, $userAgent, $count]; */
+    @endphp
     {{-- <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
@@ -121,6 +165,7 @@
                                 @livewire('search-bar')
         
                             </div>
+                            {{-- {{ session()->getId() }} --}}
                             <div class="col-lg-4 col-md-2 d-xs-none">
                                 <div class="middle-right-area">
                                     <div class="nav-hotline">
@@ -154,6 +199,9 @@
                                                                     <a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ url('admin/inicio') }}" style="border-radius: 5px  !important;"><i class="fal fa-user-secret d-inline"></i> <p class="d-inline">{{ __('Administración') }}</p></a>
                                                                     @endif
                                                                 </li>
+                                                                <li><a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ route('wishlist') }}" style="border-radius: 5px  !important;"><i
+                                                                    class="lni lni-heart d-inline"></i> <p class="d-inline">Lista de deseos</p></a>
+                                                                </li>
                                                                 <li><a class="dropdown-item badge text-wrap w-100 border-0 text-start" href="{{ route('profile') }}" style="border-radius: 5px  !important;"><i
                                                                             class="lni lni-user d-inline"></i> <p class="d-inline">Perfil</p></a>
                                                                 </li>
@@ -186,7 +234,7 @@
                                                 @guest
                                                 <ul class="user-login">
                                                     <li>
-                                                        <a href="{{ route('login') }}" class="w-auto h-auto badge text-wrap text-center border-0" style="border-radius: 5px  !important;"><p >Acceder</p></a>
+                                                        <a href="{{ route('login') }}" class="w-auto h-auto badge text-wrap text-center border-0" style="border-radius: 5px  !important;"><p ><i class="far fa-user"></i> Mi cuenta</p></a>
                                                         
                                                     </li>
                                                     {{-- <li>
@@ -285,7 +333,7 @@
                                     <h5 class="title">Nuestras redes sociales:</h5>
                                     <ul>
                                         <li>
-                                            <a href="https://m.me/110812464804606" target="_blank" class="facebook"><i
+                                            <a href="https://m.me/110812464804606" target="_blank" style="background-color: #0167F3; border-color: #0167F3; color: #fff"><i
                                                     class="lni lni-facebook-filled"></i></a>
                                         </li>
                                         {{-- <li>
@@ -297,7 +345,7 @@
                                         </li> --}}
                                         <li>
                                             {{-- <a href="javascript:void(0)"><i class="lni lni-skype"></i></a> --}}
-                                            <a href="https://wa.me/50377948668" target="_blank" class="whatsapp"><i
+                                            <a href="https://wa.me/50377948668" target="_blank" style="background-color: #25D366; border-color: #25D366; color: #fff"><i
                                                     class="lni lni-whatsapp"></i></a>
                                         </li>
                                        
@@ -370,8 +418,7 @@
                 <div class="bottom-inner">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-12">
-
-                            <div class="single-footer f-contact">
+                            {{-- <div class="single-footer f-contact">
                                 <h3>Nuestros Horarios</h3>
                                 <p class="phone">Teléfono: +503 2323 2323</p>
                                 <ul>
@@ -379,60 +426,112 @@
                                     <li><span>Sábados: </span> 10.00 am - 6.00 pm</li>
                                 </ul>
                                 <p class="mail">
-                                    {{-- <a
-                                        href="/cdn-cgi/l/email-protection#dcafa9acacb3aea89cafb4b3acbbaeb5b8aff2bfb3b1"><span
-                                            class="__cf_email__"
-                                            data-cfemail="20535550504f52546053484f5047524944530e434f4d">[email&#160;protected]</span></a>
-                                    --}}
+                                    
                                     <a href="mailto:mitiendita@example.com">mitiendita@example.com</a>
                                 </p>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-
-                            <div class="single-footer our-app">
-                                <h3>Nuestra Aplicación Movil</h3>
-                                <ul class="app-btn">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-apple"></i>
-                                            <span class="small-title">Disponible en</span>
-                                            <span class="big-title">App Store</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-play-store"></i>
-                                            <span class="small-title">Disponible en</span>
-                                            <span class="big-title">Google Play</span>
-                                        </a>
-                                    </li>
+                            </div> --}}
+                            <div class="single-footer f-link">
+                                <h3>Para Comprar</h3>                                
+                                <ul>
+                                    <li><a href="#">Como Comprar</a></li>
+                                    <li><a href="#">Formas de Pago</a></li>
+                                    <li><a href="#">Gastos de Envíos</a></li>
+                                    <li><a href="#">Cupones de Descuento</a></li>
+                                    <li><a href="#">Preguntas Frecuentes</a></li>
                                 </ul>
                             </div>
 
                         </div>
                         <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Sobre Nosotros</h3>                                
+                                <ul>
+                                    <li><a href="#">Quienes Somos</a></li>
+                                    <li><a href="#">Nuestra Tienda</a></li>
+                                    <li><a href="#">Marcas</a></li>
+                                    <li><a href="#">Seguridad de Sitio</a></li>
+                                    <li><a href="#">Politica de Privacidad</a></li>
+                                    <li><span>Horarios:</span>
+                                        <ul>
+                                            <li>L - V: 8:00 - 17:00</li>
+                                            <li>Sabado: 8:00 - 12:00</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Contactar</h3>                                
+                                <ul>
+                                    <li><a href="#">Soporte</a></li>
+                                    <li><a href="#">Garantia</a></li>
+                                    <li><a href="#">Opiniones</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Comunidad</h3>                                
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-blogger"></i> Blog</a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i> Youtube</a></li>
+                                    <li><a href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-2 col-md-12 col-12 payment">
 
                             <div class="single-footer f-link">
-                                <h3>Información</h3>
-                                <ul>
-                                    <li><a href="{{ url('/sobre-nosotros') }}">Sobre Nosotros</a></li>
-                                    <li><a href="{{ url('/contacto') }}">Contactanos</a></li>
-                                    <li><a href="{{ url('/ubicacion') }}">Donde Estamos Ubicados</a></li>
-                                    <li><a href="{{ url('/preguntas-frecuentes') }}">Preguntas Frecuentes</a></li>
+                                <p class="text-center text-dark mb-5">Pagos Seguros</p>
+                                <ul class="metodos-pagos">
+                                    <li>                                    
+                                        <div class="row text-center">
+                                            <div class="col-3">
+                                                <i class="fab fa-cc-visa" style="color: #1A1F71"></i>                                            
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="fab fa-cc-mastercard" style="color: #EB001B"></i>                                            
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="fab fa-cc-amex" style="color: #016FD0"></i>                                            
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="fab fa-cc-discover" style="color: #00457C"></i>
+                                            </div>
+                                            <div class="col-3">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row text-center mx-auto">
+                                            <div class="col-6">
+                                                <img src="{{ asset('frontend/assets/images/https.svg') }}" alt="certificate" class="img-fluid" width="30" height="30">
+                                            </div>
+                                            <div class="col-6">
+                                                <img src="{{ asset('frontend/assets/images/web-security.svg') }}" alt="certificate" class="img-fluid" width="30" height="30">
+                                            </div>
+                                        </div>                                        
+                                    </li>
                                 </ul>
                             </div>
 
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        {{-- <div class="col-lg-3 col-md-6 col-12">
 
                             <div class="single-footer f-link">
                                 <h3>Categorias</h3>
                                 @livewire('footer-category')
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -446,7 +545,7 @@
 
                         <div class="col-lg-12 col-12">
                             <div class="copyright">
-                                <p>Hecho con&nbsp; <i class="fas fa-heart"></i>&nbsp; en El Salvador</p>
+                                <p>Hecho con&nbsp; <i class="fas fa-heart"></i>&nbsp; en El Salvador por AquariusIT&copy;</p>
                             </div>
                         </div>
 
@@ -473,7 +572,44 @@
         integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     @livewireScripts
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script defer>
+        'use strict';
+        /* var something = (function() {
+            var executed = false;
+            return function() {
+                if (!executed) {
+                    executed = true;
+                    console.log('yaaaaa');
+                }
+            };
+        })();
 
+        something(); */
+
+        /* (function () {
+            var waitTime = 60000; 
+            var executionTime;
+            var initialTime = localStorage.getItem("initialTime");
+            if (initialTime !== null) {
+                executionTime = parseInt(initialTime, 10) + waitTime - (new Date()).getTime();
+                if (executionTime < 0) executionTime = 0;
+            } else {
+                localStorage.setItem("initialTime", (new Date()).getTime());
+                executionTime = waitTime;
+            };
+
+            setTimeout(() => {               
+                localStorage.removeItem('initialTime');
+                console.log('new year');
+            }, executionTime);
+        }()); */
+
+        /* (function () {
+
+        }()) */
+    </script>
+    
     <script>
         /* (function() {
                 window.onload = function() { 

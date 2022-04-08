@@ -1659,9 +1659,9 @@ ol {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 15px 0;
+    padding: 10px 0;
     /* padding: 25px 0; */
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgb(202, 202, 202);
 }
 
 @media (max-width: 767px) {
@@ -1723,7 +1723,7 @@ ol {
     line-height: 40px;
     text-align: center;
     display: block;
-    border: 1px solid #eee;
+    border: 1px solid rgb(202, 202, 202);
     border-radius: 50%;
 }
 
@@ -1767,7 +1767,7 @@ ol {
     line-height: 40px;
     display: inline-block;
     border-radius: 50%;
-    border: 1px solid #eee;
+    border: 1px solid rgb(202, 202, 202);
     color: #555;
     font-size: 18px;
     text-align: center;
@@ -1811,7 +1811,7 @@ ol {
     line-height: 40px;
     display: inline-block;
     border-radius: 50%;
-    border: 1px solid #eee;
+    border: 1px solid rgb(202, 202, 202);
     color: #555;
     font-size: 18px;
     text-align: center;
@@ -2098,10 +2098,10 @@ ol {
 .header .main-menu-search .search-input input {
     width: 100%;
     height: 45px;
-    border: 1px solid #e2e2e2;
+    border: 1px solid rgb(202, 202, 202);
     background-color: #fff;
     color: #000;
-    border-radius: 0;
+    border-radius: 50px 0 0 50px;
     padding: 0 15px;
     -webkit-transition: all 0.3s linear;
     transition: all 0.3s linear;
@@ -2115,7 +2115,7 @@ ol {
     height: 45px;
     padding: 0;
     border: 0;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 50px 50px 0;
     margin-left: -2px;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
@@ -2621,7 +2621,7 @@ ol {
     -webkit-transition: all 0.3s ease-out 0s;
     transition: all 0.3s ease-out 0s;
     padding: 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgb(202, 202, 202);
 }
 
 .navbar-area.sticky {
@@ -2982,7 +2982,7 @@ ol {
 /* added */
 @media only screen and (min-width: 992px) and (max-width: 1400px) { 
     .hero-area .hero-slider .single-slider {
-        height: 60vh;
+        height: 57vh;
     }
  }
  /* end added */
@@ -5695,8 +5695,9 @@ blockquote span {
     font-size: 12px;
 }
 
-.item-details .product-info .social-share ul li a.facebook {
+.item-details .product-info .social-share ul li  {
     color: #3b5999;
+    background-color: #0167F3 !important;
 }
 
 .item-details .product-info .social-share ul li a.facebook:hover {
@@ -8470,3 +8471,61 @@ box-shadow: 0 0 6px #F8B9B7!important;
         margin-top:0.8em;
     }
  }
+
+ .heart {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background-position: 0 0;
+    /* cursor: pointer; */
+    /* animation: fave-heart 1s steps(28) */;
+  }
+  .heart.is-ative {
+    background-position: -2800px 0;
+    transition: background 1s steps(28);
+  }
+  @keyframes fave-heart {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2800px 0;
+    }
+  }
+
+  .metodos-pagos li i {
+      font-size: 24px
+  }
+
+  .payment {
+      border-left: 1px solid #000;
+  }
+
+  @media only screen and (max-width: 992px) and (min-width: 0px) { 
+    .payment {
+        border-left: 0 !important;
+    }
+   }
+  
+   .hero-cards {
+       cursor: pointer;
+   }
+
+   .hero-cards .card:hover {
+        background-color: #eee;
+   }
+
+   .fav-button {
+       background-color: #fcde67;
+       color: #000 !important;
+   }
+
+   .fav-button:hover {
+    background-color: #fff;
+    border: 1px solid #fcde67;
+    color: #000 !important;
+}

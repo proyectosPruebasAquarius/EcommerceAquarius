@@ -131,7 +131,12 @@
                 </div>
                 <div class="bottom-content">
                     <div class="row align-items-end">
-                        <div class="col-lg-4 col-md-4 col-12">
+                        @auth
+                            <div class="col-lg-2 col-md-4 col-12 mb-2 mb-md-0">
+                                @livewire('lista-deseo', ['id_producto' => $productos->id_producto])                            
+                            </div>
+                        @endauth
+                        <div class="col-lg-5 col-md-4 col-12">
                             <div class="button cart-button">
                                 @if ($productos->stock > 0)
                                 @if (isset($localCart))
@@ -154,7 +159,7 @@
                                     @endif
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-12 d-none d-md-block">
+                        <div class="col-lg-5 col-md-4 col-12 d-none d-md-block">
                             <div class="button cart-button">
                                 @if ($productos->stock > 0)
                                 @if (isset($localCart))
@@ -203,6 +208,14 @@
 					}
     	    	});
  		});
+    
+    /* document.getElementById('wishlist').addEventListener( 'click', () => {
+        document.querySelector('.heart').classList.toggle('is-ative');
+    }) */
+    
+    if (window.closed) {
+        localStorage.setItem('wishlist', 'true')
+    }
 </script>
 @endpush
 </div>

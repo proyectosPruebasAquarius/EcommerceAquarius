@@ -1,6 +1,7 @@
 <div>
     <a href="javascript:void(0)" class="main-btn">
-        <i class="lni lni-cart"></i>
+        {{-- <i class="lni lni-cart"></i> --}}
+        <i class="far fa-shopping-cart"></i>
         <span class="total-items">{{ Cart::getTotalQuantity()}}</span>
     </a>
     

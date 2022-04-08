@@ -9,7 +9,7 @@
             <div class="col-lg-12 col-12 custom-padding-right">
                 <div class="slider-head">
 
-                    <div class="hero-slider">
+                    <div class="hero-slider" style="z-index: -1;">
 
                         @forelse ($trending as $tren)
                         <div class="single-slider rounded-3" style="background-image: linear-gradient(to right, rgba(42, 159, 255, 0.2) 0%, #fff 100%), url({{ json_decode($tren->imagen)[0] }}); background-size: contain; background-position: 100% 0%; background-blend-mode: multiply; background-repeat: no-repeat;">
@@ -61,6 +61,47 @@
             </div>
             
         </div>
+        <div class="row mt-2 text-center hero-cards">
+            <div class="col-12 col-md-6 col-lg-3">
+                <a href="#" class="w-100">
+                    <div class="card">
+                        <div class="card-body">
+                            Ofertas
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3  mt-2 mt-md-0 mt-lg-0">
+                <a href="#" class="w-100">
+                    <div class="card">
+                        <div class="card-body">
+                            Promociones
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 mt-2 mt-md-2 mt-lg-0">
+                <a href="#" class="w-100">
+                    <div class="card">
+                        <div class="card-body">
+                            Atención al cliente
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 mt-2 mt-md-2 mt-lg-0">
+                <a href="#" class="w-100">
+                    <div class="card">
+                        <div class="card-body">
+                            Sucursales
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -83,7 +124,7 @@
     });
 
     //======== Brand Slider
-    tns({
+    /* tns({
         container: '.brands-logo-carousel',
         autoplay: true,
         autoplayButtonOutput: false,
@@ -105,7 +146,7 @@
                 items: 6,
             }
         }
-    });
+    }); */
 </script>
 @endpush
 @endsection

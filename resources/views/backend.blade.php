@@ -120,7 +120,7 @@
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
-                                        <div class="user-name text-end me-3">
+                                        <div class="user-name text-end me-3 no-name-notification">
                                             <h6 class="mb-0 text-gray-600">
                                                 @if (Auth::check())
                                                {{ Auth::user()->name}}
