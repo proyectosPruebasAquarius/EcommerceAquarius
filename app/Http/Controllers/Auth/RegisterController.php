@@ -55,6 +55,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'terminosycondiciones' => ['required'],
+            'politica_privacidad' => ['required'],
         ]);
     }
 
@@ -71,6 +73,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'id_tipo_usuario' => 2,
             'password' => Hash::make($data['password']),
+            'terminosycondiciones' => $data['terminosycondiciones'] == 'true' ? 1 : 0,
+            'politica_privacidad' => $data['politica_privacidad'] == 'true' ? 1 : 0,
         ]);
     }
 

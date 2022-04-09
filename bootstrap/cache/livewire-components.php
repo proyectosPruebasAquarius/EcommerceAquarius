@@ -3,6 +3,7 @@
   'categorie-preview' => 'App\\Http\\Livewire\\CategoriePreview',
   'checkout' => 'App\\Http\\Livewire\\Checkout',
   'checkout-form' => 'App\\Http\\Livewire\\CheckoutForm',
+  'conditions-modal' => 'App\\Http\\Livewire\\ConditionsModal',
   'departamentos' => 'App\\Http\\Livewire\\Departamentos',
   'detail' => 'App\\Http\\Livewire\\Detail',
   'footer-category' => 'App\\Http\\Livewire\\FooterCategory',

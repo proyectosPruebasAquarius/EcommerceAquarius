@@ -77,7 +77,7 @@
                         <h5>{{ __('Registrate') }}</h5>
                         {{-- <p>Registrationtakeslessthanaminutebutgivesyoufullcontroloveryourorders.</p> --}}
                     </div>
-                    <form class="row" method="POST" action="{{ route('register') }}">
+                    <form class="row" method="POST" action="{{ route('register') }}" id="registerMod">
                         @csrf
 
                         <div class="col-sm-6">
@@ -131,6 +131,24 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input width-auto" id="terminosycondiciones" name="terminosycondiciones" value="true">
+                                    <label class="form-check-label" for="terminosycondiciones">Acepta los <a type="button" class="text-decoration-underline" onclick="Livewire.emit('conditionChanger', 'terminos')" data-bs-toggle="modal" data-bs-target="#conditionsModal">Términos y Condiciones</a></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input width-auto" id="politicaprivacidad" name="politica_privacidad" value="true">
+                                    <label class="form-check-label" for="politicaprivacidad">Acepta las <a type="button" class="text-decoration-underline" onclick="Livewire.emit('conditionChanger', 'politica')" data-bs-toggle="modal" data-bs-target="#conditionsModal">Política de Privacidad</a></label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="button">
                             <button class="btn" type="submit">{{ __('Registrar') }}</button>
                         </div>
@@ -144,6 +162,10 @@
             {{--  End Sign Up --}}
         </div>
     </div>
+    
+    <!-- Modal -->
+    @livewire('conditions-modal')
+    <!-- End Modal -->
 </div>
 @stack('scripts')
     <script type="text/javascript" defer>
@@ -168,6 +190,24 @@
             document.getElementById('loginFeed').classList.add('invisible');
           }
           localStorage.removeItem('wasLogging');
+      }
+
+      document.getElementById('registerMod').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('terminosycondiciones').checked && document.getElementById('politicaprivacidad').checked) {                
+                document.getElementById('registerMod').submit();
+            } else { 
+                alert('Acepte los teminos, condiciones y politicas de privacidad');                
+            }
+      });
+
+      var capture = (e) => {
+          e.preventDefault();
+          if (document.getElementById('terminosycondiciones').checked && document.getElementById('politicaprivacidad').checked) {
+              return true;
+          } else {
+              alert('Acepte los teminos, condiciones y politicas de privacidad')
+          }
       }
     </script>
     <script>
