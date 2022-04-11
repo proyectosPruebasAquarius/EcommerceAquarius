@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/glightbox.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/assets/css/main.css')}}" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
+    @livewireStyles
 </head>
 
 <body>
@@ -36,8 +37,8 @@
     @yield('content')
 
    
-
-   
+    <p class="text-center">AquariusIT&copy; - <script>document.write(new Date().getFullYear())</script></p>
+    @livewireScripts
     <script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/tiny-slider.js')}}"></script>
     <script src="{{asset('frontend/assets/js/glightbox.min.js')}}"></script>

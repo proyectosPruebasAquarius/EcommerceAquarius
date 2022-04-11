@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             {{-- Login --}}
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-12 col-lg-6">
                 <form class="card login-form" method="POST"  action="{{ route('login') }}">
                     @csrf
 
@@ -70,7 +70,7 @@
             {{-- End login  --}}
 
             {{-- Sign Up --}}
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-12 col-lg-6 mt-2 mt-md-2 mt-lg-0">
                 <div class="register-form">
                     <div class="title">
                         <h3>¿No tienes una cuenta?</h3>
