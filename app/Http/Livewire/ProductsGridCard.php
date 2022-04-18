@@ -27,6 +27,8 @@ class ProductsGridCard extends Component
 
     public $orderBy;
     
+    public $hasOferta;
+
     protected $queryString = ['categoriaFilt', 'marca', 'sub_categoria', 'rango'];
     protected $listeners = ['searchW' => 'search', 'sort' => 'sortBy'];
     
@@ -194,6 +196,8 @@ class ProductsGridCard extends Component
             }
         } else if (request()->route()->getName() == 'bySearch') {
             $this->search = request('search');
+        } else if (request()->route()->getName() == 'byOferta') {
+            $this->hasOferta = true;
         }
     }
 
@@ -335,6 +339,9 @@ class ProductsGridCard extends Component
                     })
                     ->when($rango, function ($query) use ($rango) {
                         $query->whereBetween('inventarios.precio_venta', $rango);
+                    })
+                    ->when($this->hasOferta, function ($query) {
+                        $query->where('inventarios.id_oferta', '>', 0);
                     })
                     ->orderBy($field, $direction)->paginate(9);
         $all = Inventario::join('productos', 'inventarios.id_producto', '=', 'productos.id')

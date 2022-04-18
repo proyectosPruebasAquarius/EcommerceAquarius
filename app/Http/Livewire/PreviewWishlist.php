@@ -18,7 +18,7 @@ class PreviewWishlist extends Component
         try {
             WishList::where('id', $id)->delete();
         } catch (\Exception $e) {
-            
+            \Debugbar::info($e->getMessage());
         }
     }
 
@@ -27,7 +27,7 @@ class PreviewWishlist extends Component
             if (Auth::check()) 
             WishList::where('id_user', Auth::id())->delete();            
         } catch (\Exception $e) {
-            
+            \Debugbar::info($e->getMessage());
         }
     }
     
@@ -48,21 +48,6 @@ class PreviewWishlist extends Component
 
                 $this->addToCart($getInventory, 1);
             }
-        }
-    }
-
-    public function oferta($id, $precio)
-    {
-        /* \Debugbar::info($id, $precio); */
-        $hasOferta = \DB::table('ofertas')->join('tipos_ofertas', 'ofertas.id_tipo_oferta', '=', 'tipos_ofertas.id')
-        ->where([
-            ['ofertas.id', $id],
-            ['ofertas.estado', '1'],
-            ['tipos_ofertas.estado', '1']
-        ])->select('ofertas.nombre as oferta', 'tipos_ofertas.nombre as type')->get();
-
-        if (strtolower($hasOferta[0]->type) == 'descuento' || strtolower($hasOferta[0]->type) == 'descuentos') {
-            return $precio * (('100' - number_format($hasOferta[0]->oferta)) / '100');
         }
     }
 

@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/ratingStart.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/assets/css/timeline.css')}}" />
     @livewireStyles
+    @stack('styles')
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=http://192.168.1.6:8080/noscript">
+    </noscript>
 </head>
 
 <body>
@@ -433,11 +437,11 @@
                             <div class="single-footer f-link">
                                 <h3>Para Comprar</h3>                                
                                 <ul>
-                                    <li><a href="#">Como Comprar</a></li>
-                                    <li><a href="#">Formas de Pago</a></li>
-                                    <li><a href="#">Gastos de Envíos</a></li>
-                                    <li><a href="#">Cupones de Descuento</a></li>
-                                    <li><a href="#">Preguntas Frecuentes</a></li>
+                                    <li><a href="{{ route('compras.about') }}">Como Comprar</a></li>
+                                    <li><a href="{{ route('compras.about') }}">Formas de Pago</a></li>
+                                    <li><a href="{{ route('compras.about') }}">Gastos de Envíos</a></li>
+                                    <li><a href="{{ route('compras.about') }}">Cupones de Descuento</a></li>
+                                    <li><a href="{{ route('faq') }}">Preguntas Frecuentes</a></li>
                                 </ul>
                             </div>
 
@@ -446,11 +450,11 @@
                             <div class="single-footer f-link">
                                 <h3>Sobre Nosotros</h3>                                
                                 <ul>
-                                    <li><a href="#">Quienes Somos</a></li>
-                                    <li><a href="#">Nuestra Tienda</a></li>
-                                    <li><a href="#">Marcas</a></li>
-                                    <li><a href="#">Seguridad de Sitio</a></li>
-                                    <li><a href="#">Politica de Privacidad</a></li>
+                                    <li><a href="{{ url('/sobre-nosotros') }}">Quienes Somos</a></li>
+                                    <li><a href="{{ url('/ubicacion') }}">Nuestra Tienda</a></li>
+                                    <li><a href="{{ route('marcas') }}">Marcas</a></li>
+                                    <li><a href="{{ route('seguridadpolitica') }}">Seguridad de Sitio</a></li>
+                                    <li><a href="{{ route('seguridadpolitica') }}">Politica de Privacidad</a></li>
                                     <li><span>Horarios:</span>
                                         <ul>
                                             <li>L - V: 8:00 - 17:00</li>
@@ -466,9 +470,9 @@
                             <div class="single-footer f-link">
                                 <h3>Contactar</h3>                                
                                 <ul>
-                                    <li><a href="#">Soporte</a></li>
-                                    <li><a href="#">Garantia</a></li>
-                                    <li><a href="#">Opiniones</a></li>
+                                    <li><a href="{{ url('contacto') }}">Soporte</a></li>
+                                    <li><a href="{{ route('seguridadpolitica') }}">Garantia</a></li>
+                                    <li><a href="{{ route('opiniones') }}">Opiniones</a></li>
                                 </ul>
                             </div>
 
@@ -480,9 +484,9 @@
                                 <ul>
                                     <li><a href="#"><i class="fab fa-blogger"></i> Blog</a></li>
                                     <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                                    <li><a href="https://m.me/110812464804606" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
                                     <li><a href="#"><i class="fab fa-youtube"></i> Youtube</a></li>
-                                    <li><a href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a></li>
+                                    <li><a href="https://wa.me/50377948668" target="_blank"><i class="fab fa-whatsapp"></i> Whatsapp</a></li>
                                 </ul>
                             </div>
 

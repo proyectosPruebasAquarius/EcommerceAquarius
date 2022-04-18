@@ -54,7 +54,7 @@ class ListaDeseo extends Component
             $this->alert('success', $message);
         } catch (\Exception $e) {
             //throw $th;
-            
+            \Debugbar::info($e->getMessage());
             $this->alert('error', 'Ocurrió un error inesperado');
         }
     }

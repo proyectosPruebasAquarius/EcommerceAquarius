@@ -558,7 +558,7 @@
         <div class="container">
             <ul>
 
-                <li>
+                <li onclick="location.href = @js(route('compras.about'))">
                     <div class="media-icon">
                         <i class="lni lni-delivery"></i>
                     </div>
@@ -568,7 +568,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li onclick="Livewire.emit('changeModalType', 'services')" data-bs-toggle="modal" data-bs-target="#atencionClienteModal">
                     <div class="media-icon">
                         <i class="lni lni-support"></i>
                     </div>
@@ -578,7 +578,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li onclick="location.href = @js(route('compras.about'))">
                     <div class="media-icon">
                         <i class="lni lni-credit-cards"></i>
                     </div>
@@ -588,7 +588,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li onclick="location.href = @js(route('seguridadpolitica'))">
                     <div class="media-icon">
                         <i class="lni lni-certificate"></i>
                     </div>

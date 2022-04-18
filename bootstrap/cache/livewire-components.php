@@ -1,4 +1,5 @@
 <?php return array (
+  'atencion-cliente-modal' => 'App\\Http\\Livewire\\AtencionClienteModal',
   'cart-section' => 'App\\Http\\Livewire\\CartSection',
   'categorie-preview' => 'App\\Http\\Livewire\\CategoriePreview',
   'checkout' => 'App\\Http\\Livewire\\Checkout',

@@ -29,6 +29,29 @@ Route::get('/productos/filter/{search}', function () {
     //session(['categoria' => true]);
     return view('frontend.product');
 })->name('bySearch');
+Route::get('/productos/ofertas', function () {
+    //session(['categoria' => true]);
+    return view('frontend.product');
+})->name('byOferta');
+Route::get('/noscript', function () {
+    return view('noscript');
+})->name('noscript');
+Route::get('/compras-about', function () {
+    return view('frontend.compras');
+})->name('compras.about');
+Route::get('/faq', function () {
+    return view('frontend.faq');
+})->name('faq');
+Route::get('/marcas', function () {
+    $marcas = \DB::table('marcas')->where('estado', 1)->get(['nombre', 'imagen']); 
+    return view('frontend.marcas')->with('marcas', $marcas);
+})->name('marcas');
+Route::get('/seguridad-y-politica', function () {
+    return view('frontend.seguridadpolitica');
+})->name('seguridadpolitica');
+Route::get('/opiniones', function () {
+    return view('frontend.opiniones');
+})->name('opiniones');
 Route::get('/cambiar/contraseña', 'ResetPassController@index');
 Route::post('/cambiar/contraseña/send', 'ResetPassController@changePassword')->name('reset.pass.email');
 Route::put('/contraseña/update/{email}', 'ResetPassController@resetPassword')->name('restore.pass');
@@ -166,22 +189,14 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     /*Categorias*/
     Route::get('/categorias','CategoriaController@index');
     Route::get('/categorias/edit/{id}','CategoriaController@edit');
-    Route::get('/categorias/add','CategoriaController@create');    
+    Route::get('/categorias/add','CategoriaController@create');
+    Route::get('/categorias/subadd','CategoriaController@subcat');
     Route::post('/categorias/save','CategoriaController@store');
     Route::put('/categorias/update/{id}','CategoriaController@update');
-    Route::delete('/categorias/delete/{id}','CategoriaController@destroy');
+    Route::post('/categorias/subsave','CategoriaController@savesubcat');
     Route::get('/categorias/select','CategoriaController@selectCategoria');
+    Route::delete('/categorias/delete/{id}','CategoriaController@destroy');
     /*END Categorias*/
-
-    /*Sub Categorias */
-    Route::get('/sub-categorias','SubCategoriaController@index');
-    Route::get('/sub-categorias/add','SubCategoriaController@create');  
-    Route::get('/sub-categorias/edit/{id}','SubCategoriaController@show');
-    Route::post('/sub-categorias/save','SubCategoriaController@store');
-    Route::put('/sub-categorias/update/{id}','SubCategoriaController@update');
-    Route::delete('/sub-categorias/delete/{id}','SubCategoriaController@destroy');
-    /*En Sub Categorias */
-
 
     /*PROVEEDORES */
     Route::get('/proveedores','ProveedorController@index');
@@ -245,12 +260,12 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     /*END TEST */
 
     /*METODOS DE PAGO */   
-    Route::get('/metodos-pagos','MetodoPagoController@index');
-    Route::get('/metodos-pagos/edit/{id}', 'MetodoPagoController@edit');
-    Route::put('/metodos-pagos/update/{id}','MetodoPagoController@update');
-    Route::get('/metodos-pagos/add','MetodoPagoController@create');
-    Route::post('/metodos-pagos/save','MetodoPagoController@store');
-    Route::delete('/metodos-pagos/delete/{id}', 'MetodoPagoController@destroy');
+    Route::get('/metodos_pagos','MetodoPagoController@index');
+    Route::get('/metodos_pagos/edit/{id}', 'MetodoPagoController@edit');
+    Route::put('/metodos_pagos/update/{id}','MetodoPagoController@update');
+    Route::get('/metodos_pagos/add','MetodoPagoController@create');
+    Route::post('/metodos_pagos/save','MetodoPagoController@store');
+    Route::delete('/metodos_pagos/delete/{id}', 'MetodoPagoController@destroy');
     /* END DE METODOS DE PAGO*/
 
 
@@ -279,4 +294,4 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
 /*END BACKEND */
 
 Route::post('/wishlist', 'WishListController@store')->name('wishlist.store');
-Route::get('/lista-deseo', 'WishListController@index')->name('wishlist');
+Route::get('/get', 'WishListController@index')->name('wishlist');

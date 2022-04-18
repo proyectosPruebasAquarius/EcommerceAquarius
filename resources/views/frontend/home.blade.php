@@ -63,7 +63,7 @@
         </div>
         <div class="row mt-2 text-center hero-cards">
             <div class="col-12 col-md-6 col-lg-3">
-                <a href="#" class="w-100">
+                <a href="{{ route('byOferta') }}" class="w-100">
                     <div class="card">
                         <div class="card-body">
                             Ofertas
@@ -73,7 +73,7 @@
             </div>
 
             <div class="col-12 col-md-6 col-lg-3  mt-2 mt-md-0 mt-lg-0">
-                <a href="#" class="w-100">
+                <a type="button" onclick="Livewire.emit('changeModalType', 'promocion')" data-bs-toggle="modal" data-bs-target="#atencionClienteModal" class="w-100">
                     <div class="card">
                         <div class="card-body">
                             Promociones
@@ -83,7 +83,7 @@
             </div>
 
             <div class="col-12 col-md-6 col-lg-3 mt-2 mt-md-2 mt-lg-0">
-                <a href="#" class="w-100">
+                <a type="button" onclick="Livewire.emit('changeModalType', 'services')" data-bs-toggle="modal" data-bs-target="#atencionClienteModal" class="w-100">
                     <div class="card">
                         <div class="card-body">
                             Atención al cliente
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col-12 col-md-6 col-lg-3 mt-2 mt-md-2 mt-lg-0">
-                <a href="#" class="w-100">
+                <a type="button" onclick="Livewire.emit('changeModalType', 'sucursal')" data-bs-toggle="modal" data-bs-target="#atencionClienteModal" class="w-100">
                     <div class="card">
                         <div class="card-body">
                             Sucursales
@@ -106,6 +106,8 @@
 </section>
 
 @livewire('trending-products')
+
+@livewire('atencion-cliente-modal')
 
 @push('scripts')
 <script type="text/javascript">

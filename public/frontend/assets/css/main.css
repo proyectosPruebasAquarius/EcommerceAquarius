@@ -3257,6 +3257,7 @@ ol {
     text-align: center;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -8528,4 +8529,8 @@ box-shadow: 0 0 6px #F8B9B7!important;
     background-color: #fff;
     border: 1px solid #fcde67;
     color: #000 !important;
+}
+
+.curve-border {
+    border-radius: 4px 4px 50% 4px;
 }

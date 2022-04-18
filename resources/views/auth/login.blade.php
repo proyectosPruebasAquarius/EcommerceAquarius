@@ -40,7 +40,7 @@
                         <div class="form-group input-group">
                             <label for="reg-fn">Contraseña</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="password" id="reg-pass" name="password" required autocomplete="current-password">
-                            <div class="form-check">
+                            <div class="form-check mt-2">
                                 <input type="checkbox" class="form-check-input width-auto" id="showOrHide" onclick="showPass(this)">
                                 <label class="form-check-label">Mostrar contraseña</label>
                             </div>
@@ -50,7 +50,7 @@
                             </span>
                             @enderror
                         </div>
-                        <div class="d-flex flex-wrap justify-content-between bottom-content">
+                        <div class="d-flex flex-wrap justify-content-between {{-- bottom-content --}}">
                             <div class="form-check">
                                 <input class="form-check-input width-auto" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label">{{ __('Recordarme') }}</label>
@@ -112,7 +112,7 @@
                             <div class="form-group">
                                 <label for="password">{{ __('Contraseña') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                <div class="form-check">
+                                <div class="form-check mt-2">
                                     <input type="checkbox" class="form-check-input width-auto" onclick="showPass(this)">
                                     <label class="form-check-label">Mostrar contraseña</label>
                                 </div>
