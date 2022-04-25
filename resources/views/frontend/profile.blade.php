@@ -454,15 +454,7 @@
 </section>
 @push('scripts')
 <script>
-    window.addEventListener("load", function(event) {
-        document.querySelectorAll("form").forEach((e) => {
-            e.reset();
-
-            if (e.querySelector('input[value="DELETE"]')) {
-                e.querySelector('input[value="DELETE"]').value = "PUT"
-            }
-        })
-    });
+    
 
     Livewire.on('refreshList', function () {
         location.reload();

@@ -43,6 +43,7 @@
     <script src="{{asset('frontend/assets/js/tiny-slider.js')}}"></script>
     <script src="{{asset('frontend/assets/js/glightbox.min.js')}}"></script>
     {{-- <script src="{{asset('frontend/assets/js/main.js')}}"></script> --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('scripts')
 </body>
 

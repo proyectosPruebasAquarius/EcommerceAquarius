@@ -30,8 +30,9 @@ class ForgetMail extends Mailable
      */
     public function build()
     {
-        return $this->from('example.pruebas.app@gmail.com', 'Example')
+        return $this->from('example.pruebas.app@gmail.com', 'MiTiendita')
         ->subject('Olvidaste tú contraseña')
-        ->view('emails.forget');
+        ->view('emails.forget')
+        ->markdown('emails.forget');
     }
 }

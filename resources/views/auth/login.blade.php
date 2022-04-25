@@ -42,7 +42,7 @@
                             <input class="form-control @error('password') is-invalid @enderror" type="password" id="reg-pass" name="password" required autocomplete="current-password">
                             <div class="form-check mt-2">
                                 <input type="checkbox" class="form-check-input width-auto" id="showOrHide" onclick="showPass(this)">
-                                <label class="form-check-label">Mostrar contraseña</label>
+                                <label class="form-check-label" for="showOrHide">Mostrar contraseña</label>
                             </div>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -110,11 +110,11 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="password">{{ __('Contraseña') }}</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <label for="password-register">{{ __('Contraseña') }}</label>
+                                <input id="password-register" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                 <div class="form-check mt-2">
-                                    <input type="checkbox" class="form-check-input width-auto" onclick="showPass(this)">
-                                    <label class="form-check-label">Mostrar contraseña</label>
+                                    <input type="checkbox" class="form-check-input width-auto" onclick="showPass(this)" id="register-checkbox">
+                                    <label class="form-check-label" for="register-checkbox">Mostrar contraseña</label>
                                 </div>
 
                                 @error('password')
@@ -134,7 +134,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input width-auto" id="terminosycondiciones" name="terminosycondiciones" value="true">
+                                    <input type="checkbox" class="form-check-input width-auto @error('terminosycondiciones') is-invalid @enderror" id="terminosycondiciones" name="terminosycondiciones" value="true">
                                     <label class="form-check-label" for="terminosycondiciones">Acepta los <a type="button" class="text-decoration-underline" onclick="Livewire.emit('conditionChanger', 'terminos')" data-bs-toggle="modal" data-bs-target="#conditionsModal">Términos y Condiciones</a></label>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input width-auto" id="politicaprivacidad" name="politica_privacidad" value="true">
+                                    <input type="checkbox" class="form-check-input width-auto @error('politica_privacidad') is-invalid @enderror" id="politicaprivacidad" name="politica_privacidad" value="true">
                                     <label class="form-check-label" for="politicaprivacidad">Acepta las <a type="button" class="text-decoration-underline" onclick="Livewire.emit('conditionChanger', 'politica')" data-bs-toggle="modal" data-bs-target="#conditionsModal">Política de Privacidad</a></label>
                                 </div>
                             </div>
@@ -167,9 +167,11 @@
     @livewire('conditions-modal')
     <!-- End Modal -->
 </div>
-@stack('scripts')
+
+@push('scripts')
     <script type="text/javascript" defer>
 
+        // Remueve mensajes repetidos de errores. Para login o para register
       if (localStorage.wasLogging == 'true') {
           if (document.getElementById('loginFeed').classList.contains('invisible')) {
               document.getElementById('loginFeed').classList.remove('invisible');
@@ -192,23 +194,24 @@
           localStorage.removeItem('wasLogging');
       }
 
+      // listener para alerta
       document.getElementById('registerMod').addEventListener('submit', function(e) {
             e.preventDefault();
             if (document.getElementById('terminosycondiciones').checked && document.getElementById('politicaprivacidad').checked) {                
                 document.getElementById('registerMod').submit();
             } else { 
-                alert('Acepte los teminos, condiciones y politicas de privacidad');                
+                /* alert('Acepte los teminos, condiciones y politicas de privacidad');  */               
+                Swal.fire({
+                    /* position: 'top-end', */
+                    icon: 'error',
+                    title: 'Acepte los teminos, condiciones y politicas de privacidad',
+                    showConfirmButton: true,
+                    /* timer: 1500 */
+                });
             }
       });
 
-      var capture = (e) => {
-          e.preventDefault();
-          if (document.getElementById('terminosycondiciones').checked && document.getElementById('politicaprivacidad').checked) {
-              return true;
-          } else {
-              alert('Acepte los teminos, condiciones y politicas de privacidad')
-          }
-      }
+      
     </script>
     <script>
 //         window.onload = function () {
@@ -240,23 +243,63 @@
             })
         });
 
+        // Muestra las contraseñas. Podria simplificarse ._.
         let showPass = (e) => {
             let password = document.querySelectorAll('input[name="password"]')
             if (e.checked)
             {
+                if(e.id == 'register-checkbox') {
+                   var pass = document.getElementById('password-register');
+                   var confirm = document.getElementById('password-confirm');
+
+                   if (pass.type  === "password") {
+                       pass.type = "text";
+                   }
+
+                   if (confirm.type  === "password") {
+                    confirm.type = "text";
+                   }
+                } else {
+                    var pass = document.getElementById('reg-pass');
+
+                   if (pass.type  === "password") {
+                       pass.type = "text";
+                   }
+                }
+                
+                /* 
                 password.forEach(element => {
                     if (element.type === "password") {
                         element.type = "text"
                     }
-                });
+                }); */
             } else {
-                password.forEach(element => {
+                /* password.forEach(element => {
                     if (element.type === "text") {
                         element.type = "password"
                     }
-                });
+                }); */
+
+                if(e.id == 'register-checkbox') {
+                   var pass = document.getElementById('password-register');
+                    var confirm = document.getElementById('password-confirm');
+
+                   if (pass.type  === "text") {
+                       pass.type = "password";
+                   }
+
+                   if (confirm.type  === "text") {
+                        confirm.type = "password";
+                   }
+                } else {
+                    var pass = document.getElementById('reg-pass');
+
+                   if (pass.type  === "text") {
+                       pass.type = "password";
+                   }
+                }
             }
         }
     </script>
-
+@endpush
 @endsection

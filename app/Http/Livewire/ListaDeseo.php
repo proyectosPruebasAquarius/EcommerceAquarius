@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Wishlist;
+use App\WishList;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -29,7 +29,7 @@ class ListaDeseo extends Component
         try {
             $this->validate();
             $this->id_user = auth()->user()->id;
-            $wishList = new Wishlist();
+            $wishList = new WishList();
             $data = Wishlist::where([
                 ['id_producto', $this->id_producto],
                 ['id_user', auth()->user()->id]
@@ -54,14 +54,14 @@ class ListaDeseo extends Component
             $this->alert('success', $message);
         } catch (\Exception $e) {
             //throw $th;
-            \Debugbar::info($e->getMessage());
+
             $this->alert('error', 'Ocurrió un error inesperado');
         }
     }
 
     public function render()
     {
-        $this->corroborate = Wishlist::where([
+        $this->corroborate = WishList::where([
             ['id_producto', $this->id_producto],
             ['id_user', auth()->user()->id]
         ])->first();

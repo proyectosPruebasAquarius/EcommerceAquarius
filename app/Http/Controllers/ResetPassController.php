@@ -44,9 +44,9 @@ class ResetPassController extends Controller
     
             $details = collect([
     
-                'title' => 'Mail por example.com',
+                'title' => 'Ingresa a la siguiente dirección para cambiar tú contraseña',
         
-                'body' => 'Ingresa a la siguiente dirección para cambiar tú contraseña '.$url
+                'body' => $url
         
             ]);
                    

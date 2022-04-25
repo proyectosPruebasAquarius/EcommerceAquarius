@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-    <title>email prueba</title>
-
-</head>
-
-<body>
-
-    <h1>{{ $details['title'] }}</h1>
-
-    <p>{{ $details['body'] }}</p>
-
-   
-
-    <p>{{ $details }}</p>
-
-</body>
-
-</html>
+@component('mail::message')
+# Restablecer Contraseña
+{{ $details['title'] }}
+ 
+@component('mail::button', ['url' => $details['body']])
+Cambiar Contraseña
+@endcomponent
+ 
+No lo solicitaste, omite este email,<br>
+{{ config('app.name') }}
+@endcomponent
