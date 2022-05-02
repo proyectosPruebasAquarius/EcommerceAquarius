@@ -9,6 +9,7 @@ use App\Venta;
 use App\DetalleVenta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProfileController extends Controller
 {
@@ -107,6 +108,19 @@ class ProfileController extends Controller
             return back()->withErrors(['message', 'Este perfil no puede ser actualizado.']);
         }
         
+    }
+
+    public function showInvoice($venta)
+    {
+        $ventaI = Venta::where('id', $venta)->select('created_at', 'total')->first();
+
+        $detalles = DetalleVenta::join('ventas', 'detalle_ventas.id_venta', 'ventas.id')
+                    ->join('productos', 'detalle_ventas.id_producto', '=', 'productos.id')
+                    ->select('detalle_ventas.cantidad', 'detalle_ventas.created_at', 'ventas.total', 'ventas.num_transaccion', 'productos.nombre', 
+                    'productos.imagen', 'detalle_ventas.id_producto as product')
+                    ->where('detalle_ventas.id_venta', $venta)->get();
+        $pdf = PDF::loadView('pdf.invoice', ['detalles' => $detalles, 'created_at' =>  $ventaI])->setPaper('a4', 'landscape');
+        return $pdf->stream('Detalle de Venta-');
     }
 
     /**
