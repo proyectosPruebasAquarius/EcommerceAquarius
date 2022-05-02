@@ -72,7 +72,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ url('admin/pedidos/pdf') }}" method="post" id="FormPDFS">
+                                <form action="{{ url('admin/pedidos-proveedores/pdf') }}" method="post" id="FormPDFS">
                                     @csrf
                                     @method('POST')
                                     <div class="mb-3">
@@ -163,7 +163,7 @@
                                     $parameter= Crypt::encrypt($parameter);
                                     @endphp
                                     <li class="list-inline-item">
-                                        <a href="pedidos/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0"
+                                        <a href="pedidos-proveedores/edit/{{$parameter}}" class="btn btn-success btn-sm rounded-0"
                                             type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i
                                                 class="fal fa-pencil-alt"></i></a>
                                     </li>

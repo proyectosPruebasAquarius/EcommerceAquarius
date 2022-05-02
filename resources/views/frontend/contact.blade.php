@@ -47,7 +47,7 @@
                                 <i class="lni lni-map"></i>
                                 <h3>Dirección</h3>
                                 <ul>
-                                    <li>4a Calle Oriente, Barrio San Antonio,<br> Chalatenango, Chalatenango.</li>
+                                    <li>4a Calle Oriente, s/n, Barrio San Antonio,<br> Chalatenango, Chalatenango.</li>
                                 </ul>
                             </div>
 
@@ -80,11 +80,13 @@
                     <div class="col-lg-8 col-md-12 col-12">
                         <div class="contact-form-head">
                             <div class="form-main">
-                                <form class="form" method="post" action="assets/mail/mail.php">
+                                <form class="form" method="post" action="{{ route('send.mail.contact') }}">
+                                    @csrf
+                                    @method('post')
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <input name="name" type="text" placeholder="Tú Nombre" required="required">
+                                                <input name="name" type="text" placeholder="Nombre" required="required">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
@@ -94,17 +96,17 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <input name="email" type="email" placeholder="Tú Correo" required="required">
+                                                <input name="email" type="email" placeholder="Correo Electrónico" required="required">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <input name="phone" type="text" placeholder="Tú Teléfono" required="required">
+                                                <input name="phone" type="text" placeholder="Teléfono" required="required">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group message">
-                                                <textarea name="message" placeholder="Mensage"></textarea>
+                                                <textarea name="message" placeholder="Mensaje"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">

@@ -22,6 +22,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/assets/images/favicons/favicon.ico') }}">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    @livewireStyles
     @stack('partial-style')
 </head>
 
@@ -50,6 +51,12 @@
                                 <span>Inicio</span>
                             </a>
                         </li>
+                        <li class="sidebar-item  " id="inicio">
+                            <a href="{{ route('peticiones.eliminar.account') }}" class='sidebar-link'>
+                                <i class="bi bi-person-badge-fill"></i>
+                                <span>Peticiones de eliminar cuenta <span class="badge bg-secondary rounded-circle">{{ \DB::table('cuentas_eliminadas')->where('was_email_send', 0)->count() }}</span></span>
+                            </a>
+                        </li>
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -57,36 +64,38 @@
                                 <span>Menu</span>
                             </a>
                             <ul class="submenu ">
+                                
                                 <li class="submenu-item" id="marcas">
-                                    <a href="/admin/marcas">Marcas</a>
+                                    <a href="{{ url('/admin/marcas') }}">Marcas</a>
                                 </li>
                                 <li class="submenu-item" id="productos">
-                                    <a href="/admin/productos" >Productos</a>
+                                    <a href="{{ url('/admin/productos') }}" >Productos</a>
                                 </li>
                                 <li class="submenu-item" id="categorias">
-                                    <a href="/admin/categorias">Categorias</a>
+                                    <a href="{{ url('/admin/categorias') }}">Categorias</a>
                                 </li>
                                 <li class="submenu-item" id="sub-categorias">
-                                    <a href="/admin/sub-categorias">Sub Categorias</a>
+                                    <a href="{{ url('/admin/sub-categorias') }}">Sub Categorias</a>
                                 </li>
                                 <li class="submenu-item" id="proveedores">
-                                    <a href="/admin/proveedores">Proveedores</a>
+                                    <a href="{{ url('/admin/proveedores') }}">Proveedores</a>
+                                </li>
+                                <li class="submenu-item" id="pedidos-proveedores">
+                                    <a href="{{ url('/admin/pedidos-proveedores') }}">Pedidos a proveedores</a>
                                 </li>
                                 <li class="submenu-item " id="inventarios">
-                                    <a href="/admin/inventarios">Inventarios</a>
+                                    <a href="{{ url('/admin/inventarios') }}">Inventarios</a>
                                 </li>
                                 <li class="submenu-item" id="ofertas">
-                                    <a href="/admin/ofertas">Ofertas</a>
+                                    <a href="{{ url('/admin/ofertas') }}">Ofertas</a>
                                 </li>
                                 <li class="submenu-item" id="metodos">
-                                    <a href="/admin/metodos-pagos">Métodos de Pago</a>
+                                    <a href="{{ url('/admin/metodos-pagos') }}">Métodos de Pago</a>
                                 </li>
                                 <li class="submenu-item" id="ventas">
-                                    <a href="/admin/ventas">Ventas</a>
+                                    <a href="{{ url('/admin/ventas') }}">Ventas</a>
                                 </li>
-                                <li class="submenu-item" id="pedidos">
-                                    <a href="/admin/pedidos">Pedidos</a>
-                                </li>
+                                
 
                             </ul>
                         </li>
@@ -190,6 +199,7 @@
 
         </div>
     </div>
+    @livewireScripts
     <script src="{{asset('backend/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/main.js')}}"></script>

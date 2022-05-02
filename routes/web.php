@@ -21,6 +21,16 @@ Auth::routes(['verify' => true]);
 /* Route::get('/mail', function () {
     return view('frontend.mail');
 }); */
+Route::get('/eliminar-mi-cuenta-form', function () {
+    return view('frontend.eliminar-form');
+})->name('eliminar.cuenta.form')->middleware('auth');
+Route::get('/eliminar-mi-cuenta/{email}', function () {
+    return view('frontend.eliminar');
+})->name('eliminar.cuenta')->middleware(['auth', 'signed']);
+Route::get('/seguridad', function () {
+    return view('frontend.seguridad');
+})->name('website.seguridad');
+
 Route::put('/direccion/update/{id}', 'DireccionController@update')->middleware('auth')->name('update.direccion');
 Route::delete('/direccion/delete/{id}', 'DireccionController@destroy')->middleware('auth')->name('delete.direccion');
 Route::delete('/direccion/delete/facturacion/{id}', 'DireccionController@destroyFacturacion')->middleware('auth')->name('delete.direccion.facturacion');
@@ -82,9 +92,7 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('frontend.about');
 });
-/* Route::get('/productos', function () {
-    return view('frontend.product');
-}); */
+
 Route::get('/test', 'IndexController@index');
 Route::get('/productos', 'ProductController@index')->name('productos');
 Route::get('/test/{categoria_id}', 'ProductController@show');
@@ -98,16 +106,7 @@ Route::get('/detalle/{id}', 'ReviewController@index')->name('detalle');
 Route::get('/carrito', function () {
     return view('frontend.cart');
 })->name('carrito');
-/* Route::get('/checkout', function () {
-    $direcciones = Direccion::where('direcciones.id_user', auth()->user()->id)
-    ->join('municipios', 'direcciones.id_municipio', '=', 'municipios.id')
-    ->join('departamentos', 'municipios.id_departamento', '=', 'departamentos.id')
-    ->join('users', 'direcciones.id_user', '=', 'users.id')
-    ->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'users.name as user', 'direcciones.firts_name', 'direcciones.last_name', 'direcciones.email', 'direcciones.telefono')
-    ->get();
 
-    return view('frontend.checkout')->with('direcciones', $direcciones);
-}); */
 Route::get('/contacto', function () {
     return view('frontend.contact');
 });
@@ -135,9 +134,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/* Route::get('/profile', function () {
-    return view('frontend.profile');
-})->name('profile')->middleware('auth'); */
+
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'profile', 'middleware' => 'auth'], function () {
 
@@ -175,7 +172,7 @@ Route::post('/save/direccion', 'ProductController@store');
 /*BACKEND */
 Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::get('/inicio','IndexController@index');
-   Route::post('/venta/fecha','IndexController@ventaxfecha');
+    Route::post('/venta/fecha','IndexController@ventaxfecha');
     /*Marcas */
     Route::get('/marcas','MarcaController@index');
     Route::get('/marcas/add','MarcaController@create');
@@ -190,13 +187,24 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::get('/categorias','CategoriaController@index');
     Route::get('/categorias/edit/{id}','CategoriaController@edit');
     Route::get('/categorias/add','CategoriaController@create');
-    Route::get('/categorias/subadd','CategoriaController@subcat');
+    
     Route::post('/categorias/save','CategoriaController@store');
     Route::put('/categorias/update/{id}','CategoriaController@update');
-    Route::post('/categorias/subsave','CategoriaController@savesubcat');
+    
     Route::get('/categorias/select','CategoriaController@selectCategoria');
     Route::delete('/categorias/delete/{id}','CategoriaController@destroy');
     /*END Categorias*/
+
+    /*Sub categorias*/
+    
+    Route::get('/sub-categorias','SubCategoriaController@index');
+    Route::get('/sub-categorias/add','SubCategoriaController@create');
+    Route::post('/sub-categorias/save','SubCategoriaController@store');
+    Route::get('/sub-categorias/edit/{id}','SubCategoriaController@show');
+    Route::put('/sub-categorias/update/{id}','SubCategoriaController@update');
+    Route::delete('/sub-categorias/delete/{id}','SubCategoriaController@destroy');
+
+    /*FIN Sub categorias */
 
     /*PROVEEDORES */
     Route::get('/proveedores','ProveedorController@index');
@@ -260,12 +268,12 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     /*END TEST */
 
     /*METODOS DE PAGO */   
-    Route::get('/metodos_pagos','MetodoPagoController@index');
-    Route::get('/metodos_pagos/edit/{id}', 'MetodoPagoController@edit');
-    Route::put('/metodos_pagos/update/{id}','MetodoPagoController@update');
-    Route::get('/metodos_pagos/add','MetodoPagoController@create');
-    Route::post('/metodos_pagos/save','MetodoPagoController@store');
-    Route::delete('/metodos_pagos/delete/{id}', 'MetodoPagoController@destroy');
+    Route::get('/metodos-pagos','MetodoPagoController@index');
+    Route::get('/metodos-pagos/edit/{id}', 'MetodoPagoController@edit');
+    Route::put('/metodos-pagos/update/{id}','MetodoPagoController@update');
+    Route::get('/metodos-pagos/add','MetodoPagoController@create');
+    Route::post('/metodos-pagos/save','MetodoPagoController@store');
+    Route::delete('/metodos-pagos/delete/{id}', 'MetodoPagoController@destroy');
     /* END DE METODOS DE PAGO*/
 
 
@@ -284,14 +292,27 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
 
 
     /*PEDIDOS PROVEEDORES*/
-    Route::get('/pedidos','PedidoProveedorController@index');
-    Route::get('/pedidos/edit/{id}','PedidoProveedorController@edit');
-    Route::put('/pedidos/update/{id}','PedidoProveedorController@update');
-    Route::post('/pedidos/pdf','PedidoProveedorController@pdf');   
+    Route::get('/pedidos-proveedores','PedidoProveedorController@index');
+    Route::get('/pedidos-proveedores/edit/{id}','PedidoProveedorController@edit');
+    Route::put('/pedidos-proveedores/update/{id}','PedidoProveedorController@update');
+    Route::post('/pedidos-proveedores/pdf','PedidoProveedorController@pdf');   
     /*END PEDIDOS PROVEEDORES*/
+
+
+    Route::get('/peticiones/eliminar-cuenta', 'CuentaEliminadaController@index')->name('peticiones.eliminar.account');
 });
 
 /*END BACKEND */
 
 Route::post('/wishlist', 'WishListController@store')->name('wishlist.store');
 Route::get('/get', 'WishListController@index')->name('wishlist');
+
+
+Route::get('/mailable', function () {
+    $invoice = App\User::find(1);
+ 
+    return new App\Mail\ForgetMail($invoice);
+});
+
+Route::post('/send-contact', 'SendMailController@send')->name('send.mail.contact');
+Route::get('/show-invoice/{id}', 'Auth\ProfileController@showInvoice');

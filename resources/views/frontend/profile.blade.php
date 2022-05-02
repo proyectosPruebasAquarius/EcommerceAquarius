@@ -118,12 +118,7 @@
                                                                 <p>{{ date('d/m/Y h:i A', strtotime($venta->created_at)) }}</p>
                                                             </div>
                                                             <div class="row">
-                                                                @php
-                                                                $detalles = DB::table('detalle_ventas')->join('ventas', 'detalle_ventas.id_venta', 'ventas.id')
-                                                                ->join('productos', 'detalle_ventas.id_producto', '=', 'productos.id')
-                                                                ->select('detalle_ventas.cantidad', 'detalle_ventas.created_at', 'ventas.total', 'ventas.num_transaccion', 'productos.nombre', 'productos.imagen')
-                                                                ->where('detalle_ventas.id_venta', $venta->id)->get();
-                                                                @endphp
+                                                                
 
                                                                 {{-- Card for number code --}}
                                                                 <div class="col-12 col-md-6 col-lg-4">
@@ -132,26 +127,13 @@
                                                                         <div class="timeline-text">
                                                                             <h6>Número de Transacción</h6>
                                                                             <p><span class="badge rounded-pill bg-success text-wrap align-middle text-center">{{ $venta->num_transaccion }}</span></p>
+                                                                            <a href="{{ url('/show-invoice').'/'.$venta->id }}">Factura</a>
                                                                             <p><span class="badge rounded-pill bg-{{ $venta->estado  ? 'primary' : 'danger' }} text-wrap align-middle text-center">{{ $venta->estado  ? 'Aprobada' : 'Pendiente' }}</span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 {{-- End number card --}}
-                                                                @forelse ($detalles as $detalle)
-                                                                <div class="col-12 col-md-6 col-lg-4">
-                                                                    <div class="single-timeline-content d-flex wow fadeInLeft overflow-auto" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                                                        <div class="timeline-icon"><img src="{{ json_decode($detalle->imagen)[0] }}" alt="Product"></div>
-                                                                        <div class="timeline-text">
-                                                                            <h6>{{ $detalle->nombre }}</h6>
-                                                                            <p>Cantidad {{ $detalle->cantidad }} <br> Total de la Transacción ${{ $detalle->total }}.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                @empty
-                                                                <div class="col-12 col-md-6 col-lg-4">
-                                                                    <h5><span class="badge rounded-pill bg-danger text-wrap">{{ __('Ocurrió un error en esta transacción') }}</span></h5>
-                                                                </div>
-                                                                @endforelse
+                                                                
                                                             </div>
                                                         </div>
                                                         @empty
@@ -189,8 +171,8 @@
                                     ])->join('municipios', 'direcciones.id_municipio', '=', 'municipios.id')
                                     ->join('departamentos', 'municipios.id_departamento', '=', 'departamentos.id')
                                     ->join('users', 'direcciones.id_user', '=', 'users.id')
-                                    ->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'users.name as user', 'direcciones.first_name', 'direcciones.last_name',
-                                    'direcciones.email', 'direcciones.telefono', 'direcciones.direccion', 'direcciones.id', 'direcciones.facturacion', 'direcciones.referencia', 'direcciones.referencia_facturacion', 'departamentos.id as id_departamento', 'municipios.id as id_municipio')
+                                    ->select('departamentos.nombre as departamento', 'municipios.nombre as municipio', 'users.name as user', /* 'direcciones.first_name', 'direcciones.last_name',
+                                    'direcciones.email', */ 'direcciones.telefono', 'direcciones.direccion', 'direcciones.id', /* 'direcciones.facturacion', */ 'direcciones.referencia', /* 'direcciones.referencia_facturacion', */ 'departamentos.id as id_departamento', 'municipios.id as id_municipio')
                                     ->get();
                                     @endphp
                                     @forelse ($direcciones as $direccion)
@@ -454,7 +436,15 @@
 </section>
 @push('scripts')
 <script>
-    
+    window.addEventListener("load", function(event) {
+        document.querySelectorAll("form").forEach((e) => {
+            e.reset();
+
+            if (e.querySelector('input[value="DELETE"]')) {
+                e.querySelector('input[value="DELETE"]').value = "PUT"
+            }
+        })
+    });
 
     Livewire.on('refreshList', function () {
         location.reload();

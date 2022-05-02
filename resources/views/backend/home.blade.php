@@ -7,6 +7,50 @@
 </div>
 <div class="page-content">
     <section class="row">
+
+
+        <div class="row">
+            @if(count($peticiones))
+                
+                    <div class="col-12">
+                        <div class="card ">
+                            <div class="card-header">
+                                <h4 class="text-center">Peticiones de eliminar cuenta</h4>
+                            </div>
+                            <br>
+                            <div class="card-body">
+                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                    <table class="table table-borderless">
+                                        <thead class="text-center ">
+                                            <tr class="bg-primary  text-white border text-white ">
+
+                                                <th>Usuario</th>
+                                                <th>Motivo</th>
+                                                <th>Descripción</th>
+                                                <th>Fecha</th>      
+                                                <th>Generar Enlace</th>                                          
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center  me-5">
+                                            @foreach ($peticiones as $peticion)
+                                            <tr>
+                                                <th>{{ $peticion->email }}</th>
+                                                <th>{{ $peticion->motivo }}</th>
+                                                <th>{{ $peticion->descripcion }}</th>
+                                                <th>{{ date('d-m-Y H:i:s', strtotime($peticion->created_at)) }}</th> 
+                                                <th><Button class="btn btn-default btn-md rounded-circle" onclick="Livewire.emit('assignMail', @js($peticion->email))" data-bs-toggle="modal" data-bs-target="#uriTrashModal"><i class="bi bi-link-45deg" style="font-size: 16px;"></i></Button></th>                                               
+                                            </tr>                                           
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                @livewire('generate-trash-uri')
+            @endif
+        </div>
         <div class="col-12 col-lg-12">
             <div class="row">
                 <div class="col-6 col-lg-3 col-md-6">

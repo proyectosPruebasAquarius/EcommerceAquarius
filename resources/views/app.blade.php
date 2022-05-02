@@ -65,7 +65,7 @@
             $date = new \DateTime(date("Y-m-d h:i:s"));
             $date2 = new \DateTime(date('Y-m-d h:i:s', strtotime($storeData->created_at)));
             //format("Difference => %Y years, %m months, %d days, %h hours, and %i minutes"));
-            
+             
             if (intval(date_diff($date2, $date)->format("%h")) >= 1) {
                 \DB::table('track_services')->insert([
                     ['ip' => request()->ip(), 'user_agent' => $userAgent, 'created_at' => now()],                
@@ -164,17 +164,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 col-md-7 d-xs-none">
+                            <div class="col-lg-4 col-md-7 d-xs-none">
         
                                 @livewire('search-bar')
         
                             </div>
                             {{-- {{ session()->getId() }} --}}
-                            <div class="col-lg-4 col-md-2 d-xs-none">
+                            <div class="col-lg-5 col-md-2 d-xs-none">
                                 <div class="middle-right-area">
                                     <div class="nav-hotline">
                                         <i class="lni lni-phone"></i>
-                                        <h3>Número de télefono:
+                                        <h3>Teléfono:
                                             <span>(+503) 2323 2323</span>
                                         </h3>
                                     </div>
@@ -193,9 +193,9 @@
                                                 <div class="user">
                                                     <div>
                                                         <div class="dropdown">
-                                                            <button class="btn rounded-circle border dropdown-toggle btn-sm mb-1" type="button" id="drMenu"
+                                                            <button class="btn rounded-pill border dropdown-toggle btn-sm mb-1 w-auto" type="button" id="drMenu"
                                                                 data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px; width: 40px">
-                                                                <i {{-- style="color: #0d6efd" --}} class="fas fa-user"></i>
+                                                                <i {{-- style="color: #0d6efd" --}} class="fas fa-user"></i> {{ strtok(Auth::user()->name, ' ') }}
                                                             </button>
                                                             <ul class="dropdown-menu " aria-labelledby="drMenu">
                                                                 <li>
@@ -334,7 +334,7 @@
                             </div>
                             <div class="@if (request()->path() != '/') d-none d-md-block @endif">
                                 <div class="nav-social">
-                                    <h5 class="title">Nuestras redes sociales:</h5>
+                                    <h5 class="title">Redes sociales:</h5>
                                     <ul>
                                         <li>
                                             <a href="https://m.me/110812464804606" target="_blank" style="background-color: #0167F3; border-color: #0167F3; color: #fff"><i
@@ -453,8 +453,8 @@
                                     <li><a href="{{ url('/sobre-nosotros') }}">Quienes Somos</a></li>
                                     <li><a href="{{ url('/ubicacion') }}">Nuestra Tienda</a></li>
                                     <li><a href="{{ route('marcas') }}">Marcas</a></li>
-                                    <li><a href="{{ route('seguridadpolitica') }}">Seguridad de Sitio</a></li>
-                                    <li><a href="{{ route('seguridadpolitica') }}">Politica de Privacidad</a></li>
+                                    <li><a href="{{ route('website.seguridad') }}">Seguridad de Sitio</a></li>
+                                    <li><a href="{{ route('seguridadpolitica') }}">Política de Privacidad</a></li>
                                     <li><span>Horarios:</span>
                                         <ul>
                                             <li>L - V: 8:00 - 17:00</li>

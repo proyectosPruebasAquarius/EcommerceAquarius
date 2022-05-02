@@ -28,6 +28,13 @@
                         <div class="alt-option">
                             <span>Ó</span>
                         </div>
+
+                        @error('message')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                        
                         <div class="form-group input-group">
                             <label for="reg-fn">Correo Electrónico</label>
                             <input class="form-control @error('email') is-invalid @enderror" name="email" type="email" id="reg-email" value="{{ old('email') }}" autocomplete="email" autofocus required>
@@ -99,9 +106,11 @@
 
 
                                     @error('email')
-
+                                        @php
+                                            $data = \DB::table('users')->where('email', old('email'))->value('estado');
+                                        @endphp                                        
                                           <span class="invalid-feedback" role="alert" id="feedback">
-                                              <strong>{{ $message }}</strong>
+                                              <strong>{{ $data ? 'Este email fue registrado con anterioridad y posteriomente eliminado.' : $message }}</strong>
                                           </span>
 
                                     @enderror

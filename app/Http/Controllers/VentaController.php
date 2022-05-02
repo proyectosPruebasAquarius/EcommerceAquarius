@@ -14,6 +14,7 @@ use App\User;
 use App\Venta;
 use App\PedidoProveedor;
 use App\Facturacion;
+use App\EncargadoRetiro;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Illuminate\Http\Request;
@@ -128,6 +129,13 @@ class VentaController extends Controller
                     $fct->save();
     
                     $facturacion = $fct->id;
+                }
+            } else {
+                if ($request->typeOfRetiro === 'other') {
+                    $encargado = new EncargadoRetiro;
+                    $encargado->nombre = $request->nombre_encargado;
+                    $encargado->dui = $request->dui_encargado;
+                    $encargado->saveOrFail();
                 }
             }
 

@@ -114,8 +114,7 @@ const proveedores = document.getElementById("proveedores");
 const inventarios = document.getElementById("inventarios");
 const ofertas = document.getElementById("ofertas");
 const subCat = document.getElementById("sub-categorias");
-
-
+const pedidosPro = document.getElementById("pedidos-proveedores");
 
 switch (URLac) {
     case "/admin/inicio":
@@ -139,10 +138,14 @@ switch (URLac) {
     case "/admin/ofertas":
         ofertas.classList.add("active");
         break;
-    case "/admin/metodos_pagos":
+    case "/admin/metodos-pagos":
         metodo.classList.add("active");
         break;
     case "/admin/sub-categorias":
         subCat.classList.add("active");
+        break;
+
+    case "/admin/pedidos-proveedores":
+        pedidosPro.classList.add("active");
         break;
 }

@@ -287,8 +287,54 @@
                                         <div class="tab-pane fade" id="pills-tienda" role="tabpanel" aria-labelledby="pills-tienda-tab">
                                             <div class="card text-center">                                              
                                               <div class="card-body">
-                                                <h4 class="card-title">Mi Tiendita</h4>
-                                                <p class="card-text"><span class="position-absolute top-50 start-0 translate-middle-y ms-2"><input type="checkbox" name="recoger_tienda" value="1"></span><i class="fal fa-map-marker"></i> 4a Calle, Chalatenango, Chalatenango <br> <a href="https://goo.gl/maps/7f2DnKKNGqhcR6eZA" target="_blank">ver dirección</a></p>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h4 class="card-title">Mi Tiendita</h4>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="card-text"><span class="position-absolute top-50 start-0 translate-middle-y ms-2"><input type="checkbox" name="recoger_tienda" value="1"></span><i class="fal fa-map-marker"></i> 4a Calle, Chalatenango, Chalatenango <br> <a href="https://goo.gl/maps/7f2DnKKNGqhcR6eZA" target="_blank">ver dirección</a></p>    
+                                                    </div>
+                                                    <div class="col-12 mt-5">
+                                                        <p><b>¿Quien retirará en tienda?</b></p>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="typeOfRetiro" value="client" id="flexRadioDefault2" onclick="if(this.checked) document.getElementById('encargado_retiro').classList.add('d-none')" checked>
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                {{ auth()->user()->name }}
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="typeOfRetiro" value="other" id="flexRadioDefault1" onclick="if(this.checked) document.getElementById('encargado_retiro').classList.remove('d-none')">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                Otra Persona
+                                                            </label>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="col-12 mt-2 d-none" id="encargado_retiro">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="single-form form-default">
+                                                                    <div class="form-input form">
+                                                                        <input type="text" name="nombre_encargado" id="nombre_encargado" placeholder="Nombre" oninput="document.getElementById('autorizo').innerHTML = this.value">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="single-form form-default">
+                                                                    <div class="form-input form">
+                                                                        <input type="text" name="dui_encargado" id="dui_encargado" placeholder="DUI" oninput="document.getElementById('autorizoDui').innerHTML = this.value">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="col-12" style="text-align: justify !important; text-justify: inter-word; !important">
+                                                                <p>
+                                                                    Yo {{ auth()->user()->name }} autorizo a <div id="autorizo"></div> con número de DUI <div id="autorizoDui"></div> para que retire en tienda
+                                                        mi pedido de fecha {{ date('d-m-Y', strtotime(now())) }}
+                                                                </p>
+                                                            </div>
+                                                        </div>                                                        
+                                                    </div>
+                                                </div>
                                               </div>
                                             </div>
                                         </div>

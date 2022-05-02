@@ -8534,3 +8534,14 @@ box-shadow: 0 0 6px #F8B9B7!important;
 .curve-border {
     border-radius: 4px 4px 50% 4px;
 }
+
+.politicas li, span {
+    display: block;
+    text-align: justify;
+  text-justify: inter-word;
+}
+
+.politicas li span {
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -8,8 +8,9 @@ use App\Producto;
 use App\Venta;
 use App\Inventario;
 use App\User;
-use App\TrackService;
 use App\DetalleVenta;
+use App\CuentaEliminada;
+
 class IndexController extends Controller
 {
     /**
@@ -53,12 +54,10 @@ class IndexController extends Controller
         ->select('categorias.nombre as categoria',DB::raw('COUNT(productos.id_categoria) AS cuentaTotal'))
         ->groupBy('productos.id_categoria')->orderBy('cuentaTotal','DESC')->limit(5)->get();
 
-    
+        $lastUserRegister = User::select('name as usuario')->orderBy('id','DESC')->limit(1)->get();
         $today =date("Y-m-d");
         $year = date("Y");
         $month = date("m");
-
-        $lastUserRegister = TrackService::whereMonth('created_at',$month)->count();
 
         $DailySales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereDate('ventas.created_at','=',$today)->where('ventas.estado','=',1)->get();
@@ -69,14 +68,14 @@ class IndexController extends Controller
         $YearSales =  Venta::select(DB::raw('FORMAT(SUM(ventas.total),2) AS cuentaTotal'))
         ->whereYear('ventas.created_at', $year)->where('ventas.estado','=',1)->get();
 
-
-
+/* Added state unread */
+        $peticiones = CuentaEliminada::join('users', 'users.id', '=', 'cuentas_eliminadas.id_user')->where('was_email_send', 0)->select('cuentas_eliminadas.*', 'users.email')->get();
         
       // return $YearSales;
         return view('backend.home')->with('sellingProduct',$bestSellingProduct)->with('ventaAnual',$YearSales)->with('ventaDiaria',$DailySales)
         ->with('ventaMensual',$MonthSales)->with('hoy',$today)->with('mes',$month)->with('ano',$year)->with('maxBuyer',$MaxBuyerCostumer)->with('maxCat',$bestSellingCategory)
         ->with('lastUser',$lastUserRegister)->with('maxProducts',$bestSellingProducts)->with('maxCategories',$bestSellingCategories)->with('maxBuyers',$MaxBuyerCostumers)
-        ->with('minBuyers',$MinBuyerCostumers)->with('notifications', $notifications);
+        ->with('minBuyers',$MinBuyerCostumers)->with('notifications', $notifications)->with('peticiones', $peticiones);
     }
 
     /**
