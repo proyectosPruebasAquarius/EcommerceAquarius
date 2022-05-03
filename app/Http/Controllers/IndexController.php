@@ -5,6 +5,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\Producto;
+use App\TrackService;
 use App\Venta;
 use App\Inventario;
 use App\User;
@@ -54,7 +55,7 @@ class IndexController extends Controller
         ->select('categorias.nombre as categoria',DB::raw('COUNT(productos.id_categoria) AS cuentaTotal'))
         ->groupBy('productos.id_categoria')->orderBy('cuentaTotal','DESC')->limit(5)->get();
 
-        $lastUserRegister = User::select('name as usuario')->orderBy('id','DESC')->limit(1)->get();
+        $lastUserRegister = TrackService::select('id')->count();
         $today =date("Y-m-d");
         $year = date("Y");
         $month = date("m");
