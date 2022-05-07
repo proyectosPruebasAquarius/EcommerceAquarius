@@ -1,6 +1,6 @@
 @extends('backend')
 
-@section('title','Lista de Pedidos')
+@section('title','Lista de Pedidos de proveedores')
 
 @section('content')
 <div class="page-heading">
@@ -195,3 +195,4 @@
 } );
 
 </script>
+@endpush

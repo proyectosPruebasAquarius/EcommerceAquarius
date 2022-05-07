@@ -217,7 +217,7 @@
             const formData = new FormData(formP);
 
             
-                if (formData.get('id_direccion') && formData.get('id_direccion') != 'on' && formData.get('id_facturacion') && formData.get('id_facturacion') != 'on') {
+                if (formData.get('id_direccion') && formData.get('id_direccion') != 'on' && formData.get('id_facturacion') && formData.get('id_facturacion') != 'on' || formData.get('recoger_tienda')) {
                     /* pasa si escogio una dirección existente */
                     document.getElementById('collapseFourC').classList.add('d-none')
                     document.getElementById('collapsefiveC').classList.remove('d-none')                  

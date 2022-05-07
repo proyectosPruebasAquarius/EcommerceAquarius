@@ -95,7 +95,9 @@
                                 <li class="submenu-item" id="ventas">
                                     <a href="{{ url('/admin/ventas') }}">Ventas</a>
                                 </li>
-                                
+                                <li class="submenu-item" id="ventas">
+                                    <a href="{{ url('/admin/pedidos') }}">Pedidos</a>
+                                </li>
 
                             </ul>
                         </li>
@@ -200,6 +202,9 @@
         </div>
     </div>
     @livewireScripts
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <x-livewire-alert::scripts />
     <script src="{{asset('backend/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('backend/assets/js/main.js')}}"></script>
@@ -208,7 +213,14 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @stack('partial-scripts')
     @stack('select-scripts')
+    @stack('datatable-scripts')
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 
 </html>
-@stack('datatable-scripts')
+

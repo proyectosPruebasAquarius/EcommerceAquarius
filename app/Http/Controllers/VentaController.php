@@ -19,6 +19,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use App\Pedido;
 
 class VentaController extends Controller
 {
@@ -294,6 +295,10 @@ class VentaController extends Controller
                         $newStock = $inventarioStock->stock - $p->cantidad;
                         Inventario::where('id', '=', $inventarioStock->id_inventario)->update(['stock' => $newStock]);
                         Venta::where('id', '=', $id_decrypt)->update(['estado' => 1]);
+
+                        $pedido = new Pedido;
+                        $pedido->id_venta = $id_decrypt;
+                        $pedido->save();
                         return redirect('/admin/ventas')->with('message', 'La Venta fue Aprobada Correctamente')->with('alert', 'success');
                     }
                 }

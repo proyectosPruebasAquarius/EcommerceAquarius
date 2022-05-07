@@ -298,6 +298,11 @@ Route::prefix('admin')->middleware(['auth','typeuser'])->group(function () {
     Route::post('/pedidos-proveedores/pdf','PedidoProveedorController@pdf');   
     /*END PEDIDOS PROVEEDORES*/
 
+    /*PEDIDOS */
+    Route::get('/pedidos','PedidoController@index');
+    /*END PEDIDOS */
+
+
 
     Route::get('/peticiones/eliminar-cuenta', 'CuentaEliminadaController@index')->name('peticiones.eliminar.account');
 });
