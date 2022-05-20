@@ -88,6 +88,76 @@
                         </div>
 
                         @if (count($ventas) > 0)
+
+                        @foreach ($ventas as $ven)
+                        <div class="modal fade" id="estadoPedido{{ $ven->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="estadoPedidoLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header border-0">
+                                        <h5 class="modal-title col-11 text-center" id="estadoPedidoLabel">Estado de tu pedido</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @php
+                                        $states = DB::table('pedidos')->where('id_venta',$ven->id)->select('pedidos.*')->get();
+                                        @endphp
+                                        @foreach ($states as $state)
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                              <div class="card">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Preparación @if($state->preparacion == 1) (Completado)  @endif</h5>
+                                                
+                                                  <a href="#" class="btn"><i class="fas fa-box fs-1  @if($state->preparacion == 1) text-success  @endif"></i></a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                              <div class="card">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Revisión @if($state->revision == 1) (Completado)  @endif</h5>
+                                                 
+                                                  <a href="#" class="btn"><i class="fas fa-eye fs-1  @if($state->revision == 1) text-success  @endif"></i></a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                      
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                              <div class="card">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Envio @if($state->envio == 1) (Completado)  @endif</h5>
+                                                  
+                                                  <a href="#" class="btn "><i class="fas fa-shipping-timed fs-1  @if($state->envio == 1) text-success  @endif"></i></a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                              <div class="card">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Entregado @if($state->entregado == 1) (Completado)  @endif</h5>
+                                                 
+                                                  <a href="#" class="btn"><i class="fas fa-home fs-1  @if($state->entregado == 1) text-success  @endif"></i></a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        
+                        
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{ __('Cerrar') }}</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                       
                         <div class="m-4">
                             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 Compras Realizadas
@@ -112,26 +182,34 @@
                                                     <div class="apland-timeline-area">
 
                                                         @forelse ($ventas as $venta)
+                                                       
+                                                         
                                                         <!-- Single Timeline Content-->
                                                         <div class="single-timeline-area">
                                                             <div class="timeline-date wow fadeInLeft" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;">
                                                                 <p>{{ date('d/m/Y h:i A', strtotime($venta->created_at)) }}</p>
                                                             </div>
                                                             <div class="row">
-                                                                
-
+                                                               
                                                                 {{-- Card for number code --}}
-                                                                <div class="col-12 col-md-6 col-lg-4">
+                                                                <div class="col-6 col-md-6 col-lg-4">
                                                                     <div class="single-timeline-content d-flex wow fadeInLeft overflow-auto" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                                                        {{-- <divclass="timeline-icon"><iclass="fafa-address-card"aria-hidden="true"></i></div> --}}
+                                                                      
                                                                         <div class="timeline-text">
                                                                             <h6>Número de Transacción</h6>
                                                                             <p><span class="badge rounded-pill bg-success text-wrap align-middle text-center">{{ $venta->num_transaccion }}</span></p>
                                                                             <a href="{{ url('/show-invoice').'/'.$venta->id }}">Factura</a>
                                                                             <p><span class="badge rounded-pill bg-{{ $venta->estado  ? 'primary' : 'danger' }} text-wrap align-middle text-center">{{ $venta->estado  ? 'Aprobada' : 'Pendiente' }}</span></p>
+                                                                            <p>
+                                                                                
+                
+                                                                                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#estadoPedido{{ $venta->id}}">Estado del pedido</button>
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                               
                                                                 {{-- End number card --}}
                                                                 
                                                             </div>
